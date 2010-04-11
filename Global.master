@@ -1,0 +1,79 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Global.master.cs" Inherits="Global" %>
+<%@ Register Assembly="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
+    Namespace="System.Web.UI" TagPrefix="asp" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head runat="server">
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="css/page.css" media="all" type="text/css" />
+        <asp:ContentPlaceHolder id="head" runat="server">
+        </asp:ContentPlaceHolder>
+    </head>
+	<body id="pageBody" runat="server">
+    <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true"  runat="server">
+    </asp:ScriptManager>
+		<div class="liquid-round">
+			<div class="top"><span></span></div>
+			<div class="center-content-outer">
+				<div class="center-content-inner">
+					<div class="header">
+						<div class="preheader-menu">
+							<ul class="navlist">
+								<li class="active"><a href="default.aspx" >Strona główna</a></li>
+								<li><a href="ZasadyGry.aspx">Zasady gry</a></li>
+								<li><a href="FAQ.aspx">FAQ</a></li>
+							</ul>
+						</div>					
+						<div style="text-align: center;" class="logo logo-text">
+							Seppuku <br />
+							<span style="font-size: 13px;">Samurajska epopeja - parszywy urok krwawych ugorów</span><br />
+						</div>
+						<div class="login-box">
+						    <asp:LoginView runat="server">
+						        <LoggedInTemplate>
+						            <span>Witaj  <%= DN.Core.CurrentUser.Current.UserName %>!</span>
+						        </LoggedInTemplate>
+						    </asp:LoginView>
+							<asp:loginstatus runat="server" CssClass="logout" id="lsLogout" visible="true" /> 
+						</div>
+					</div>
+					<div class="menu">
+					    <div class="main-menu">
+                            <asp:ContentPlaceHolder id="MainMenu" runat="server">
+                            </asp:ContentPlaceHolder>
+					    </div>
+					</div>
+					<div class="content-page">
+						<!-- CONTENT BEGIN -->
+						<asp:ContentPlaceHolder id="mainContent" runat="server">       
+                        </asp:ContentPlaceHolder>
+					    <!-- CONTENT END -->
+					</div>
+				</div>
+			</div>
+			<div class="bottom-page">
+					<div class="footer">
+						<div class="left-footer">
+							<a href="PolitykaPrywatnosci.aspx">Polityka prywatności </a>
+							<a href="Autorzy.aspx">O autorach</a>
+						</div>
+						<div class="right-footer verysmall-grey">
+							Copyright © 2010 by Seppuku Team. Wszelkie prawa zastrzeżone.
+						</div>
+					</div>
+			</div>
+		</div>
+    </form>
+	</body>
+</html>
+
+
+
+
+
+
+
+

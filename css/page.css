@@ -1,0 +1,291 @@
+﻿/* =================== resets and overrides ======================= */
+*{	margin: 0;	padding: 0;	border: 0; }
+/* ==================== layout  ==================================== */
+body { 	background-color: #F2F1F1;	font-family: Arial; }
+/***** Outer round corner boox ***********************/
+.liquid-round {
+	margin:0 auto;
+	width: 864px;
+	background: #F8F8F8 url(images/outerbox/leftside.gif) repeat-y left top;
+}
+
+.top {
+	width:100%;
+	height:13px;
+	background:url(images/outerbox/top.gif) no-repeat left top;
+}
+
+.top span {
+	display:block;
+	height:13px;
+	background:url(images/outerbox/top-right.gif) no-repeat right top;
+}
+
+.center-content-outer{
+	background:url(images/outerbox/rightside.gif) repeat-y right top;
+	margin:-1px 0 0px 0;
+}
+
+.center-content-inner{
+	padding:1px 20px 1px 20px;
+	margin:-1px 7px 0px 7px;
+	height: auto;
+	min-height: 100px;
+}
+
+.bottom-page {
+	height:40px;
+	clear: both;
+	background:url(images/outerbox/bottom.gif) no-repeat left bottom;
+}
+
+/*********header*********/
+.header	{	height: 50px; font-family: calibri;}
+.logout{  margin-left: 10px;}
+.login-box{	float: right;}
+
+.logo { margin-top: 0px; }
+
+/******* menu ***********/
+
+.menu
+{
+	font-family: calibri;
+	height: 50px;
+	margin: 0 -20px 0 -20px;
+}
+
+.content-page
+{  
+	margin: 0 0 15px 0;
+	height: auto;
+	min-height: 100%;
+	text-align: center;
+}
+
+.content-page-blog
+{  
+	margin: 0 0 15px 0;
+	height: auto;
+	min-height: 100%;
+}
+
+/******* footer ********/
+.footer				{	padding: 10px 0 0 0;	height: 14px;}
+.left-footer	{ margin: 0px 0 0 10px; float: left;}
+.right-footer	{ margin: 0px 10px 0 0; float: right;}
+
+.left-footer a							{	padding: 0 3px 0 3px;}
+.left-footer a:first-child	{	border-right: 1px solid #C7D695;}
+/* ============================ menus  ==================================== */
+/************ preheader menu ***********/
+.preheader-menu{
+	float: left;
+	margin:  -10px 0 0 0;
+	padding: 0 0 0 2px;
+	width: 100%;
+}
+
+.preheader-menu ul{
+  left:50%;
+	float: left;
+	list-style: none;
+  position:relative;
+}
+
+.preheader-menu li{
+	border-left: 1px solid #aaa;
+	display: block;
+	float: left;
+	position:relative;
+  right:50%;
+}
+
+.preheader-menu li:first-child{	border-left: 0;}
+
+.preheader-menu a{
+	display: block;
+	height: 100%;
+	padding: 0px 10px 0px 10px;
+	width: auto;
+}
+
+.preheader-menu a.active:link, .preheader-menu a.active:visited
+{
+	position: relative;
+	z-index: 102;
+}
+/********* main menu ***********/
+.main-menu {
+	clear:left;
+	float:left;
+	width:100%;
+	height: 40px;
+	background:#B7B7B7 url(images/menu-default.gif) 0% 0% repeat;
+	overflow:hidden;
+}
+
+.main-menu ul {
+  height: 100%;
+	clear:left;
+	float:left;
+	list-style:none;
+	text-align:center;
+}
+
+.main-menu ul li {
+  height: 100%;
+	display:block;
+	float:left;
+	list-style:none;
+	border-left:1px solid #C8C8C8;
+}
+.main-menu ul li:first-child{	border-left: 0;}
+
+.main-menu ul li a {
+  height: 100%;
+	display:block;
+	padding: 10px 10px 0 10px;
+	line-height:1.3em;
+}
+.main-menu ul li a span {	display:block;}
+.main-menu ul li.active a  {	background:url(images/menu-hover.gif) 0 0 repeat; }
+.main-menu ul li a:hover {	background:url(images/menu-hover.gif) 0 0 repeat; }
+
+
+/*********************************** fonts ***************************************************/
+.logo-text																	{	color: #568A02;	font-size: 30px;	position: absolute;	top: 0;}
+.login-text , .login-box span, .login-box a	{	color: #717171;	font-size: 12px;	font-weight: bold;}
+.small-gray, a.small-gray, .preheader-menu a{	color: #717171;	font-size: 12px;	text-decoration: none;	font-weight: bold;}
+a.small-gray:hover, .preheader-menu a:hover	{	background: #dddddd; }
+.medium-gray, a.medium-gray , .main-menu a	{	color: #878787; font-size: 15px;	text-decoration: none;	font-weight: bold;}
+a.medium-green								{	color: #568A02;	font-size: 16px;	text-decoration: none;	font-weight: bold;	top: 0;}
+.verysmall-grey, .left-footer a				{	color: #717171;	font-size: 10px;	text-decoration: none;	font-weight: bold;}
+.medium-white, .calendar-header-text th		{	color: #ECECEC;	font-size: 14px;}
+.dark-green  								{	color: #386003;	font-size: 12px;	text-align: left; }
+.small-green								{	color: #568A02;	font-size: 12px;	font-weight: bold;	}
+.very-small-green							{	color: #568A02;	font-size: 10px;	font-weight: bold;	}
+.medium-green3								{	color: #568A02;	font-size: 12px;	font-weight: bold;	}
+
+
+/* ======================== Login page =================================*/
+.outer-login-box
+{
+	width: 300px;
+	margin: 0 auto;
+	text-align: left;
+	margin-top: 50px;
+}
+
+
+.login-input-box
+{
+	height: 25px;
+	width: 200px;
+	border: 1px;
+	border-style: solid;
+	border-color: #B3B3B3;
+}
+
+
+.login-text
+{
+	margin-left: 47px;
+	text-align: center;
+	color: #568A02;
+	font-weight: bold;
+	font-size: 20px;
+	background-color: Transparent;
+}
+
+
+.remember-data
+{
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+/* ======================== Registration page =================================*/
+
+.register-table td
+{
+	padding-bottom: 10px;
+}
+
+.register-table td.middle
+{
+	padding-bottom: 20px;
+}
+
+.outer-login-box-header
+{
+	width: 500px;
+	margin: 0 auto;
+	text-align: left;
+	margin-top: 20px;
+}
+
+.outer-login-box2
+{
+	width: 500px;
+	margin: 0 auto;
+	text-align: left;
+	margin-top: 0px;
+}
+
+.big-green2		{ color: #568A02; font-size: 19px; font-weight: bold; 	border-top: 1px solid #C8D1B3;}
+.regulamin-text { width: 450px; color: #717171;	font-size: 12px;	text-decoration: none;	font-weight: bold;}
+
+.register-text
+{
+	text-decoration: none;
+	color: #568A02;
+	font-weight: bold;
+	font-size: 20px;
+	background-color: Transparent;
+}
+
+
+/* ********************** style do wyskakujących okienek ******************************/
+
+
+ /* Z-index of #mask must lower than #boxes .window */  
+ #mask   
+ {
+	position:absolute;  
+	z-index:9000;  
+	background-color:#000;  
+	display:none;  
+	top : 0px;
+ 	left: 0px;
+ }  
+ 
+ #boxes
+ {
+ 	position: absolute;
+ 	width: 100%;
+ 	top: 0px;
+ 	left: 0px;
+ }
+     
+ #boxes .window 
+ {  
+   position:absolute;  
+   width:440px;  
+   height:330px;  
+   display:none;  
+   z-index:9999;  
+ }  
+   
+   
+ /* Customize your modal window here, you can add background image too */  
+ #boxes #dialog 
+ {  
+ 	top: 0px;
+ 	left: 0px;
+	width:413px;   
+	height:323px;  
+	position: absolute;
+	background-color: #ffffff;
+	border: solid 1px #4C6A02;
+ }  
+ 
