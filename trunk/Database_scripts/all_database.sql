@@ -250,7 +250,7 @@ GO
 -- =============================================
 -- Author:		£ukasz Wiatrak
 -- Create date: 06.03.2010
--- Description:	Dodaje nawyk
+-- Description:	Aktywuje u¿ytkownika
 -- =============================================
 CREATE PROCEDURE [dbo].[DnUserAuthorize]
 	@UserName nvarchar(255),
@@ -294,7 +294,7 @@ GO
 -- =============================================
 -- Author:		£ukasz Wiatrak
 -- Create date: 06.03.2010
--- Description:	Dodaje nawyk
+-- Description:	Dodaje uzytkownika
 -- =============================================
 CREATE PROCEDURE [dbo].[DnUserAdd]
 	@UserName nvarchar(255),
