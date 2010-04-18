@@ -289,3 +289,8 @@ a.medium-green								{	color: #568A02;	font-size: 16px;	text-decoration: none;	
 	border: solid 1px #4C6A02;
  }  
  
+ .left
+ {
+ 	float:left;
+ 	width:50%;
+ }

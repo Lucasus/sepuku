@@ -5,7 +5,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Dyplomacja : RestrictedUserPage
+public partial class PageLayouts_TwoColumnLayout : System.Web.UI.MasterPage
 {
+    protected void Page_Load(object sender, EventArgs e)
+    {
 
+    }
 }

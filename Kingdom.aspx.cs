@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Dyplomacja : RestrictedUserPage
+public partial class Kingdom : RestrictedUserPage
 {
 
 }
