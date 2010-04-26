@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
-  <contractRef ref="http://localhost:49743/Sepuku/SeppukuService.asmx?wsdl" docRef="http://localhost:49743/Sepuku/SeppukuService.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
-  <soap address="http://localhost:49743/Sepuku/SeppukuService.asmx" xmlns:q1="http://seppuku.pl/" binding="q1:SeppukuServiceSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
-  <soap address="http://localhost:49743/Sepuku/SeppukuService.asmx" xmlns:q2="http://seppuku.pl/" binding="q2:SeppukuServiceSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
-</discovery>
