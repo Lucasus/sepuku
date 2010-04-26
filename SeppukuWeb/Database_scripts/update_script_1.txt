@@ -1,0 +1,800 @@
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.SepKingdom
+	(
+	KingdomId int NOT NULL,
+	UserId nvarchar(50) NOT NULL,
+	KingdomName nvarchar(50) NOT NULL,
+	KingdomResources int NOT NULL
+	)  ON [PRIMARY]
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepKingdom', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepKingdom', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepKingdom', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.SepTechnology
+	(
+	TechnologyId int NOT NULL,
+	TechnologyName nvarchar(50) NOT NULL,
+	TechnologyDescription nvarchar(500) NOT NULL,
+	TechnologyEffect nvarchar(500) NOT NULL,
+	TechnologyCost int NOT NULL
+	)  ON [PRIMARY]
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepTechnology', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepTechnology', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepTechnology', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.SepUserTechnology
+	(
+	UserTechnologyId int NOT NULL,
+	UserId int NOT NULL,
+	TechnologyId int NOT NULL
+	)  ON [PRIMARY]
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepUserTechnology', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepUserTechnology', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepUserTechnology', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.SepMap
+	(
+	MapId int NOT NULL,
+	MapName nvarchar(50) NOT NULL
+	)  ON [PRIMARY]
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepMap', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepMap', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepMap', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.SepField
+	(
+	FieldId int NOT NULL,
+	KingdomId int NOT NULL,
+	FieldName nvarchar(50) NOT NULL,
+	FieldX int NOT NULL,
+	FieldY int NOT NULL
+	)  ON [PRIMARY]
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepField', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepField', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepField', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.SepUnit
+	(
+	UnitId int NOT NULL,
+	UnitName nvarchar(50) NOT NULL,
+	UnitTypeId int NOT NULL,
+	UserId int NOT NULL,
+	FieldId int NOT NULL
+	)  ON [PRIMARY]
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepUnit', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepUnit', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepUnit', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.SepUnitType
+	(
+	UnitTypeId nchar(10) NOT NULL,
+	UnitTypeName nchar(10) NOT NULL,
+	UnitTypeDescription nchar(10) NOT NULL,
+	UnitTypePower nchar(10) NOT NULL
+	)  ON [PRIMARY]
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepUnitType', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepUnitType', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepUnitType', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.SepLog
+	(
+	LogId int NOT NULL,
+	LogTime datetime NOT NULL,
+	LogTimeCounter int NOT NULL
+	)  ON [PRIMARY]
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepLog', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepLog', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepLog', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.SepEvent
+	(
+	EventId int NOT NULL,
+	LogId int NOT NULL,
+	UserId int NOT NULL,
+	EventDescription nvarchar(250) NOT NULL
+	)  ON [PRIMARY]
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepEvent', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepEvent', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepEvent', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.DnUser', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.DnUser', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.DnUser', 'Object', 'CONTROL') as Contr_Per BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.Tmp_SepKingdom
+	(
+	KingdomId int NOT NULL IDENTITY (1, 1),
+	UserId int NOT NULL,
+	KingdomName nvarchar(50) NOT NULL,
+	KingdomResources int NOT NULL
+	)  ON [PRIMARY]
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepKingdom ON
+GO
+IF EXISTS(SELECT * FROM dbo.SepKingdom)
+	 EXEC('INSERT INTO dbo.Tmp_SepKingdom (KingdomId, UserId, KingdomName, KingdomResources)
+		SELECT KingdomId, CONVERT(int, UserId), KingdomName, KingdomResources FROM dbo.SepKingdom WITH (HOLDLOCK TABLOCKX)')
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepKingdom OFF
+GO
+DROP TABLE dbo.SepKingdom
+GO
+EXECUTE sp_rename N'dbo.Tmp_SepKingdom', N'SepKingdom', 'OBJECT' 
+GO
+ALTER TABLE dbo.SepKingdom ADD CONSTRAINT
+	PK_SepKingdom PRIMARY KEY CLUSTERED 
+	(
+	KingdomId
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.SepKingdom ADD CONSTRAINT
+	FK_SepKingdom_DnUser FOREIGN KEY
+	(
+	UserId
+	) REFERENCES dbo.DnUser
+	(
+	UserId
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepKingdom', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepKingdom', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepKingdom', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.Tmp_SepTechnology
+	(
+	TechnologyId int NOT NULL IDENTITY (1, 1),
+	TechnologyName nvarchar(50) NOT NULL,
+	TechnologyDescription nvarchar(500) NOT NULL,
+	TechnologyEffect nvarchar(500) NOT NULL,
+	TechnologyCost int NOT NULL
+	)  ON [PRIMARY]
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepTechnology ON
+GO
+IF EXISTS(SELECT * FROM dbo.SepTechnology)
+	 EXEC('INSERT INTO dbo.Tmp_SepTechnology (TechnologyId, TechnologyName, TechnologyDescription, TechnologyEffect, TechnologyCost)
+		SELECT TechnologyId, TechnologyName, TechnologyDescription, TechnologyEffect, TechnologyCost FROM dbo.SepTechnology WITH (HOLDLOCK TABLOCKX)')
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepTechnology OFF
+GO
+DROP TABLE dbo.SepTechnology
+GO
+EXECUTE sp_rename N'dbo.Tmp_SepTechnology', N'SepTechnology', 'OBJECT' 
+GO
+ALTER TABLE dbo.SepTechnology ADD CONSTRAINT
+	PK_SepTechnology PRIMARY KEY CLUSTERED 
+	(
+	TechnologyId
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepTechnology', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepTechnology', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepTechnology', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.DnUser', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.DnUser', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.DnUser', 'Object', 'CONTROL') as Contr_Per BEGIN TRANSACTION
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepTechnology', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepTechnology', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepTechnology', 'Object', 'CONTROL') as Contr_Per BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.Tmp_SepUserTechnology
+	(
+	UserTechnologyId int NOT NULL IDENTITY (1, 1),
+	UserId int NOT NULL,
+	TechnologyId int NOT NULL
+	)  ON [PRIMARY]
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepUserTechnology ON
+GO
+IF EXISTS(SELECT * FROM dbo.SepUserTechnology)
+	 EXEC('INSERT INTO dbo.Tmp_SepUserTechnology (UserTechnologyId, UserId, TechnologyId)
+		SELECT UserTechnologyId, UserId, TechnologyId FROM dbo.SepUserTechnology WITH (HOLDLOCK TABLOCKX)')
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepUserTechnology OFF
+GO
+DROP TABLE dbo.SepUserTechnology
+GO
+EXECUTE sp_rename N'dbo.Tmp_SepUserTechnology', N'SepUserTechnology', 'OBJECT' 
+GO
+ALTER TABLE dbo.SepUserTechnology ADD CONSTRAINT
+	PK_SepUserTechnology PRIMARY KEY CLUSTERED 
+	(
+	UserTechnologyId
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.SepUserTechnology ADD CONSTRAINT
+	FK_SepUserTechnology_SepTechnology FOREIGN KEY
+	(
+	TechnologyId
+	) REFERENCES dbo.SepTechnology
+	(
+	TechnologyId
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.SepUserTechnology ADD CONSTRAINT
+	FK_SepUserTechnology_DnUser FOREIGN KEY
+	(
+	UserId
+	) REFERENCES dbo.DnUser
+	(
+	UserId
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepUserTechnology', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepUserTechnology', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepUserTechnology', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.Tmp_SepMap
+	(
+	MapId int NOT NULL IDENTITY (1, 1),
+	MapName nvarchar(50) NOT NULL
+	)  ON [PRIMARY]
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepMap ON
+GO
+IF EXISTS(SELECT * FROM dbo.SepMap)
+	 EXEC('INSERT INTO dbo.Tmp_SepMap (MapId, MapName)
+		SELECT MapId, MapName FROM dbo.SepMap WITH (HOLDLOCK TABLOCKX)')
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepMap OFF
+GO
+DROP TABLE dbo.SepMap
+GO
+EXECUTE sp_rename N'dbo.Tmp_SepMap', N'SepMap', 'OBJECT' 
+GO
+ALTER TABLE dbo.SepMap ADD CONSTRAINT
+	PK_SepMap PRIMARY KEY CLUSTERED 
+	(
+	MapId
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepMap', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepMap', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepMap', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepKingdom', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepKingdom', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepKingdom', 'Object', 'CONTROL') as Contr_Per BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.SepField ADD CONSTRAINT
+	PK_SepField PRIMARY KEY CLUSTERED 
+	(
+	FieldId
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.SepField ADD CONSTRAINT
+	FK_SepField_SepKingdom FOREIGN KEY
+	(
+	KingdomId
+	) REFERENCES dbo.SepKingdom
+	(
+	KingdomId
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepField', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepField', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepField', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.Tmp_SepUnitType
+	(
+	UnitTypeId int NOT NULL IDENTITY (1, 1),
+	UnitTypeName nvarchar(50) NOT NULL,
+	UnitTypeDescription nvarchar(150) NOT NULL,
+	UnitTypePower int NOT NULL
+	)  ON [PRIMARY]
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepUnitType ON
+GO
+IF EXISTS(SELECT * FROM dbo.SepUnitType)
+	 EXEC('INSERT INTO dbo.Tmp_SepUnitType (UnitTypeId, UnitTypeName, UnitTypeDescription, UnitTypePower)
+		SELECT CONVERT(int, UnitTypeId), CONVERT(nvarchar(50), UnitTypeName), CONVERT(nvarchar(150), UnitTypeDescription), CONVERT(int, UnitTypePower) FROM dbo.SepUnitType WITH (HOLDLOCK TABLOCKX)')
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepUnitType OFF
+GO
+DROP TABLE dbo.SepUnitType
+GO
+EXECUTE sp_rename N'dbo.Tmp_SepUnitType', N'SepUnitType', 'OBJECT' 
+GO
+ALTER TABLE dbo.SepUnitType ADD CONSTRAINT
+	PK_SepUnitType PRIMARY KEY CLUSTERED 
+	(
+	UnitTypeId
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepUnitType', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepUnitType', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepUnitType', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepUnitType', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepUnitType', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepUnitType', 'Object', 'CONTROL') as Contr_Per BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.SepUnit ADD CONSTRAINT
+	PK_SepUnit PRIMARY KEY CLUSTERED 
+	(
+	UnitId
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.SepUnit ADD CONSTRAINT
+	FK_SepUnit_SepUnitType FOREIGN KEY
+	(
+	UnitTypeId
+	) REFERENCES dbo.SepUnitType
+	(
+	UnitTypeId
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepUnit', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepUnit', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepUnit', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.Tmp_SepLog
+	(
+	LogId int NOT NULL IDENTITY (1, 1),
+	LogTime datetime NOT NULL,
+	LogTimeCounter int NOT NULL
+	)  ON [PRIMARY]
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepLog ON
+GO
+IF EXISTS(SELECT * FROM dbo.SepLog)
+	 EXEC('INSERT INTO dbo.Tmp_SepLog (LogId, LogTime, LogTimeCounter)
+		SELECT LogId, LogTime, LogTimeCounter FROM dbo.SepLog WITH (HOLDLOCK TABLOCKX)')
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepLog OFF
+GO
+DROP TABLE dbo.SepLog
+GO
+EXECUTE sp_rename N'dbo.Tmp_SepLog', N'SepLog', 'OBJECT' 
+GO
+ALTER TABLE dbo.SepLog ADD CONSTRAINT
+	PK_SepLog PRIMARY KEY CLUSTERED 
+	(
+	LogId
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepLog', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepLog', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepLog', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.DnUser', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.DnUser', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.DnUser', 'Object', 'CONTROL') as Contr_Per BEGIN TRANSACTION
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepLog', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepLog', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepLog', 'Object', 'CONTROL') as Contr_Per BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.Tmp_SepEvent
+	(
+	EventId int NOT NULL IDENTITY (1, 1),
+	LogId int NOT NULL,
+	UserId int NOT NULL,
+	EventDescription nvarchar(250) NOT NULL
+	)  ON [PRIMARY]
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepEvent ON
+GO
+IF EXISTS(SELECT * FROM dbo.SepEvent)
+	 EXEC('INSERT INTO dbo.Tmp_SepEvent (EventId, LogId, UserId, EventDescription)
+		SELECT EventId, LogId, UserId, EventDescription FROM dbo.SepEvent WITH (HOLDLOCK TABLOCKX)')
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepEvent OFF
+GO
+DROP TABLE dbo.SepEvent
+GO
+EXECUTE sp_rename N'dbo.Tmp_SepEvent', N'SepEvent', 'OBJECT' 
+GO
+ALTER TABLE dbo.SepEvent ADD CONSTRAINT
+	PK_SepEvent PRIMARY KEY CLUSTERED 
+	(
+	EventId
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.SepEvent ADD CONSTRAINT
+	FK_SepEvent_SepLog FOREIGN KEY
+	(
+	LogId
+	) REFERENCES dbo.SepLog
+	(
+	LogId
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.SepEvent ADD CONSTRAINT
+	FK_SepEvent_DnUser FOREIGN KEY
+	(
+	UserId
+	) REFERENCES dbo.DnUser
+	(
+	UserId
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepEvent', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepEvent', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepEvent', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepMap', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepMap', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepMap', 'Object', 'CONTROL') as Contr_Per BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.SepKingdom
+	DROP CONSTRAINT FK_SepKingdom_DnUser
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.DnUser', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.DnUser', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.DnUser', 'Object', 'CONTROL') as Contr_Per BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.Tmp_SepKingdom
+	(
+	KingdomId int NOT NULL IDENTITY (1, 1),
+	MapId int NOT NULL,
+	UserId int NOT NULL,
+	KingdomName nvarchar(50) NOT NULL,
+	KingdomResources int NOT NULL
+	)  ON [PRIMARY]
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepKingdom ON
+GO
+IF EXISTS(SELECT * FROM dbo.SepKingdom)
+	 EXEC('INSERT INTO dbo.Tmp_SepKingdom (KingdomId, UserId, KingdomName, KingdomResources)
+		SELECT KingdomId, UserId, KingdomName, KingdomResources FROM dbo.SepKingdom WITH (HOLDLOCK TABLOCKX)')
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepKingdom OFF
+GO
+ALTER TABLE dbo.SepField
+	DROP CONSTRAINT FK_SepField_SepKingdom
+GO
+DROP TABLE dbo.SepKingdom
+GO
+EXECUTE sp_rename N'dbo.Tmp_SepKingdom', N'SepKingdom', 'OBJECT' 
+GO
+ALTER TABLE dbo.SepKingdom ADD CONSTRAINT
+	PK_SepKingdom PRIMARY KEY CLUSTERED 
+	(
+	KingdomId
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.SepKingdom ADD CONSTRAINT
+	FK_SepKingdom_DnUser FOREIGN KEY
+	(
+	UserId
+	) REFERENCES dbo.DnUser
+	(
+	UserId
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.SepKingdom ADD CONSTRAINT
+	FK_SepKingdom_SepMap FOREIGN KEY
+	(
+	MapId
+	) REFERENCES dbo.SepMap
+	(
+	MapId
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepKingdom', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepKingdom', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepKingdom', 'Object', 'CONTROL') as Contr_Per BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.SepField ADD CONSTRAINT
+	FK_SepField_SepKingdom FOREIGN KEY
+	(
+	KingdomId
+	) REFERENCES dbo.SepKingdom
+	(
+	KingdomId
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepField', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepField', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepField', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.SepEvent
+	DROP CONSTRAINT FK_SepEvent_DnUser
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.DnUser', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.DnUser', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.DnUser', 'Object', 'CONTROL') as Contr_Per BEGIN TRANSACTION
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepKingdom', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepKingdom', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepKingdom', 'Object', 'CONTROL') as Contr_Per BEGIN TRANSACTION
+GO
+EXECUTE sp_rename N'dbo.SepEvent.UserId', N'Tmp_KingdomId_5', 'COLUMN' 
+GO
+EXECUTE sp_rename N'dbo.SepEvent.Tmp_KingdomId_5', N'KingdomId', 'COLUMN' 
+GO
+ALTER TABLE dbo.SepEvent ADD CONSTRAINT
+	FK_SepEvent_DnUser FOREIGN KEY
+	(
+	KingdomId
+	) REFERENCES dbo.SepKingdom
+	(
+	KingdomId
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepEvent', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepEvent', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepEvent', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
