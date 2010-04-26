@@ -1,0 +1,18 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="TwoColumnLayout.master.cs" Inherits="PageLayouts_TwoColumnLayout" MasterPageFile="~/Global.master" %>
+<%@ Register Src="~/Controls/LoggedInMenu.ascx" TagName="loggedInMenu" TagPrefix="uc1" %>
+
+<asp:Content ID="header" ContentPlaceHolderID="head" Runat="Server">
+	<asp:ContentPlaceHolder ID="head" runat="server" />
+</asp:Content>
+<asp:Content ID="menu" ContentPlaceHolderID="MainMenu" Runat="Server">
+	<uc1:loggedInMenu ID="UcLoggedInMenu" runat="server" />
+</asp:Content>
+<asp:Content ID="mainContext" ContentPlaceHolderID="mainContent" Runat="Server">
+	<div class="left">
+		<asp:ContentPlaceHolder ID="mainContextColumn1" runat="server" />
+	</div>	
+	<div class="left">
+		<asp:ContentPlaceHolder ID="mainContextColumn2" runat="server" />
+	</div>
+	<div class="clear"></div>
+</asp:Content>
