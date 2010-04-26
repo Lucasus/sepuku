@@ -1,9 +1,0 @@
-C:\Users\Chieredan\Documents\Visual Studio 2008\Projects\SeppukuScheduler\SeppukuScheduler\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\Chieredan\Documents\Visual Studio 2008\Projects\SeppukuScheduler\SeppukuScheduler\obj\Debug\SeppukuScheduler.ProjectInstaller.resources
-C:\Users\Chieredan\Documents\Visual Studio 2008\Projects\SeppukuScheduler\SeppukuScheduler\obj\Debug\SeppukuScheduler.SeppukuSchedulerService.resources
-C:\Users\Chieredan\Documents\Visual Studio 2008\Projects\SeppukuScheduler\SeppukuScheduler\obj\Debug\SeppukuScheduler.csproj.GenerateResource.Cache
-C:\Users\Chieredan\Documents\Visual Studio 2008\Projects\SeppukuScheduler\SeppukuScheduler\bin\Debug\SeppukuScheduler.exe.config
-C:\Users\Chieredan\Documents\Visual Studio 2008\Projects\SeppukuScheduler\SeppukuScheduler\bin\Debug\SeppukuScheduler.exe
-C:\Users\Chieredan\Documents\Visual Studio 2008\Projects\SeppukuScheduler\SeppukuScheduler\bin\Debug\SeppukuScheduler.pdb
-C:\Users\Chieredan\Documents\Visual Studio 2008\Projects\SeppukuScheduler\SeppukuScheduler\obj\Debug\SeppukuScheduler.exe
-C:\Users\Chieredan\Documents\Visual Studio 2008\Projects\SeppukuScheduler\SeppukuScheduler\obj\Debug\SeppukuScheduler.pdb
