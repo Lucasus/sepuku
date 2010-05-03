@@ -13,6 +13,16 @@
                 <asp:Label ID="LblTechnologyDescription" runat="server" Text='<%# Bind("TechnologyDescription") %>' />
             </ItemTemplate>
         </asp:TemplateField>
+        <asp:TemplateField HeaderText="Opis efektów">
+            <ItemTemplate>
+                <asp:Label ID="LblTechnologyEffect" runat="server" Text='<%# Bind("TechnologyEffect") %>' />
+            </ItemTemplate>
+        </asp:TemplateField>
+        <asp:TemplateField HeaderText="Koszt">
+            <ItemTemplate>
+                <asp:Label ID="LblTechnologyCost" runat="server" Text='<%# Bind("TechnologyCost") %>' />
+            </ItemTemplate>
+        </asp:TemplateField>
     </Fields>
 </asp:DetailsView>
 
