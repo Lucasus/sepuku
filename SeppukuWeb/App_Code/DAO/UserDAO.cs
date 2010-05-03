@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using DN.Domain;
-using DN.Core;
+using Seppuku.Domain;
+using Seppuku.Core;
 using System.Data;
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Data.Common;
 
-namespace DN.DAO
+namespace Seppuku.DAO
 {
 
     public class UserDAO : IDAO<User>

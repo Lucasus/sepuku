@@ -11,10 +11,10 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using System.Collections.Generic;
-using DN.Domain;
-using DN.DAO;
+using Seppuku.Domain;
+using Seppuku.DAO;
 
-namespace DN.Core
+namespace Seppuku.Core
 {
     public class CurrentUser : IHttpModule
     {

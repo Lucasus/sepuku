@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Data.SqlClient;
 
-namespace DN.Core
+namespace Seppuku.Core
 {
     public static class DAO<T,V> where T: IDAO<V>, new() where V : new()
     {

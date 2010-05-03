@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using DN.Core;
-using DN.DAO;
+using Seppuku.Core;
+using Seppuku.DAO;
 
-namespace DN.Services
+namespace Seppuku.Services
 {
     public class UsersService
     {

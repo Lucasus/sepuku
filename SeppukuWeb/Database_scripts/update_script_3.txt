@@ -1,0 +1,117 @@
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.SepMap SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepMap', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepMap', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepMap', 'Object', 'CONTROL') as Contr_Per BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.Tmp_SepLog
+	(
+	LogId int NOT NULL IDENTITY (1, 1),
+	MapId int NOT NULL,
+	LogTime datetime NOT NULL,
+	LogTimeCounter int NOT NULL
+	)  ON [PRIMARY]
+GO
+ALTER TABLE dbo.Tmp_SepLog SET (LOCK_ESCALATION = TABLE)
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepLog ON
+GO
+IF EXISTS(SELECT * FROM dbo.SepLog)
+	 EXEC('INSERT INTO dbo.Tmp_SepLog (LogId, LogTime, LogTimeCounter)
+		SELECT LogId, LogTime, LogTimeCounter FROM dbo.SepLog WITH (HOLDLOCK TABLOCKX)')
+GO
+SET IDENTITY_INSERT dbo.Tmp_SepLog OFF
+GO
+ALTER TABLE dbo.SepEvent
+	DROP CONSTRAINT FK_SepEvent_SepLog
+GO
+DROP TABLE dbo.SepLog
+GO
+EXECUTE sp_rename N'dbo.Tmp_SepLog', N'SepLog', 'OBJECT' 
+GO
+ALTER TABLE dbo.SepLog ADD CONSTRAINT
+	PK_SepLog PRIMARY KEY CLUSTERED 
+	(
+	LogId
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+ALTER TABLE dbo.SepLog ADD CONSTRAINT
+	FK_SepLog_SepMap FOREIGN KEY
+	(
+	MapId
+	) REFERENCES dbo.SepMap
+	(
+	MapId
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepLog', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepLog', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepLog', 'Object', 'CONTROL') as Contr_Per BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.SepEvent ADD CONSTRAINT
+	FK_SepEvent_SepLog FOREIGN KEY
+	(
+	LogId
+	) REFERENCES dbo.SepLog
+	(
+	LogId
+	) ON UPDATE  NO ACTION 
+	 ON DELETE  NO ACTION 
+	
+GO
+ALTER TABLE dbo.SepEvent SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepEvent', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepEvent', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepEvent', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+EXECUTE sp_rename N'dbo.SepKingdomTechnology.UserTechnologyId', N'Tmp_KingdomTechnologyId', 'COLUMN' 
+GO
+EXECUTE sp_rename N'dbo.SepKingdomTechnology.Tmp_KingdomTechnologyId', N'KingdomTechnologyId', 'COLUMN' 
+GO
+ALTER TABLE dbo.SepKingdomTechnology SET (LOCK_ESCALATION = TABLE)
+GO
+COMMIT
+select Has_Perms_By_Name(N'dbo.SepKingdomTechnology', 'Object', 'ALTER') as ALT_Per, Has_Perms_By_Name(N'dbo.SepKingdomTechnology', 'Object', 'VIEW DEFINITION') as View_def_Per, Has_Perms_By_Name(N'dbo.SepKingdomTechnology', 'Object', 'CONTROL') as Contr_Per 
+
+GO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -34,7 +34,7 @@
 						<div class="login-box">
 						    <asp:LoginView runat="server">
 						        <LoggedInTemplate>
-						            <span>Witaj  <%= DN.Core.CurrentUser.Current.UserName %>!</span>
+						            <span>Witaj  <%= Seppuku.Core.CurrentUser.Current.UserName %>!</span>
 						        </LoggedInTemplate>
 						    </asp:LoginView>
 							<asp:loginstatus runat="server" CssClass="logout" id="lsLogout" visible="true" /> 
