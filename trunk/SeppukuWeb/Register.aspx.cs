@@ -26,7 +26,6 @@ public partial class Register : System.Web.UI.Page
         //// Lets get the user's id
         MembershipUser user = Membership.GetUser(userName);
         Guid userId = (Guid)user.ProviderUserKey;
-
         //// Now lets create an email message
         StringBuilder emailMessage = new StringBuilder();
         emailMessage.Append("Dziękujemy za stworzenie konta w seppuku.pl");

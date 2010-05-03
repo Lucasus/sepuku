@@ -7,8 +7,8 @@ namespace Seppuku.Domain
 {
     public class Log
     {
-        public Log()
-        {
-        }
+        public int LogId { get; set; }
+        public DateTime LogTime { get; set; }
+        public int LogTimeCounter { get; set; }
     }
 }

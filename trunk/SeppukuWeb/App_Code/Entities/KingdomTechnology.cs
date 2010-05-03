@@ -7,8 +7,8 @@ namespace Seppuku.Domain
 {
     public class KingdomTechnology
     {
-        public KingdomTechnology()
-        {
-        }
+        public int KingdomTechnologyId { get; set; }
+        public int KingdomId { get; set; }
+        public int TechnologyId { get; set; }
     }
 }

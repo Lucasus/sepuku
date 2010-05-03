@@ -7,8 +7,7 @@ namespace Seppuku.Domain
 {
     public class Map
     {
-        public Map()
-        {
-        }
+        public int MapId { get; set; }
+        public string MapName { get; set; }
     }
 }
