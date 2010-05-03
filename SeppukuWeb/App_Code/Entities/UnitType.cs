@@ -7,8 +7,9 @@ namespace Seppuku.Domain
 {
     public class UnitType
     {
-        public UnitType()
-        {
-        }
+        public int UnitTypeId { get; set; }
+        public string UnitTypeName { get; set; }
+        public string UnitTypeDescription { get; set; }
+        public int UnitTypePower { get; set; }
     }
 }

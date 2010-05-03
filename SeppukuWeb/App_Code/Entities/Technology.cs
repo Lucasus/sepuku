@@ -7,8 +7,10 @@ namespace Seppuku.Domain
 {
     public class Technology
     {
-        public Technology()
-        {
-        }
+        public int TechnologyId { get; set; }
+        public string TechnologyName { get; set; }
+        public string TechnologyDescription { get; set; }
+        public string TechnologyEffect { get; set; }
+        public string TechnologyCost { get; set; }
     }
 }
