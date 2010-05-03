@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using System.Data.Common;
 using Microsoft.Practices.EnterpriseLibrary.Data;
 
-namespace DN.Core
+namespace Seppuku.Core
 {
     public interface IDAO<T>
     {   

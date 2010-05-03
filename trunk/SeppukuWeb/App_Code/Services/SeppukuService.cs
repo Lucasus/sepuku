@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Services;
 using System.Web.Script.Services;
-using DN.Core;
-using DN.Domain;
-using DN.DAO;
+using Seppuku.Core;
+using Seppuku.Domain;
+using Seppuku.DAO;
 
 [WebService(Namespace = "http://seppuku.pl/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]

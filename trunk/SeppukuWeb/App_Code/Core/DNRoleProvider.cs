@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Security;
-using DN.Domain;
-using DN.DAO;
+using Seppuku.Domain;
+using Seppuku.DAO;
 
-namespace DN.Core
+namespace Seppuku.Core
 {
     public class DNRoleProvider: SqlRoleProvider
     {

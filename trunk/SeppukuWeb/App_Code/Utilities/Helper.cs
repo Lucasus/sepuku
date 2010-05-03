@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 /// <summary>
 /// Summary description for Helper
 /// </summary>
-namespace DN.Core
+namespace Seppuku.Core
 {
     public class Helper
     {

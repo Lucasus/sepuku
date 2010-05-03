@@ -5,10 +5,10 @@ using System.Text;
 using System.Web.Security;
 using System.Security.Cryptography;
 using System.Web;
-using DN.DAO;
-using DN.Domain;
+using Seppuku.DAO;
+using Seppuku.Domain;
 
-namespace DN.Core
+namespace Seppuku.Core
 {
     public class DNMembershipProvider : SqlMembershipProvider
     {

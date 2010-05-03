@@ -5,8 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
-using DN.Services;
-using DN.Core;
+using Seppuku.Services;
+using Seppuku.Core;
 
 public partial class ActivateUser : System.Web.UI.Page
 {

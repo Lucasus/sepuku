@@ -1,0 +1,571 @@
+﻿USE [Seppuku]
+GO
+/****** Object:  StoredProcedure [dbo].[SepUnitTypeGetById]    Script Date: 05/03/2010 09:22:22 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepUnitTypeGetById]
+	@UnitTypeId int
+AS
+BEGIN
+	SELECT * FROM SepUnitType WHERE UnitTypeId = @UnitTypeId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepTechnologyGetById]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepTechnologyGetById]
+	@TechnologyId int
+AS
+BEGIN
+	SELECT * FROM SepTechnology WHERE TechnologyId = @TechnologyId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepTechnologyAdd]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepTechnologyAdd]
+	 @TechnologyName nvarchar(50)
+	,@TechnologyDescription nvarchar(500)
+	,@TechnologyEffect nvarchar(500)
+	,@TechnologyCost int
+AS
+BEGIN
+	declare @TechnologyId int
+
+	INSERT INTO [dbo].[SepTechnology]
+           ([TechnologyName]
+           ,[TechnologyDescription]
+           ,[TechnologyEffect]
+           ,[TechnologyCost]
+           )
+     VALUES
+           (@TechnologyName
+           ,@TechnologyDescription
+           ,@TechnologyEffect
+           ,@TechnologyCost
+           )
+           
+    set @TechnologyId = SCOPE_IDENTITY()           
+    select @TechnologyId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepMapGetById]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepMapGetById]
+	@MapId int
+AS
+BEGIN
+	SELECT * FROM SepMap WHERE MapId = @MapId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepMapAdd]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepMapAdd]
+	 @MapName nvarchar(50)
+AS
+BEGIN
+	declare @MapId int
+
+	INSERT INTO [dbo].[SepMap]
+           ([MapName]
+           )
+     VALUES
+           (@MapName
+           )
+           
+    set @MapId = SCOPE_IDENTITY()           
+    select @MapId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepKingdomGetByUserId]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepKingdomGetByUserId]
+	@UserId int
+AS
+BEGIN
+	SELECT * FROM SepKingdom WHERE UserId = @UserId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepKingdomGetById]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepKingdomGetById]
+	@KingdomId int
+AS
+BEGIN
+	SELECT * FROM SepKingdom WHERE KingdomId = @KingdomId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepKingdomAdd]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepKingdomAdd]
+	 @MapId int
+	,@UserId int
+	,@KingdomName nvarchar(255)
+	,@KingdomResources int
+AS
+BEGIN
+	declare @KingdomId int
+
+	INSERT INTO [dbo].[SepKingdom]
+           ([MapId]
+           ,[UserId] 
+           ,[KingdomName] 
+           ,[KingdomResources]
+           )
+     VALUES
+           (@MapId
+           ,@UserId
+           ,@KingdomName
+           ,@KingdomResources
+           )
+           
+    set @KingdomId = SCOPE_IDENTITY()           
+    select @KingdomId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepLogGetById]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepLogGetById]
+	@LogId int
+AS
+BEGIN
+	SELECT * FROM SepLog WHERE LogId = @LogId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepLogAdd]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepLogAdd]
+	 @LogTime datetime
+	,@LogTimeCounter int
+AS
+BEGIN
+	declare @LogId int
+
+	INSERT INTO [dbo].[SepLog]
+           ([LogTime]
+           ,[LogTimeCounter] 
+           )
+     VALUES
+           (@LogTime
+           ,@LogTimeCounter
+           )
+           
+    set @LogId = SCOPE_IDENTITY()           
+    select @LogId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepKingdomUpdate]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepKingdomUpdate]
+	 @KingdomId int
+	,@MapId int
+	,@UserId int
+	,@KingdomName nvarchar(50)
+	,@KingdomResources int
+AS
+BEGIN
+	UPDATE [dbo].[SepKingdom]
+		SET	 MapId = @MapId
+			,UserId = @UserId
+			,KingdomName = @KingdomName
+			,KingdomResources = @KingdomResources
+		WHERE KingdomId = @KingdomId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepKingdomTechnologyGetById]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepKingdomTechnologyGetById]
+	@KingdomTechnologyId int
+AS
+BEGIN
+	SELECT * FROM SepKingdomTechnology WHERE KingdomTechnologyId = @KingdomTechnologyId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepKingdomTechnologyAdd]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepKingdomTechnologyAdd]
+	 @KingdomId int
+	,@TechnologyId int
+AS
+BEGIN
+	declare @KingdomTechnologyId int
+
+	INSERT INTO [dbo].[SepKingdomTechnology]
+           ([KingdomId]
+           ,[TechnologyId] 
+           )
+     VALUES
+           (@KingdomId
+           ,@TechnologyId
+           )
+           
+    set @KingdomTechnologyId = SCOPE_IDENTITY()           
+    select @KingdomTechnologyId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepFieldGetById]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepFieldGetById]
+	@FieldId int
+AS
+BEGIN
+	SELECT * FROM SepField WHERE FieldId = @FieldId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepFieldGetArea]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepFieldGetArea]
+	 @MapId int
+	,@LeftX int
+	,@TopY int
+	,@Width int
+	,@Height int
+AS
+BEGIN
+	SELECT * 
+		FROM SepField 
+		WHERE   MapId = @MapId 
+			and FieldX >= @LeftX and FieldX < @LeftX + @Width 
+			and FieldY >= @TopY and FieldY < @TopY + @Height
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepFieldAdd]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepFieldAdd]
+	 @MapId int
+	,@KingdomId int
+	,@FieldName nvarchar(255)
+	,@FieldX int
+	,@FieldY int
+AS
+BEGIN
+	declare @FieldId int
+
+	INSERT INTO [dbo].[SepField]
+           ([MapId]
+           ,[KingdomId] 
+           ,[FieldName] 
+           ,[FieldX]
+           ,[FieldY]
+           )
+     VALUES
+           (@MapId
+           ,@KingdomId
+           ,@FieldName
+           ,@FieldX
+           ,@FieldY
+           )
+           
+    set @FieldId = SCOPE_IDENTITY()           
+    select @FieldId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepEventGetByLogIdKingdomId]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepEventGetByLogIdKingdomId]
+	 @LogId int
+	,@KingdomId int
+AS
+BEGIN
+	SELECT * FROM SepEvent WHERE LogId = @LogId and KingdomId = @KingdomId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepEventGetByLogId]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepEventGetByLogId]
+	@LogId int
+AS
+BEGIN
+	SELECT * FROM SepEvent WHERE LogId = @LogId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepEventGetById]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepEventGetById]
+	@EventId int
+AS
+BEGIN
+	SELECT * FROM SepEvent WHERE EventId = @EventId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepEventAdd]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepEventAdd]
+	 @LogId int
+	,@KingdomId int
+	,@EventDescription nvarchar(255)
+AS
+BEGIN
+	declare @EventId int
+
+	INSERT INTO [dbo].[SepEvent]
+           ([LogId]
+           ,[KingdomId] 
+           ,[EventDescription] 
+           )
+     VALUES
+           (@LogId
+           ,@KingdomId
+           ,@EventDescription
+           )
+    set @EventId = SCOPE_IDENTITY()           
+    select @EventId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepTechnologyGetByKingdomId]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepTechnologyGetByKingdomId]
+	@KingdomId int
+AS
+BEGIN
+	SELECT * FROM SepTechnology t
+		inner join SepKingdomTechnology kt on t.TechnologyId = kt.TechnologyId
+		where kt.KingdomId = @KingdomId 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepUnitUpdate]    Script Date: 05/03/2010 09:22:22 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepUnitUpdate]
+	 @UnitId int
+	,@UnitName nvarchar(50)
+	,@UnitTypeId int
+	,@KingdomId int
+	,@FieldId int
+AS
+BEGIN
+	UPDATE [dbo].[SepUnit]
+		SET	 UnitName = @UnitName
+			,UnitTypeId = @UnitTypeId
+			,KingdomId = @KingdomId
+			,FieldId = @FieldId
+		WHERE UnitId = @UnitId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepUnitGetFromArea]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepUnitGetFromArea]
+	 @MapId int
+	,@LeftX int
+	,@TopY int
+	,@Width int
+	,@Height int
+AS
+BEGIN
+	SELECT u.FieldId, u.KingdomId, u.UnitId, u.UnitName, u.UnitTypeId,
+		   f.FieldX, f.FieldY 
+		FROM SepUnit u
+			inner join SepField f on u.FieldId = f.FieldId 
+		WHERE   MapId = @MapId 
+			and f.FieldX >= @LeftX and f.FieldX < @LeftX + @Width 
+			and f.FieldY >= @TopY and f.FieldY < @TopY + @Height
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepUnitGetById]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepUnitGetById]
+	@UnitId int
+AS
+BEGIN
+	SELECT * FROM SepUnit WHERE UnitId = @UnitId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepUnitAdd]    Script Date: 05/03/2010 09:22:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Łukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepUnitAdd]
+	 @UnitName nvarchar(50)
+	,@UnitTypeId int
+	,@KingdomId int
+	,@FieldId int
+AS
+BEGIN
+	declare @UnitId int
+
+	INSERT INTO [dbo].[SepUnit]
+           ([UnitName]
+           ,[UnitTypeId]
+           ,[KingdomId]
+           ,[FieldId]
+           )
+     VALUES
+           (@UnitName
+           ,@UnitTypeId
+           ,@KingdomId
+           ,@FieldId
+           )
+           
+    set @UnitId = SCOPE_IDENTITY()           
+    select @UnitId
+END
+GO

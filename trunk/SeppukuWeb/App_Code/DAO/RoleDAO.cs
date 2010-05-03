@@ -5,10 +5,10 @@ using System.Web;
 using System.Data;
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Data.Common;
-using DN.Domain;
-using DN.Core;
+using Seppuku.Domain;
+using Seppuku.Core;
 
-namespace DN.DAO
+namespace Seppuku.DAO
 {
     public class RoleDAO : IDAO<Role>
     {
