@@ -23,7 +23,7 @@
 						<div class="preheader-menu">
 							<ul class="navlist">
 								<li class="active"><a href="default.aspx" >Strona główna</a></li>
-								<li><a href="ZasadyGry.aspx">Zasady gry</a></li>
+								<li><a href="GameRules.aspx">Zasady gry</a></li>
 								<li><a href="FAQ.aspx">FAQ</a></li>
 							</ul>
 						</div>					
@@ -57,8 +57,8 @@
 			<div class="bottom-page">
 					<div class="footer">
 						<div class="left-footer">
-							<a href="PolitykaPrywatnosci.aspx">Polityka prywatności </a>
-							<a href="Autorzy.aspx">O autorach</a>
+							<a href="PrivacyPolicy.aspx">Polityka prywatności </a>
+							<a href="Authors.aspx">O autorach</a>
 						</div>
 						<div class="right-footer verysmall-grey">
 							Copyright © 2010 by Seppuku Team. Wszelkie prawa zastrzeżone.
