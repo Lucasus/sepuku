@@ -9,6 +9,15 @@ public partial class PasswordRecovery : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (Request["key"] != null)
+        {
+            UcChangePassword.Visible = true;
+            UcSendMail.Visible = false;
+        }
+        else
+        {
+            UcChangePassword.Visible = false;
+            UcSendMail.Visible = true;
+        }
     }
 }

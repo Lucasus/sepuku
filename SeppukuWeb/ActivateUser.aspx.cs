@@ -21,7 +21,7 @@ public partial class ActivateUser : System.Web.UI.Page
                 string authorizationKey = Request["Id"];
 
                 CommandStatus status = new CommandStatus();
-                new UsersService().AuthorizeUser(userName, authorizationKey, status);
+                new UserService().AuthorizeUser(userName, authorizationKey, status);
                 if (status.IsError == false)
                     LblResult.Text = "Twoje konto zostało aktywowane. Możesz zalogować się na stronę.";
                 else switch (status.Message)

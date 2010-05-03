@@ -136,7 +136,7 @@ namespace Seppuku.Core
             return new UserDAO().ValidateUser(username, passwordHash);
         }
 
-        private string CreatePasswordHash(string password)
+        public static string CreatePasswordHash(string password)
         {
             if (String.IsNullOrEmpty(password))
                 return String.Empty;
