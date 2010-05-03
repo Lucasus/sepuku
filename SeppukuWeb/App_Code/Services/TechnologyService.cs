@@ -20,5 +20,11 @@ namespace Seppuku.Services
             int kingdomId = CurrentUser.KingdomId;
             return new TechnologyDAO().GetByKingdomId(kingdomId);
         }
+
+        public Technology GetById(int technologyId)
+        {
+            return new TechnologyDAO().GetById(technologyId);
+        }
+
     }
 }

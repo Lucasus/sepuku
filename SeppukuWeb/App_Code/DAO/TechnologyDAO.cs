@@ -25,6 +25,11 @@ namespace Seppuku.DAO
             return DAO<TechnologyDAO, Technology>.GetObjectList("SepTechnologyGetByKingdomId", kingdomId);
         }
 
+        public Technology GetById(int technologyId)
+        {
+            return DAO<TechnologyDAO, Technology>.GetSingleObject("SepTechnologyGetById", technologyId);
+        }
+
         public void FillParametersFromProperties(Database db, ref DbCommand cmd)
         {
             if (this.DataObject.TechnologyId > 0)
@@ -42,6 +47,5 @@ namespace Seppuku.DAO
             obj.TechnologyEffect = Helper.GetData<string>(dr, "TechnologyEffect");
             return obj;
         }
-
     }
 }

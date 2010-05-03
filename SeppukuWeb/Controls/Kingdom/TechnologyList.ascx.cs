@@ -14,6 +14,9 @@ public partial class Controls_Kingdom_TechnologyList : System.Web.UI.UserControl
     }
     protected void GvTechnologies_SelectedIndexChanged(object sender, EventArgs e)
     {
-
+        ASP.controls_kingdom_technology_ascx UcTechnology = 
+            (ASP.controls_kingdom_technology_ascx)PnlTechnology.FindControl("UcTechnology");
+        UcTechnology.TechnologyId = (int)GvTechnologies.SelectedValue;
+        UcTechnology.DataBind();
     }
 }
