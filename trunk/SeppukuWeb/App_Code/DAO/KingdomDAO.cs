@@ -20,9 +20,9 @@ namespace Seppuku.DAO
             return DAO<KingdomDAO, Kingdom>.Add("DnKingdomAdd", this);
         }
 
-        public IList<Kingdom> GetByUserId(int userId)
+        public Kingdom GetByUserId(int userId)
         {
-            return DAO<KingdomDAO, Kingdom>.GetObjectList("SepKingdomGetByUserId", userId);
+            return DAO<KingdomDAO, Kingdom>.GetSingleObject("SepKingdomGetByUserId", userId);
         }
 
         public void FillParametersFromProperties(Database db, ref DbCommand cmd)

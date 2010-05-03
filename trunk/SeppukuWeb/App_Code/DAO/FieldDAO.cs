@@ -37,6 +37,11 @@ namespace Seppuku.DAO
         {
             Field obj = new Field();
             obj.FieldId = Helper.GetData<int>(dr, "FieldId");
+            obj.FieldName = Helper.GetData<string>(dr, "FieldName");
+            obj.FieldX = Helper.GetData<int>(dr, "FieldX");
+            obj.FieldY = Helper.GetData<int>(dr, "FieldY");
+            obj.KingdomId = Helper.GetData<int>(dr, "KingdomId");
+            obj.MapId = Helper.GetData<int>(dr, "MapId");
             return obj;
         }
     }

@@ -42,7 +42,9 @@ namespace Seppuku.Core
         public static void LoadCurrentUser(string userName, HttpContext context)
         {
             User User = (new UserDAO()).GetByUserName(userName, null);
+            Kingdom kingdom = new KingdomDAO().GetByUserId(User.UserId);
 
+            context.Session.Add("KingdomId", kingdom.KingdomId);
             context.Session.Add("CurrentUser", User);
             context.Session.Add("UserId", User.UserId);
 
@@ -81,6 +83,18 @@ namespace Seppuku.Core
             }
         }
 
+        public static int KingdomId
+        {
+            get
+            {
+                if (System.Web.HttpContext.Current.Session["KingdomId"] != null)
+                {
+                    return (int)System.Web.HttpContext.Current.Session["KingdomId"];
+                }
+                return 0;
+            }
+        }
+
         public static User Current
         {
             get
@@ -97,6 +111,7 @@ namespace Seppuku.Core
 
             System.Web.HttpContext.Current.Session.Remove("CurrentUser");
             System.Web.HttpContext.Current.Session.Remove("UserId");
+            System.Web.HttpContext.Current.Session.Remove("KingdomId");
             System.Web.HttpContext.Current.Session.Remove("UserRoles");
         }
 

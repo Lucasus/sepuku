@@ -37,6 +37,9 @@ namespace Seppuku.DAO
         {
             Event obj = new Event();
             obj.EventId = Helper.GetData<int>(dr, "EventId");
+            obj.EventDescription = Helper.GetData<string>(dr, "EventDescription");
+            obj.KingdomId = Helper.GetData<int>(dr, "KingdomId");
+            obj.LogId = Helper.GetData<int>(dr, "LogId");
             return obj;
         }
     }
