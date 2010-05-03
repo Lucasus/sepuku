@@ -1,5 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="TwoColumnLayout.master.cs" Inherits="PageLayouts_TwoColumnLayout" MasterPageFile="~/Global.master" %>
-<%@ Register Src="~/Controls/LoggedInMenu.ascx" TagName="loggedInMenu" TagPrefix="uc1" %>
+<%@ Register Src="~/Controls/Navigation/LoggedInMenu.ascx" TagName="loggedInMenu" TagPrefix="uc1" %>
 
 <asp:Content ID="header" ContentPlaceHolderID="head" Runat="Server">
 	<asp:ContentPlaceHolder ID="head" runat="server" />

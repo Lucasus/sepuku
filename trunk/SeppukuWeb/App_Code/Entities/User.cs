@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Seppuku.Core;
 
 namespace Seppuku.Domain
 {
@@ -13,6 +14,14 @@ namespace Seppuku.Domain
         public DateTime CreateDate { get; set; }
         public string PasswordHash { get; set; }
         public Guid AuthorizatonKey { get; set; }
+
+        public string Password
+        {
+            set
+            {
+                PasswordHash = DNMembershipProvider.CreatePasswordHash(value);
+            }
+        }
 
         public User()
         {

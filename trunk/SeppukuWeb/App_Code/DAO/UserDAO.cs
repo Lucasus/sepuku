@@ -21,6 +21,12 @@ namespace Seppuku.DAO
             return DAO<UserDAO, User>.Add("DnUserAdd", this);
         }
 
+        public void Update(User user)
+        {
+            DataObject = user;
+            DAO<UserDAO, User>.Update("DnUserUpdate", this);
+        }
+
         public User GetByUserName(string userName, CommandStatus status)
         {
             return DAO<UserDAO, User>.GetSingleObject("DnUserGetByLogin", status, userName);
@@ -51,6 +57,21 @@ namespace Seppuku.DAO
             return Convert.ToBoolean(DAO<UserDAO, User>.ExecuteScalar("DnUserAuthorize", status, userName, authorizationKey));
         }
 
+        public void ChangePasswordWithKey(string key, string password)
+        {
+            DAO<UserDAO, User>.ExecuteNonQuery("DnUserChangePasswordWithKey", key, password);
+        }
+
+        public bool ValidateChangePasswordKey(string changePasswordKey)
+        {
+            return Convert.ToBoolean(DAO<UserDAO, User>.ExecuteScalar("DnUserChangePasswordKeyValidate", changePasswordKey));
+        }
+
+        public int AddChangePasswordKey(int userId, Guid key)
+        {
+            return Convert.ToInt32(DAO<UserDAO, User>.ExecuteScalar("DnUserChangePasswordAdd", userId, key.ToString()));
+        }
+
         public void FillParametersFromProperties(Database db, ref DbCommand cmd)
         {
             if (this.DataObject.UserId > 0)
@@ -59,9 +80,24 @@ namespace Seppuku.DAO
             }
             db.AddInParameter(cmd, "UserName", DbType.String, this.DataObject.UserName);
             db.AddInParameter(cmd, "Email", DbType.String, this.DataObject.Email);
-            db.AddInParameter(cmd, "AuthorizationKey", DbType.String, this.DataObject.AuthorizatonKey.ToString());
-            db.AddInParameter(cmd, "Password", DbType.String, this.DataObject.PasswordHash);
-            db.AddInParameter(cmd, "CreateDate", DbType.DateTime, this.DataObject.CreateDate);
+            if (this.DataObject.AuthorizatonKey != null && this.DataObject.AuthorizatonKey != Guid.Empty)
+            {
+                db.AddInParameter(cmd, "AuthorizationKey", DbType.String, this.DataObject.AuthorizatonKey.ToString());
+            }
+
+            if (!String.IsNullOrEmpty(this.DataObject.PasswordHash))
+            {
+                db.AddInParameter(cmd, "Password", DbType.String, this.DataObject.PasswordHash);
+            }
+            else
+            {
+                db.AddInParameter(cmd, "Password", DbType.String, DBNull.Value);
+            }
+
+            if (this.DataObject.CreateDate != null && this.DataObject.CreateDate != new DateTime())
+            {
+                db.AddInParameter(cmd, "CreateDate", DbType.DateTime, this.DataObject.CreateDate);
+            }
         }
 
         public User GetFromRow(DataRow dr)
@@ -78,5 +114,6 @@ namespace Seppuku.DAO
                 obj.AuthorizatonKey = new Guid(guid);
             return obj;
         }
+
     }
 }
