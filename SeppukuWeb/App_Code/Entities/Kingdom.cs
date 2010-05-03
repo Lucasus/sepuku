@@ -7,8 +7,10 @@ namespace Seppuku.Domain
 {
     public class Kingdom
     {
-        public Kingdom()
-        {
-        }
+        public int KingdomId { get; set; }
+        public int MapId { get; set; }
+        public int UserId { get; set; }
+        public string KingdomName { get; set; }
+        public int KingdomResources { get; set; }
     }
 }
