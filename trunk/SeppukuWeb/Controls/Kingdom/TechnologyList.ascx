@@ -7,7 +7,7 @@
         EmptyDataText="Brak technologii" 
         onselectedindexchanged="GvTechnologies_SelectedIndexChanged" >
         <Columns>
-            <asp:TemplateField>
+            <asp:TemplateField HeaderText="Nazwa technologii">
                 <ItemTemplate>
                     <asp:LinkButton CommandName="Select" ID="BtnTechnology" Text='<%# Eval("TechnologyName") %>' runat="server" />
                 </ItemTemplate>
@@ -19,7 +19,7 @@
     </asp:ObjectDataSource>
 </asp:Panel>
 <br />
-<asp:Panel ID="PnlTechnology" runat="server">
+<asp:Panel ID="PnlTechnology" Visible="false" runat="server">
     <uc1:technology ID="UcTechnology" runat="server" />
 </asp:Panel>
 

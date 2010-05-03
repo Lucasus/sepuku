@@ -293,6 +293,7 @@ a.medium-green								{	color: #568A02;	font-size: 16px;	text-decoration: none;	
  {
  	float:left;
  	width:50%;
+ 	text-align: left;
  }
  
  .clear
