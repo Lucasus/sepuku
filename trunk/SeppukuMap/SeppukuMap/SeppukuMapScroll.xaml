@@ -1,0 +1,41 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:local="clr-namespace:SeppukuMap" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Class="SeppukuMap.SeppukuMapScroll" 
+    Width="450" Height="450" mc:Ignorable="d">
+	<Canvas>
+		<local:SeppukuMapTiles x:Name="MapTiles" Canvas.Top="51" BorderBrush="Black" BorderThickness="0" Background="#FFFF4949" Height="{Binding Clip.Bounds.Height, ElementName=MapTiles, Mode=OneWay}" Width="{Binding Clip.Bounds.Width, ElementName=MapTiles, Mode=OneWay}" Clip="M1.663643,5.3330002 C1.663643,5.3330002 449.5,5.3330002 449.5,5.3330002 C449.5,5.3330002 448.33636,279.94623 448.33636,404.33301 C448.33636,404.33301 0.5,404.33301 0.5,404.33301 C0.5,404.33301 1.663643,5.3330002 1.663643,5.3330002 z"/>
+		<Image x:Name="Zoom" Height="48" Width="48" Source="Resources/search48.png" Stretch="Fill"/>
+		<local:ScrollButton x:Name="ScrollLeft" Canvas.Top="147" Direction="left" d:LayoutOverrides="Width, Height" Opacity="0.5"/>
+		<local:ScrollButton x:Name="ScrollUp" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" Canvas.Left="212" d:LayoutOverrides="Width, Height" d:LayoutRounding="Auto" Opacity="0.5" Canvas.Top="-13">
+			<local:ScrollButton.RenderTransform>
+				<TransformGroup>
+					<ScaleTransform/>
+					<SkewTransform/>
+					<RotateTransform Angle="90"/>
+					<TranslateTransform/>
+				</TransformGroup>
+			</local:ScrollButton.RenderTransform>
+		</local:ScrollButton>
+		<local:ScrollButton x:Name="ScrollRight" RenderTransformOrigin="0.5,0.5" Canvas.Left="425" Canvas.Top="147" Direction="right" d:LayoutOverrides="Width, Height" Opacity="0.5">
+			<local:ScrollButton.RenderTransform>
+				<TransformGroup>
+					<ScaleTransform/>
+					<SkewTransform/>
+					<RotateTransform Angle="180"/>
+					<TranslateTransform/>
+				</TransformGroup>
+			</local:ScrollButton.RenderTransform>
+		</local:ScrollButton>
+		<local:ScrollButton x:Name="ScrollDown" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" Canvas.Left="212" Canvas.Top="363" Direction="down" d:LayoutOverrides="Width" d:LayoutRounding="Auto" Opacity="0.5">
+			<local:ScrollButton.RenderTransform>
+				<TransformGroup>
+					<ScaleTransform/>
+					<SkewTransform/>
+					<RotateTransform Angle="-90"/>
+					<TranslateTransform/>
+				</TransformGroup>
+			</local:ScrollButton.RenderTransform>
+		</local:ScrollButton>
+	</Canvas>
+</UserControl>

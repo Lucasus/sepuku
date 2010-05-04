@@ -6,12 +6,15 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <title>Kingdom</title>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="mainContextColumn1" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="menu" runat="server">
+	<uc1:loggedInMenu ID="UcLoggedInMenu" runat="server" />
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="mainContextColumn1" Runat="Server">
     Odkryte technologie:
     <br />
     <uc1:technologyList ID="UcTechnologyList" runat="server" />
 </asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="mainContextColumn2" Runat="Server">
+<asp:Content ID="Content4" ContentPlaceHolderID="mainContextColumn2" Runat="Server">
     Poprzednie tury:
     <br />
     <uc1:logList ID="UcLogList" runat="server" />

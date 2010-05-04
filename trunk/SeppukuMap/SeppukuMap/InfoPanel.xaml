@@ -1,0 +1,9 @@
+﻿<UserControl x:Class="SeppukuMap.InfoPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    Width="450" Height="200">
+    <Canvas x:Name="LayoutRoot" Background="#FFD23434">
+    	<TextBlock Canvas.Left="8" Canvas.Top="8" Text="Some Text:" TextWrapping="Wrap"/>
+    	<TextBlock x:Name="TextBox" Canvas.Left="76" Canvas.Top="8" Text="TextBlock" TextWrapping="Wrap"/>
+    </Canvas>
+</UserControl>

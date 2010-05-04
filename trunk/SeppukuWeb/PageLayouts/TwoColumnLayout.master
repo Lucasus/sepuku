@@ -5,7 +5,7 @@
 	<asp:ContentPlaceHolder ID="head" runat="server" />
 </asp:Content>
 <asp:Content ID="menu" ContentPlaceHolderID="MainMenu" Runat="Server">
-	<uc1:loggedInMenu ID="UcLoggedInMenu" runat="server" />
+	<asp:ContentPlaceHolder ID="menu" runat="server" />
 </asp:Content>
 <asp:Content ID="mainContext" ContentPlaceHolderID="mainContent" Runat="Server">
 	<div class="left">
