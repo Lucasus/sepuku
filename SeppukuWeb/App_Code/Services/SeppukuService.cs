@@ -12,7 +12,21 @@ using Seppuku.DAO;
 [ScriptService]
 public class SeppukuService : System.Web.Services.WebService 
 {
-    [WebMethod(EnableSession=true)]
+	public struct TileInfo
+	{
+		public int x;
+		public int y;
+		public string name;
+
+		public TileInfo(int x, int y, string name)
+		{
+			this.x = x;
+			this.y = y;
+			this.name = name;
+		}
+	}
+
+	[WebMethod(EnableSession=true)]
     public List<User> GetUsers() 
     {
         return null;
@@ -23,6 +37,17 @@ public class SeppukuService : System.Web.Services.WebService
 	{
 		//Add some sort of authorization here!!!!
 		return  "Hello World";
+	}
+
+	[WebMethod(EnableSession=true)]
+	public List<TileInfo> GetTiles() 
+	{
+		List<TileInfo> tiles = new List<TileInfo>();
+		
+		tiles.Add(new TileInfo(1,1,"Krwawe wzgórza"));
+		tiles.Add(new TileInfo(3,4,"Cukierkowa Dolina"));
+
+		return  tiles;
 	}
 }
 
