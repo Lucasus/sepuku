@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="OpponentList.ascx.cs" Inherits="Controls_Diplomacy_OpponentList" %>
 
 <%@ Register Src="Chat.ascx" TagName="chat" TagPrefix="uc1" %>
-
+ 
 <asp:Panel ID="PnlOpponentList" runat="server" >
     <asp:GridView ID="GvOpponents" runat="server" AutoGenerateColumns="false" 
         DataSourceID="OdsDiplomacy" DataKeyNames="DiplomacyId" 
