@@ -31,6 +31,6 @@ public partial class Controls_Diplomacy_Opponent : System.Web.UI.UserControl
 
     protected void OdsDiplomacy_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
     {
-        
+        // e.InputParameters["TechnologyId"] = TechnologyId;
     }
 }
