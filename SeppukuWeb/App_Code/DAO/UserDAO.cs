@@ -28,6 +28,12 @@ namespace Seppuku.DAO
             DAO<UserDAO, User>.Update("DnUserUpdate", this);
         }
 
+
+        public User GetById(int userId)
+        {
+            return DAO<UserDAO, User>.GetSingleObject("DnUserGetById", userId);
+        }
+
         public User GetByUserName(string userName, CommandStatus status)
         {
             return DAO<UserDAO, User>.GetSingleObject("DnUserGetByLogin", status, userName);

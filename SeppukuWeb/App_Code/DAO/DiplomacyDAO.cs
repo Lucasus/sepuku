@@ -20,7 +20,7 @@ namespace Seppuku.DAO
             return DAO<DiplomacyDAO, Diplomacy>.Add("DnDiplomacyAdd", this);
         }
 
-        public List<Diplomacy> GetByUserId(int userId)
+        public IList<Diplomacy> GetByUserId(int userId)
         {
             return DAO<DiplomacyDAO, Diplomacy>.GetObjectList("SepDiplomacyGetByUserId", userId);
         }
@@ -37,6 +37,9 @@ namespace Seppuku.DAO
         {
             Diplomacy obj = new Diplomacy();
             obj.DiplomacyId = Helper.GetData<int>(dr, "DiplomacyId");
+            obj.DiplomacyStatusId = Helper.GetData<int>(dr, "DiplomacyStatusId");
+            obj.MainUserId = Helper.GetData<int>(dr, "MainUserId");
+            obj.SecondaryUserId = Helper.GetData<int>(dr, "SecondaryUserId");
             return obj;
         }
 

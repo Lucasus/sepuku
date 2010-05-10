@@ -15,10 +15,10 @@ namespace Seppuku.Services
             return new DiplomacyDAO().Add(o);
         }
 
-        public List<Diplomacy> GetUserDiplomacy()
+        public IList<Diplomacy> GetUserDiplomacy()
         {
             int userId = CurrentUser.UserId;
-            return new DiplomacyDAO().GetByUserId(userId);
+            return new DiplomacyDAO().GetByUserId(userId);     
         }
 
         public Diplomacy GetById(int diplomacyId)
