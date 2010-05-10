@@ -14,9 +14,10 @@ public partial class Controls_Diplomacy_OpponentList : System.Web.UI.UserControl
     protected void GvOpponents_SelectedIndexChanged(object sender, EventArgs e)
     {
         PnlOpponent.Visible = true;
-        ASP.controls_diplomacy_opponent_ascx UcOpponent =
-            (ASP.controls_diplomacy_opponent_ascx)PnlOpponent.FindControl("UcOpponent");
-        UcOpponent.DiplomacyId = (int)GvOpponents.SelectedValue;
+        ASP.controls_diplomacy_chat_ascx UcOpponent =
+            (ASP.controls_diplomacy_chat_ascx)PnlOpponent.FindControl("UcOpponent");
+        UcOpponent.DiplomacyID = (int)GvOpponents.SelectedValue;
         UcOpponent.DataBind();
     }
+
 }
