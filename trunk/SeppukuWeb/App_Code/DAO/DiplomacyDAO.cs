@@ -38,8 +38,11 @@ namespace Seppuku.DAO
             Diplomacy obj = new Diplomacy();
             obj.DiplomacyId = Helper.GetData<int>(dr, "DiplomacyId");
             obj.DiplomacyStatusId = Helper.GetData<int>(dr, "DiplomacyStatusId");
+            obj.DiplomacyStatusName = Helper.GetData<string>(dr, "DiplomacyStatusName");
             obj.MainUserId = Helper.GetData<int>(dr, "MainUserId");
+            obj.MainUserName = Helper.GetData<string>(dr, "MainUserName");
             obj.SecondaryUserId = Helper.GetData<int>(dr, "SecondaryUserId");
+            obj.SecondaryUserName = Helper.GetData<string>(dr, "SecondaryUserName");
             return obj;
         }
 

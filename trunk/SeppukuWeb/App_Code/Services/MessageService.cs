@@ -26,5 +26,17 @@ namespace Seppuku.Services
             int userId = CurrentUser.UserId;
             return new MessageDAO().GetOutboxByUserId(userId);
         }
+
+        public List<Message> GetUserBox()
+        {
+            int userId = CurrentUser.UserId;
+            return new MessageDAO().GetBoxByUserId(userId);
+        }
+
+        public List<Message> GetUserChatWith(int diplomacyId)
+        {
+            int currentUserId = CurrentUser.UserId;
+            return new MessageDAO().GetChatWithUserId(currentUserId,new DiplomacyService().GetById(diplomacyId).SecondaryUserId);
+        }
     }
 }

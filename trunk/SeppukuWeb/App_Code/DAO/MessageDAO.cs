@@ -30,18 +30,41 @@ namespace Seppuku.DAO
             return DAO<MessageDAO, Message>.GetObjectList("DnMessageInGetByUserId", userId);
         }
 
+        public List<Message> GetBoxByUserId(int userId)
+        {
+            return DAO<MessageDAO, Message>.GetObjectList("DnMessageGetByUserId", userId);
+        }
+
+        public List<Message> GetChatWithUserId(int currentuserId, int userId)
+        {
+            return DAO<MessageDAO, Message>.GetObjectList("DnMessageChatByUserIdWithUserId",currentuserId, userId);
+        }
+        
+
         public void FillParametersFromProperties(Database db, ref DbCommand cmd)
         {
             if (this.DataObject.MessageId > 0)
             {
                 db.AddInParameter(cmd, "MessageId", DbType.Int32, this.DataObject.MessageId);
             }
+            db.AddInParameter(cmd, "MainUserId", DbType.Int32, this.DataObject.MainUserId);
+            db.AddInParameter(cmd, "SecondaryUserId", DbType.Int32, this.DataObject.SecondaryUserId);
+            db.AddInParameter(cmd, "Title", DbType.String, this.DataObject.Title);
+            db.AddInParameter(cmd, "Text", DbType.String, this.DataObject.Text);
         }
 
         public Message GetFromRow(DataRow dr)
         {
             Message obj = new Message();
             obj.MessageId = Helper.GetData<int>(dr, "MessageId");
+            obj.MainUserId = Helper.GetData<int>(dr, "MainUserId");
+            obj.MainUserName = Helper.GetData<string>(dr, "MainUserName");
+            obj.SecondaryUserId = Helper.GetData<int>(dr, "SecondaryUserId");
+            obj.SecondaryUserName = Helper.GetData<string>(dr, "SecondaryUserName");
+            obj.Title = Helper.GetData<string>(dr, "Title");
+            obj.Text = Helper.GetData<string>(dr, "Text");
+            obj.SendDate = Helper.GetData<DateTime>(dr, "SendDate");
+            obj.isRead = Helper.GetData<bool>(dr, "isRead");
             return obj;
         }
     }

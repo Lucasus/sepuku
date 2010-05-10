@@ -228,7 +228,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
--- Author:		<Jakub mArtyna>
+-- Author:		<Jakub Martyna>
 -- Create date: <10.05.2010>
 -- =============================================
 CREATE PROCEDURE [dbo].[DnDiplomacyStatusAdd]
@@ -258,7 +258,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
--- Author:		£ukasz Wiatrak
+-- Author:		<Jakub Martyna>
 -- Create date: 06.03.2010
 -- =============================================
 CREATE PROCEDURE [dbo].[SepDiplomacyStatusGetById]
@@ -276,7 +276,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
--- Author:		£ukasz Wiatrak
+-- Author:		<Jakub Martyna>
 -- Create date: 06.03.2010
 -- =============================================
 CREATE PROCEDURE [dbo].[SepDiplomacyGetByUserId]
@@ -302,4 +302,85 @@ CREATE PROCEDURE [dbo].[SepDiplomacyGetById]
 AS
 BEGIN
 	SELECT * FROM SepDiplomacy as d WHERE d.DiplomacyId= @DiplomacyId
+END
+
+USE [Seppuku]
+GO
+/****** Object:  StoredProcedure [dbo].[SepDiplomacyGetByUserId]    Script Date: 05/10/2010 17:55:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub Martyna>
+-- Create date: 06.03.2010
+-- =============================================
+ALTER PROCEDURE [dbo].[SepDiplomacyGetByUserId]
+	@UserId int
+AS
+BEGIN
+	select dip.DiplomacyId,dip.DiplomacyStatusId, stat.DiplomacyStatusName, dip.MainUserId, mainusr.UserName as MainUserName,dip.SecondaryUserId, secusr.UserName as SecondaryUserName
+from dbo.SepDiplomacy as dip inner join dbo.SepDiplomacyStatus as stat on dip.DiplomacyStatusId = stat.DiplomacyStatusId 
+							 inner join dbo.DnUser as mainusr on dip.MainUserId = mainusr.UserId
+							 inner join dbo.DnUser as secusr on dip.SecondaryUserId = secusr.UserId WHERE dip.MainUserId = @UserId;
+END
+
+USE [Seppuku]
+GO
+/****** Object:  StoredProcedure [dbo].[DnMessageOutGetByUserId]    Script Date: 05/10/2010 18:41:57 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub Martyna>
+-- Create date: <10.05.2010>
+-- =============================================
+CREATE PROCEDURE [dbo].[DnMessageGetByUserId]
+	@UserId int	
+AS
+BEGIN
+	SELECT * FROM DnMessage as m WHERE m.MainUserId = @UserId or m.SecondaryUserId = @UserId 
+END
+
+USE [Seppuku]
+GO
+/****** Object:  StoredProcedure [dbo].[DnMessageOutGetByUserId]    Script Date: 05/10/2010 19:25:09 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub Martyna>
+-- Create date: <10.05.2010>
+-- =============================================
+CREATE PROCEDURE [dbo].[DnMessageChatByUserIdWithUserId]
+	@MainUserId int
+	,@SecondaryUserId int	
+AS
+BEGIN
+	SELECT * FROM DnMessage as m WHERE (m.MainUserId = @MainUserId and m.SecondaryUserId =@SecondaryUserId) or (m.MainUserId = @SecondaryUserId and m.SecondaryUserId =@MainUserId)
+END
+
+USE [Seppuku]
+GO
+/****** Object:  StoredProcedure [dbo].[DnMessageChatByUserIdWithUserId]    Script Date: 05/10/2010 20:00:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub Martyna>
+-- Create date: <10.05.2010>
+-- =============================================
+ALTER PROCEDURE [dbo].[DnMessageChatByUserIdWithUserId]
+	@MainUserId int
+	,@SecondaryUserId int	
+AS
+BEGIN
+	SELECT m.IsRead,m.MainUserId,m.MessageId, m.SecondaryUserId, m.SendDate, m.Text, m.Title, u1.UserName as MainUserName, u2.UserName as SecondaryUserName
+	FROM DnMessage as m INNER JOIN DnUser as u1 on u1.UserId = m.MainUserId
+						INNER JOIN DnUser as u2 on u2.UserId = m.SecondaryUserId
+	
+	WHERE (m.MainUserId = @MainUserId and m.SecondaryUserId =@SecondaryUserId) or (m.MainUserId = @SecondaryUserId and m.SecondaryUserId =@MainUserId)
 END

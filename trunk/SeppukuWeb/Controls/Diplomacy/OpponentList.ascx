@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="OpponentList.ascx.cs" Inherits="Controls_Diplomacy_OpponentList" %>
 
-<%@ Register Src="Opponent.ascx" TagName="opponent" TagPrefix="uc1" %>
+<%@ Register Src="Chat.ascx" TagName="chat" TagPrefix="uc1" %>
 
 <asp:Panel ID="PnlOpponentList" runat="server" >
     <asp:GridView ID="GvOpponents" runat="server" AutoGenerateColumns="false" 
@@ -10,22 +10,16 @@
         <Columns>
             <asp:TemplateField HeaderText="Nazwa użytkownika">
                 <ItemTemplate>
-                    <asp:Label ID="LblUserName" runat="server" Text='<%# Bind("SecondaryUserId") %>' />
+                    <asp:Button CommandName="Select" ID="BtnDiplomacy" runat="server" Text='<%# Bind("SecondaryUserName") %>' />
                 </ItemTemplate>
             </asp:TemplateField>
 
             <asp:TemplateField HeaderText="Status dyplomatyczny">
                 <ItemTemplate>
-                    <asp:Label ID="LblDiplomacyStatus" runat="server" Text='<%# Bind("DiplomacyStatusId") %>' />
+                    <asp:Label ID="LblDiplomacyStatus" runat="server" Text='<%# Bind("DiplomacyStatusName") %>' />
                 </ItemTemplate>
             </asp:TemplateField>
 
-
-            <asp:TemplateField HeaderText="">
-                <ItemTemplate>
-                    <asp:Button CommandName="Select" ID="BtnTechnology" Text="Wyślij wiadomość" runat="server" />
-                </ItemTemplate>
-            </asp:TemplateField>
         </Columns>
     </asp:GridView>
 
@@ -38,6 +32,6 @@
 
 
 <asp:Panel ID="PnlOpponent" Visible="false" runat="server">
-    <uc1:opponent ID="UcOpponent" runat="server" />
+    <uc1:chat ID="UcOpponent" runat="server" />
 </asp:Panel>
 
