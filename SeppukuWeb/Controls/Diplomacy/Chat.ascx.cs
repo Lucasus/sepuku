@@ -25,7 +25,7 @@ public partial class Controls_Diplomacy_Opponent : System.Web.UI.UserControl
     {
         if (!Page.IsPostBack)
         {
-            this.DataBind();
+            this.DataBind(); 
         }
     }
 
@@ -43,6 +43,6 @@ public partial class Controls_Diplomacy_Opponent : System.Web.UI.UserControl
         mgs.SecondaryUserId = new Seppuku.Services.DiplomacyService().GetById(DiplomacyID).SecondaryUserId;
         mgs.Text = TextBox1.Text;
         new Seppuku.Services.MessageService().Add(mgs);
-        this.DataBind();
+        this.DataBind(); 
     }
 }

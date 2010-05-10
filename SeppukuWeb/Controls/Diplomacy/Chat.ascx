@@ -9,7 +9,7 @@
     </EmptyDataTemplate>
     
     <ItemTemplate>
-        <span style="">
+        <span style=""> 
         [
         <asp:Label ID="SendDateLabel" runat="server" Text='<%# Eval("SendDate") %>' />
         ]
