@@ -20,11 +20,6 @@ namespace Seppuku.DAO
             return DAO<KingdomTechnologyDAO, KingdomTechnology>.Add("DnKingdomTechnologyAdd", this);
         }
 
-        public IList<KingdomTechnology> GetByUserId(int userId)
-        {
-            return DAO<KingdomTechnologyDAO, KingdomTechnology>.GetObjectList("SepKingdomTechnologyGetByUserId", userId);
-        }
-
         public void FillParametersFromProperties(Database db, ref DbCommand cmd)
         {
             if (this.DataObject.KingdomTechnologyId > 0)
@@ -37,6 +32,8 @@ namespace Seppuku.DAO
         {
             KingdomTechnology obj = new KingdomTechnology();
             obj.KingdomTechnologyId = Helper.GetData<int>(dr, "KingdomTechnologyId");
+            obj.KingdomId = Helper.GetData<int>(dr, "KingdomId");
+            obj.TechnologyId = Helper.GetData<int>(dr, "TechnologyId");
             return obj;
         }
     }
