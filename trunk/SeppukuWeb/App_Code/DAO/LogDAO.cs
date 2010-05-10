@@ -20,11 +20,6 @@ namespace Seppuku.DAO
             return DAO<LogDAO, Log>.Add("DnLogAdd", this);
         }
 
-        public IList<Log> GetByUserId(int userId)
-        {
-            return DAO<LogDAO, Log>.GetObjectList("SepLogGetByUserId", userId);
-        }
-
         public void FillParametersFromProperties(Database db, ref DbCommand cmd)
         {
             if (this.DataObject.LogId > 0)
