@@ -1,0 +1,305 @@
+USE [Seppuku]
+GO
+
+/****** Object:  Table [dbo].[SepDiplomacyStatus]    Script Date: 05/10/2010 16:12:07 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[SepDiplomacyStatus](
+	[DiplomacyStatusId] [int] IDENTITY(1,1) NOT NULL,
+	[DiplomacyStatusName] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_DiplomacyStatus] PRIMARY KEY CLUSTERED 
+(
+	[DiplomacyStatusId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
+USE [Seppuku]
+GO
+
+/****** Object:  Table [dbo].[SepDiplomacy]    Script Date: 05/10/2010 16:12:52 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[SepDiplomacy](
+	[DiplomacyId] [int] IDENTITY(1,1) NOT NULL,
+	[DiplomacyStatusId] [int] NOT NULL,
+	[MainUserId] [int] NOT NULL,
+	[SecondaryUserId] [int] NOT NULL,
+ CONSTRAINT [PK_Diplomacy] PRIMARY KEY CLUSTERED 
+(
+	[DiplomacyId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[SepDiplomacy]  WITH CHECK ADD  CONSTRAINT [FK_Diplomacy_DiplomacyStatus] FOREIGN KEY([DiplomacyStatusId])
+REFERENCES [dbo].[SepDiplomacyStatus] ([DiplomacyStatusId])
+GO
+
+ALTER TABLE [dbo].[SepDiplomacy] CHECK CONSTRAINT [FK_Diplomacy_DiplomacyStatus]
+GO
+
+ALTER TABLE [dbo].[SepDiplomacy]  WITH CHECK ADD  CONSTRAINT [FK_Diplomacy_DnUser] FOREIGN KEY([MainUserId])
+REFERENCES [dbo].[DnUser] ([UserId])
+GO
+
+ALTER TABLE [dbo].[SepDiplomacy] CHECK CONSTRAINT [FK_Diplomacy_DnUser]
+GO
+
+ALTER TABLE [dbo].[SepDiplomacy]  WITH CHECK ADD  CONSTRAINT [FK_Diplomacy_DnUser1] FOREIGN KEY([SecondaryUserId])
+REFERENCES [dbo].[DnUser] ([UserId])
+GO
+
+ALTER TABLE [dbo].[SepDiplomacy] CHECK CONSTRAINT [FK_Diplomacy_DnUser1]
+GO
+
+USE [Seppuku]
+GO
+
+/****** Object:  Table [dbo].[DnMessage]    Script Date: 05/10/2010 16:13:33 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[DnMessage](
+	[MessageId] [int] IDENTITY(1,1) NOT NULL,
+	[MainUserId] [int] NOT NULL,
+	[SecondaryUserId] [int] NOT NULL,
+	[Title] [nvarchar](50) NULL,
+	[Text] [text] NULL,
+	[IsRead] [bit] NULL,
+	[SendDate] [datetime] NULL,
+ CONSTRAINT [PK_DnMessage] PRIMARY KEY CLUSTERED 
+(
+	[MessageId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[DnMessage]  WITH CHECK ADD  CONSTRAINT [FK_DnMessage_DnUser] FOREIGN KEY([MainUserId])
+REFERENCES [dbo].[DnUser] ([UserId])
+GO
+
+ALTER TABLE [dbo].[DnMessage] CHECK CONSTRAINT [FK_DnMessage_DnUser]
+GO
+
+ALTER TABLE [dbo].[DnMessage]  WITH CHECK ADD  CONSTRAINT [FK_DnMessage_DnUser1] FOREIGN KEY([SecondaryUserId])
+REFERENCES [dbo].[DnUser] ([UserId])
+GO
+
+ALTER TABLE [dbo].[DnMessage] CHECK CONSTRAINT [FK_DnMessage_DnUser1]
+GO
+
+
+
+
+use [Seppuku]
+-- ================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub mArtyna>
+-- Create date: <10.05.2010>
+-- =============================================
+CREATE PROCEDURE [dbo].[DnMessageAdd]
+	@MainUserId int
+	,@SecondaryUserId int
+	,@Title nvarchar(50)
+	,@Text text
+	
+AS
+BEGIN
+	declare @MessageId int
+
+	INSERT INTO [dbo].[DnMessage]
+           ([MainUserId]
+           ,[SecondaryUserId]
+           ,[Title]
+           ,[Text]
+           ,[IsRead]
+           ,[SendDate]
+           )
+     VALUES
+           (@MainUserId
+			,@SecondaryUserId
+			,@Title
+			,@Text
+			,0
+			,GETDATE()
+           )
+           
+    set @MessageId = SCOPE_IDENTITY()           
+    select @MessageId
+END
+GO
+
+use Seppuku
+-- ================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub Martyna>
+-- Create date: <10.05.2010>
+-- =============================================
+CREATE PROCEDURE [dbo].[DnMessageOutGetByUserId]
+	@MainUserId int	
+AS
+BEGIN
+	SELECT * FROM DnMessage as m WHERE m.MainUserId = @MainUserId
+END
+GO
+
+USE [Seppuku]
+GO
+/****** Object:  StoredProcedure [dbo].[DnMessageOutGetByUserId]    Script Date: 05/10/2010 13:34:06 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub Martyna>
+-- Create date: <10.05.2010>
+-- =============================================
+CREATE PROCEDURE [dbo].[DnMessageInGetByUserId]
+	@UserId int	
+AS
+BEGIN
+	SELECT * FROM DnMessage as m WHERE m.SecondaryUserId = @UserId
+END
+
+
+-- ================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub mArtyna>
+-- Create date: <10.05.2010>
+-- =============================================
+CREATE PROCEDURE [dbo].[DnDiplomacyAdd]
+	@DiplomacyStatusId int
+	,@MainUserId int
+	,@SecondaryUserId int
+	
+AS
+BEGIN
+	declare @DiplomacyId int
+
+	INSERT INTO [dbo].[SepDiplomacy]
+           ([DiplomacyStatusId]
+           ,[MainUserId]
+           ,[SecondaryUserId]
+           )
+     VALUES
+           (@DiplomacyStatusId
+			,@MainUserId
+			,@SecondaryUserId
+           )
+           
+    set @DiplomacyId = SCOPE_IDENTITY()           
+    select @DiplomacyId
+END
+GO
+
+
+
+-- ================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub mArtyna>
+-- Create date: <10.05.2010>
+-- =============================================
+CREATE PROCEDURE [dbo].[DnDiplomacyStatusAdd]
+	@DiplomacyStatusName nvarchar(50)
+	
+AS
+BEGIN
+	declare @DiplomacyStatusId int
+
+	INSERT INTO [dbo].[SepDiplomacyStatus]
+           ([DiplomacyStatusName]
+           )
+     VALUES
+           (@DiplomacyStatusName
+           )
+           
+    set @DiplomacyStatusId = SCOPE_IDENTITY()           
+    select @DiplomacyStatusId
+END
+GO
+
+USE [Seppuku]
+GO
+/****** Object:  StoredProcedure [dbo].[SepKingdomAdd]    Script Date: 05/10/2010 12:21:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepDiplomacyStatusGetById]
+	@id int
+AS
+BEGIN
+	SELECT * FROM [dbo].SepDiplomacyStatus as dipStat WHERE dipStat.DiplomacyStatusId = @id;
+END
+
+USE [Seppuku]
+GO
+/****** Object:  StoredProcedure [dbo].[SepKingdomAdd]    Script Date: 05/10/2010 12:21:41 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepDiplomacyGetByUserId]
+	@UserId int
+AS
+BEGIN
+	SELECT * FROM [dbo].SepDiplomacy as dip WHERE dip.MainUserId = @UserId;
+END
+
+USE [Seppuku]
+GO
+/****** Object:  StoredProcedure [dbo].[DnMessageOutGetByUserId]    Script Date: 05/10/2010 13:34:06 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub Martyna>
+-- Create date: <10.05.2010>
+-- =============================================
+CREATE PROCEDURE [dbo].[SepDiplomacyGetById]
+	@DiplomacyId int	
+AS
+BEGIN
+	SELECT * FROM SepDiplomacy as d WHERE d.DiplomacyId= @DiplomacyId
+END
