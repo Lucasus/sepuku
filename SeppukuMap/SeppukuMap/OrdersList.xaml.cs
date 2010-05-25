@@ -10,23 +10,24 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
+using SeppukuMap.Model;
+
 namespace SeppukuMap
 {
-	public partial class Tile : UserControl
+	public partial class OrdersList : UserControl
 	{
-		/*private Image image;
-		public Image Image{
-			get{return image;}
-			set{this.image = value;}
-		}*/
+		private SeppukuModel model;
 
-		public Tile()
+		public OrdersList()
 		{
 			InitializeComponent();
-
-			
-
-			//this.LayoutRoot.Children.Add(this.image);
+		}
+		
+		public void initWithModel(SeppukuModel model)
+		{
+			this.model = model;
+			this.OrderList.ItemsSource = model.Orders;
+			this.OrderList.IsSynchronizedWithCurrentItem = true;
 		}
 	}
 }

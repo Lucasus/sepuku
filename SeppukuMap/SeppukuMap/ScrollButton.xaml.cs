@@ -14,8 +14,8 @@ namespace SeppukuMap
 {
 	public partial class ScrollButton : UserControl
 	{
-		private SeppukuMapTiles.ScrollDirections direction;
-		public SeppukuMapTiles.ScrollDirections Direction
+		private SeppukuMapScroll.ScrollDirections direction;
+		public SeppukuMapScroll.ScrollDirections Direction
 		{
 			get{return direction;}
 			set{direction = value;}

@@ -3,19 +3,94 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Class="SeppukuMap.PlayableTile" 
     Width="101" Height="130" mc:Ignorable="d">
+	<UserControl.Resources>
+		<Storyboard x:Name="WavingFlag">
+			<PointAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Flag" Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[1].(BezierSegment.Point2)">
+				<EasingPointKeyFrame KeyTime="00:00:00" Value="10.338231086731,0.513215005397797"/>
+				<EasingPointKeyFrame KeyTime="00:00:01" Value="10.4597606658936,4.32045125961304"/>
+				<EasingPointKeyFrame KeyTime="00:00:02" Value="10.338231086731,0.513215005397797"/>
+			</PointAnimationUsingKeyFrames>
+			<PointAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Flag" Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[1].(BezierSegment.Point3)">
+				<EasingPointKeyFrame KeyTime="00:00:00" Value="13.6249408721924,0.296017587184906"/>
+				<EasingPointKeyFrame KeyTime="00:00:01" Value="13.746470451355,4.10325384140015"/>
+				<EasingPointKeyFrame KeyTime="00:00:02" Value="13.6249408721924,0.296017587184906"/>
+			</PointAnimationUsingKeyFrames>
+			<PointAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Flag" Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[2].(BezierSegment.Point1)">
+				<EasingPointKeyFrame KeyTime="00:00:00" Value="17.2204113006592,0.0584162324666977"/>
+				<EasingPointKeyFrame KeyTime="00:00:01" Value="17.3419399261475,3.86565256118774"/>
+				<EasingPointKeyFrame KeyTime="00:00:02" Value="17.2204113006592,0.0584162324666977"/>
+			</PointAnimationUsingKeyFrames>
+			<PointAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Flag" Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[2].(BezierSegment.Point2)">
+				<EasingPointKeyFrame KeyTime="00:00:00" Value="19.1127643585205,0.612971603870392"/>
+				<EasingPointKeyFrame KeyTime="00:00:01" Value="19.2342929840088,4.42020773887634"/>
+				<EasingPointKeyFrame KeyTime="00:00:02" Value="19.1127643585205,0.612971603870392"/>
+			</PointAnimationUsingKeyFrames>
+			<PointAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Flag" Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[2].(BezierSegment.Point3)">
+				<EasingPointKeyFrame KeyTime="00:00:00" Value="22.1405277252197,0.771421134471893"/>
+				<EasingPointKeyFrame KeyTime="00:00:01" Value="22.262056350708,4.57865738868713"/>
+				<EasingPointKeyFrame KeyTime="00:00:02" Value="22.1405277252197,0.771421134471893"/>
+			</PointAnimationUsingKeyFrames>
+			<PointAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Flag" Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[3].(LineSegment.Point)">
+				<EasingPointKeyFrame KeyTime="00:00:00" Value="16.0849990844727,5.88141822814941"/>
+				<EasingPointKeyFrame KeyTime="00:00:01" Value="16.2065277099609,9.68865394592285"/>
+				<EasingPointKeyFrame KeyTime="00:00:02" Value="16.0849990844727,5.88141822814941"/>
+			</PointAnimationUsingKeyFrames>
+			<PointAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Flag" Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[4].(LineSegment.Point)">
+				<EasingPointKeyFrame KeyTime="00:00:00" Value="22.1405277252197,11.2290897369385"/>
+				<EasingPointKeyFrame KeyTime="00:00:01" Value="22.262056350708,15.0363254547119"/>
+				<EasingPointKeyFrame KeyTime="00:00:02" Value="22.1405277252197,11.2290897369385"/>
+			</PointAnimationUsingKeyFrames>
+			<PointAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Flag" Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[5].(BezierSegment.Point1)">
+				<EasingPointKeyFrame KeyTime="00:00:00" Value="18.8604507446289,10.9121904373169"/>
+				<EasingPointKeyFrame KeyTime="00:00:01" Value="18.9819793701172,14.7194271087646"/>
+				<EasingPointKeyFrame KeyTime="00:00:02" Value="18.8604507446289,10.9121904373169"/>
+			</PointAnimationUsingKeyFrames>
+			<PointAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Flag" Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[5].(BezierSegment.Point2)">
+				<EasingPointKeyFrame KeyTime="00:00:00" Value="15.3280582427979,10.7537412643433"/>
+				<EasingPointKeyFrame KeyTime="00:00:01" Value="15.4495878219604,14.5609769821167"/>
+				<EasingPointKeyFrame KeyTime="00:00:02" Value="15.3280582427979,10.7537412643433"/>
+			</PointAnimationUsingKeyFrames>
+			<PointAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Flag" Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[5].(BezierSegment.Point3)">
+				<EasingPointKeyFrame KeyTime="00:00:00" Value="12.3002939224243,10.278392791748"/>
+				<EasingPointKeyFrame KeyTime="00:00:01" Value="12.4218235015869,14.0856285095215"/>
+				<EasingPointKeyFrame KeyTime="00:00:02" Value="12.3002939224243,10.278392791748"/>
+			</PointAnimationUsingKeyFrames>
+			<PointAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="Flag" Storyboard.TargetProperty="(Path.Data).(PathGeometry.Figures)[0].(PathFigure.Segments)[6].(BezierSegment.Point1)">
+				<EasingPointKeyFrame KeyTime="00:00:00" Value="9.27252864837646,9.80304336547852"/>
+				<EasingPointKeyFrame KeyTime="00:00:01" Value="9.39405822753906,13.6102800369263"/>
+				<EasingPointKeyFrame KeyTime="00:00:02" Value="9.27252864837646,9.80304336547852"/>
+			</PointAnimationUsingKeyFrames>
+		</Storyboard>
+	</UserControl.Resources>
 	<Canvas x:Name="LayoutRoot">
-		<Image Height="130" Width="101" Source="Resources/GrassBlock.png" Stretch="Fill"/>
-		<Path Fill="White" Stretch="Fill" Stroke="Black" Height="12.458" Width="22.519" UseLayoutRounding="False" Data="M14.75,0.5 C17.833334,1.3333334 20.25,2.9999607 24,3 C27.75,3.0000393 27.907906,-0.043193284 32.25,-0.50011569 C37,-0.99996227 39.5,0.16666667 43.5,0.5 L35.5,11.25 L43.5,22.5 C39.166668,21.833334 34.5,21.5 30.5,20.5 C26.5,19.5 27.25,24 22.5,24.5 C17.75,25 17.333334,23.166666 14.75,22.5 z" RenderTransformOrigin="0.5,0.5" Canvas.Left="73.481" Canvas.Top="9.5">
-			<Path.RenderTransform>
-				<TransformGroup>
-					<ScaleTransform ScaleX="-1"/>
-					<SkewTransform AngleX="0" AngleY="0"/>
-					<RotateTransform Angle="0"/>
-					<TranslateTransform/>
-				</TransformGroup>
-			</Path.RenderTransform>
-		</Path>
-		<Path Fill="White" Stretch="Fill" Stroke="Black" Height="22.529" Width="1" UseLayoutRounding="False" Canvas.Left="95" Canvas.Top="20.125" Data="M71.25,14.75 L71.25,36.279411"/>
-		<Image x:Name="OverLayer" Height="130" Width="101" Opacity="0.495" Source="Resources/GrassBlockOver.png" Stretch="Fill" Visibility="Collapsed"/>
+		<Image Height="130" Width="101" Source="Resources/GrassBlock.png" Stretch="Fill" d:IsLocked="True"/>
+		<Image x:Name="OverLayer" Height="130" Width="101" Opacity="0.495" Source="Resources/GrassBlockOver.png" Stretch="Fill" Visibility="Collapsed" d:IsLocked="True"/>
+		<Canvas x:Name="FlagContainer" Height="100" Width="100" Canvas.Left="1">
+			<Path x:Name="Flag" Fill="White" Stroke="Black" Height="15.536" Width="22.762" UseLayoutRounding="False" RenderTransformOrigin="0.5,0.5" Canvas.Left="73.603" Canvas.Top="9.5">
+				<Path.Data>
+					<PathGeometry FillRule="EvenOdd">
+						<PathFigure IsClosed="True" StartPoint="0.5,0.771421134471893">
+							<BezierSegment Point1="2.83390235900879,1.16754496097565" Point2="4.66317653656006,1.95977389812469" Point3="7.50170564651489,1.95979249477386"/>
+							<BezierSegment Point1="10.3402347564697,1.95981121063232" Point2="10.4597606658936,0.513215005397797" Point3="13.746470451355,0.296017587184906"/>
+							<BezierSegment Point1="17.3419399261475,0.0584162324666977" Point2="19.2342929840088,0.612971603870392" Point3="22.262056350708,0.771421134471893"/>
+							<LineSegment Point="16.2065277099609,5.88141822814941"/>
+							<LineSegment Point="22.262056350708,11.2290897369385"/>
+							<BezierSegment Point1="18.9819793701172,10.9121904373169" Point2="15.4495878219604,10.7537412643433" Point3="12.4218235015869,10.278392791748"/>
+							<BezierSegment Point1="9.39405822753906,9.80304336547852" Point2="9.96176433563232,11.9421119689941" Point3="6.36629390716553,12.1797866821289"/>
+							<BezierSegment Point1="2.77082324028015,12.4174604415894" Point2="2.45543169975281,11.5459880828857" Point3="0.5,11.2290897369385"/>
+						</PathFigure>
+					</PathGeometry>
+				</Path.Data>
+				<Path.RenderTransform>
+					<TransformGroup>
+						<ScaleTransform ScaleX="-1"/>
+						<SkewTransform AngleX="0" AngleY="0"/>
+						<RotateTransform Angle="0"/>
+						<TranslateTransform X="-0.24300003051757813"/>
+					</TransformGroup>
+				</Path.RenderTransform>
+			</Path>
+			<Path Fill="White" Stretch="Fill" Stroke="Black" Height="22.529" Width="1" UseLayoutRounding="False" Canvas.Left="95" Canvas.Top="20.125" Data="M71.25,14.75 L71.25,36.279411" d:IsLocked="True"/>
+		</Canvas>
 	</Canvas>
 </UserControl>

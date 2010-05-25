@@ -3,11 +3,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d" xmlns:local="clr-namespace:SeppukuMap" x:Class="SeppukuMap.MainPage"
-    d:DesignWidth="640" d:DesignHeight="480" Width="450" Height="700">
+    d:DesignWidth="640" d:DesignHeight="480" Width="700" Height="700">
   <Canvas x:Name="LayoutRoot">
-  	<Rectangle Stroke="Black" Height="700" Width="450" RadiusX="15" RadiusY="15" StrokeThickness="3" Fill="White" d:IsLocked="True"/>
-  	<local:SeppukuMapScroll x:Name="MapWithScroll" Canvas.Top="16" d:LayoutOverrides="Width, Height" ScrollSpeed="20"/>
-  	<local:InfoPanel x:Name="InfoPanel" Canvas.Left="0" Canvas.Top="480" d:LayoutOverrides="Width, Height"/>
-  	<Rectangle Stroke="Black" StrokeThickness="3" RadiusX="15" RadiusY="15" Height="700" Width="450" d:IsLocked="True"/>
+  	<Rectangle Stroke="Black" Height="700" Width="700" RadiusX="15" RadiusY="15" StrokeThickness="3" Fill="White" d:IsLocked="True"/>
+  	<Canvas Height="700" Width="700" Clip="M1.4999962,16.499998 C1.4999962,8.2157278 8.2157249,1.4999993 16.499996,1.4999993 L683.49994,1.4999993 C691.78424,1.4999993 698.49994,8.2157278 698.49994,16.499998 L698.49994,683.49994 C698.49994,691.78424 691.78424,698.49994 683.49994,698.49994 L16.499996,698.49994 C8.2157249,698.49994 1.4999962,691.78424 1.4999962,683.49994 z">
+  		<local:SeppukuMapScroll x:Name="MapWithScroll" d:LayoutOverrides="Width, Height" ScrollSpeed="20" Canvas.Top="30"/>
+  		<local:InfoPanel x:Name="InfoPanel" Canvas.Left="0" Canvas.Top="530" d:LayoutOverrides="Width, Height"/>
+  		<local:OrdersList x:Name="OrdersList" Canvas.Left="500" d:LayoutOverrides="Width, Height" Canvas.Top="530"/>
+  		<local:StatusBar x:Name="StatusPanel" Canvas.Top="650" d:LayoutOverrides="Width, Height"/>
+  		<local:KingdomOverviewPanel Canvas.Top="0" d:LayoutOverrides="Width, Height"/>
+  	</Canvas>
+  	<Rectangle Stroke="Black" StrokeThickness="3" RadiusX="15" RadiusY="15" Height="700" Width="700" d:IsLocked="True"/>
   </Canvas>
 </UserControl>

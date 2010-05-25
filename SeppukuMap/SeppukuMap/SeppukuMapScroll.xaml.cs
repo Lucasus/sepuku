@@ -17,15 +17,22 @@ namespace SeppukuMap
 {
 	public partial class SeppukuMapScroll : UserControl
 	{
+		public enum ScrollDirections
+		{
+			up,
+			down,
+			left,
+			right
+		}
+
+		private double scale = 1;
 		public double ScrollSpeed{get;set;}
-		private bool zoomed;
 		private Storyboard scrollAnim;
-		private SeppukuMapTiles.ScrollDirections currentDirection;
+		private SeppukuMapScroll.ScrollDirections currentDirection;
 
 		public SeppukuMapScroll()
 		{
 			InitializeComponent();
-			zoomed = true;
 			this.ScrollDown.MouseEnter += this.onScrollEnter;
 			this.ScrollDown.MouseLeave += this.onScrollLeave;
 			this.ScrollUp.MouseEnter += this.onScrollEnter;
@@ -39,12 +46,23 @@ namespace SeppukuMap
 			scrollAnim.Duration = new Duration(TimeSpan.FromMilliseconds(30));
 			scrollAnim.Completed += this.onComplete;
 
-			this.Zoom.MouseLeftButtonDown += this.onZoom;
+			this.ZoomIn.MouseLeftButtonDown += this.onZoomIn;
+			this.ZoomOut.MouseLeftButtonDown += this.onZoomOut;
+
+			this.MapTiles.loadingFinished += this.onMapLoad;
+		}
+
+		private void onMapLoad(object sender, EventArgs e)
+		{
+			double newX = Canvas.GetLeft(this.MapTiles);
+			double newY = Canvas.GetTop(this.MapTiles);
+
+			this.updateView(newX, newY);
 		}
 
 		private void onComplete(object sender, EventArgs e)
 		{
-			this.MapTiles.moveTilesView(this.currentDirection, ScrollSpeed);
+			moveTilesView(this.currentDirection, ScrollSpeed);
 			Storyboard storyboard = (Storyboard) sender;
 			storyboard.Begin();
 		}
@@ -64,18 +82,85 @@ namespace SeppukuMap
 			scrollAnim.Stop();
 		}
 
-		public void onZoom(object sender, MouseButtonEventArgs e)
+		public void onZoomIn(object sender, MouseButtonEventArgs e)
 		{
-			SeppukuMapTiles mapTiles = this.MapTiles;
-			if(this.zoomed)
+			double newX = Canvas.GetLeft(this.MapTiles);
+			double newY = Canvas.GetTop(this.MapTiles);
+
+			if(scale + 0.1 < 1)
+				scale += 0.1;
+			else 
+				scale = 1;
+
+			this.updateView(newX, newY);
+		}
+
+		public void onZoomOut(object sender, MouseButtonEventArgs e)
+		{
+			double newX = Canvas.GetLeft(this.MapTiles);
+			double newY = Canvas.GetTop(this.MapTiles);
+
+			if(scale - 0.1 > 0.5)
+				scale -= 0.1;
+			else 
+				scale = 0.3;
+
+			this.updateView(newX, newY);
+		}
+
+		public void moveTilesView(SeppukuMapScroll.ScrollDirections direction, double offset)
+		{
+			double newX = Canvas.GetLeft(this.MapTiles);
+			double newY = Canvas.GetTop(this.MapTiles);
+			switch(direction)
 			{
-				mapTiles.ZoomTilesView(0.5);
+				case ScrollDirections.up:
+					{
+						newY += offset;
+						break;
+					}
+				case ScrollDirections.down:
+					{
+						newY -= offset;
+						break;
+					}
+				case ScrollDirections.left:
+					{
+						newX += offset;
+						break;
+					}
+				case ScrollDirections.right:
+					{
+						newX -= offset;
+						break;
+					}
 			}
+
+			updateView(newX, newY);
+		}
+
+		private void updateView(double x, double y)
+		{
+			if(this.MapTiles.DynamicWidth * scale < MapTilesView.Width)
+				Canvas.SetLeft(this.MapTiles, (MapTilesView.Width - this.MapTiles.DynamicWidth * scale) * 0.5);
 			else
 			{
-				mapTiles.ZoomTilesView(1);
+				if(x < MapTilesView.Width * 0.25 && x > MapTilesView.Width * 0.75 - this.MapTiles.DynamicWidth * scale)
+					Canvas.SetLeft(this.MapTiles, x);
 			}
-			this.zoomed = !this.zoomed;
+
+			if(this.MapTiles.DynamicHeight * scale < MapTilesView.Height)
+				Canvas.SetTop(this.MapTiles, (MapTilesView.Height - this.MapTiles.DynamicHeight * scale) * 0.5);
+			else
+			{
+				if(y < MapTilesView.Height * 0.25 && y > MapTilesView.Height * 0.75 - this.MapTiles.DynamicHeight * scale)
+					Canvas.SetTop(this.MapTiles, y);
+			}
+
+			ScaleTransform transform = new ScaleTransform();
+
+			transform.ScaleX = transform.ScaleY = scale;
+			this.MapTiles.RenderTransform = transform;
 		}
 	}
 }
