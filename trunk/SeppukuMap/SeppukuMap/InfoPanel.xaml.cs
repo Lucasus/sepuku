@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
+using SeppukuMap.Model;
+
 namespace SeppukuMap
 {
 	public partial class InfoPanel : UserControl
@@ -19,14 +21,17 @@ namespace SeppukuMap
 			InitializeComponent();
 		}
 
-		public void displayTile(PlayableTile tile)
+		public void displayTile(SeppukuMapTileModel tile)
 		{
-			TextBox.Text = tile.TileName;
+			TileName.Text = tile.name;
+			if(tile.owner != null)
+				PlayerName.Text = tile.owner.name;
 		}
 
 		public void clearDisplay()
 		{
-			TextBox.Text = "";
+			TileName.Text = "";
+			PlayerName.Text = "";
 		}
 	}
 }

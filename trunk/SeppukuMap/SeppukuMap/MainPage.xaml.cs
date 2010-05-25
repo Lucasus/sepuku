@@ -11,28 +11,39 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 using SeppukuMap.Events;
+using SeppukuMap.Model;
 
 namespace SeppukuMap
 {
 	public partial class MainPage : UserControl
 	{
-		public String playerName;
+		//public String playerName;
+		public SeppukuModel model;
 
 		public MainPage()
 		{
 			InitializeComponent();
+			
 			this.MapWithScroll.MapTiles.tileOverEvent += this.updateInfo;
 			this.MapWithScroll.MapTiles.tileOutEvent += this.clearInfo;
 		}
 
-		public MainPage(String playerName): this()
+		public MainPage(int playerId): this()
 		{
-			this.playerName = playerName;
+			//this.playerName = playerName;
+			model = new SeppukuModel(playerId);
+			this.model.Ready += this.onReady;
+		}
+
+		public void onReady(object sender, EventArgs e)
+		{
+			this.MapWithScroll.MapTiles.initWithModel(model.map);
+			this.OrdersList.initWithModel(model);
 		}
 
 		public void updateInfo(object sender, TileEventArgs e)
 		{
-			InfoPanel.displayTile(e.tile);
+			InfoPanel.displayTile(e.tile.model);
 		}
 
 		public void clearInfo(object sender, TileEventArgs e)

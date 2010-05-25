@@ -1,0 +1,21 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	xmlns:local="clr-namespace:SeppukuMap"
+	x:Class="SeppukuMap.ActionList"
+	d:DesignWidth="150" d:DesignHeight="199" Height="170">
+
+	<Canvas x:Name="LayoutRoot">
+		<Rectangle Fill="White" Stroke="Black" Height="170" Width="150" RadiusX="15" RadiusY="15" StrokeThickness="3"/>
+		<TextBlock Canvas.Left="8" Canvas.Top="8" TextWrapping="Wrap" Text="Ludnosc:"/>
+		<TextBlock x:Name="PeopleCount" Canvas.Left="62" Canvas.Top="8" Text="TextBlock" TextWrapping="Wrap"/>
+		<local:NumberPicker x:Name="Warriors" Canvas.Left="103" Canvas.Top="37" Height="20"/>
+		<Button x:Name="AttackButton" Height="25" Width="134" Canvas.Top="137" Content="Rusz Wojowników" Canvas.Left="8"/>
+		<TextBlock Canvas.Left="8" Canvas.Top="37" Text="Wojownicy:" TextWrapping="Wrap"/>
+		<local:NumberPicker x:Name="Attackers" Canvas.Left="103" Canvas.Top="69" Height="20"/>
+		<TextBlock Canvas.Left="8" Canvas.Top="71" Text="Atakuj:" TextWrapping="Wrap"/>
+	</Canvas>
+</UserControl>

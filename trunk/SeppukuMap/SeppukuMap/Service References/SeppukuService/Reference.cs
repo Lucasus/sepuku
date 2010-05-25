@@ -131,6 +131,10 @@ namespace SeppukuMap.SeppukuService {
         
         private string nameField;
         
+        private SeppukuMap.SeppukuService.Owner ownerField;
+        
+        private int numberOfWorkersField;
+        
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
         public int x {
             get {
@@ -166,6 +170,92 @@ namespace SeppukuMap.SeppukuService {
                 if ((object.ReferenceEquals(this.nameField, value) != true)) {
                     this.nameField = value;
                     this.RaisePropertyChanged("name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, EmitDefaultValue=false, Order=3)]
+        public SeppukuMap.SeppukuService.Owner owner {
+            get {
+                return this.ownerField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ownerField, value) != true)) {
+                    this.ownerField = value;
+                    this.RaisePropertyChanged("owner");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=4)]
+        public int numberOfWorkers {
+            get {
+                return this.numberOfWorkersField;
+            }
+            set {
+                if ((this.numberOfWorkersField.Equals(value) != true)) {
+                    this.numberOfWorkersField = value;
+                    this.RaisePropertyChanged("numberOfWorkers");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "3.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Owner", Namespace="http://seppuku.pl/")]
+    public partial class Owner : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int playerIdField;
+        
+        private string playerNameField;
+        
+        private string playerColorField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int playerId {
+            get {
+                return this.playerIdField;
+            }
+            set {
+                if ((this.playerIdField.Equals(value) != true)) {
+                    this.playerIdField = value;
+                    this.RaisePropertyChanged("playerId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string playerName {
+            get {
+                return this.playerNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.playerNameField, value) != true)) {
+                    this.playerNameField = value;
+                    this.RaisePropertyChanged("playerName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string playerColor {
+            get {
+                return this.playerColorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.playerColorField, value) != true)) {
+                    this.playerColorField = value;
+                    this.RaisePropertyChanged("playerColor");
                 }
             }
         }

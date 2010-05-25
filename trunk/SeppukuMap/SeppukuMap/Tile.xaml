@@ -16,6 +16,6 @@
 		</ImageBrush>
 	</UserControl.Resources>
     <Canvas x:Name="LayoutRoot">
-    	<Image Height="130" Width="101" Source="Resources/Water Block.png" Stretch="Fill"/>
+    	<Image x:Name="Image" Height="130" Width="101" Source="Resources/Water Block.png" Stretch="Fill"/>
     </Canvas>
 </UserControl>

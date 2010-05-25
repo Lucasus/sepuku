@@ -4,6 +4,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Class="SeppukuMap.SeppukuMapTiles" 
     Width="0" Height="0" mc:Ignorable="d" Background="#FFA71C1C">
 	<Canvas>
-		<Canvas x:Name="Tiles" Margin="0"/>
+		<Canvas x:Name="WholeControl" Height="0" Width="0" Canvas.Left="0" Canvas.Top="0">
+			<Canvas x:Name="Tiles" Margin="0"/>
+			<Canvas x:Name="PopupWindows" Height="20" Width="20"/>
+		</Canvas>
 	</Canvas>
 </UserControl>

@@ -26,8 +26,8 @@ namespace SeppukuMap
 
 		private void Application_Startup(object sender, StartupEventArgs e)
 		{
-			if(e.InitParams.Keys.Contains("player"))
-				this.RootVisual = new MainPage(e.InitParams["player"]);
+			if(e.InitParams.Keys.Contains("playerId"))
+				this.RootVisual = new MainPage(Convert.ToInt32(e.InitParams["playerId"]));
 			else
 				this.RootVisual = new MainPage();
 		}
