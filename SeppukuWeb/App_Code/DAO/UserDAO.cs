@@ -114,6 +114,7 @@ namespace Seppuku.DAO
             obj.UserName = Helper.GetData<string>(dr, "UserName");
             obj.CreateDate = Helper.GetData<DateTime>(dr, "CreateDate");
             obj.Email = Helper.GetData<string>(dr, "Email");
+            obj.IsApproved = Helper.GetData<bool>(dr, "IsApproved");
             string guid = Helper.GetData<string>(dr, "KeyGuid");
             if (String.IsNullOrEmpty(guid))
                 obj.AuthorizatonKey = Guid.Empty;

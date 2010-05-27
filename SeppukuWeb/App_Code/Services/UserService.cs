@@ -20,6 +20,11 @@ namespace Seppuku.Services
             return new UserDAO().GetByUserEmail(email);
         }
 
+        public IList<User> GetAll()
+        {
+            return new UserDAO().GetAll();
+        }
+
         public int NewChangePasswordKey(int userId, Guid key)
         {
             return new UserDAO().AddChangePasswordKey(userId, key);

@@ -25,6 +25,15 @@
 								<li class="active"><a href="default.aspx" >Strona główna</a></li>
 								<li><a href="GameRules.aspx">Zasady gry</a></li>
 								<li><a href="FAQ.aspx">FAQ</a></li>
+                                <asp:LoginView ID="LvAdministracja" runat="server">
+                                    <RoleGroups>
+                                        <asp:RoleGroup Roles="Administrators">
+                                            <ContentTemplate>
+								                <li><a href="AdministrationMaps.aspx">Administracja</a></li>
+                                            </ContentTemplate>
+                                        </asp:RoleGroup>
+                                    </RoleGroups>
+                                </asp:LoginView>
 							</ul>
 						</div>					
 						<div style="text-align: center;" class="logo logo-text">
