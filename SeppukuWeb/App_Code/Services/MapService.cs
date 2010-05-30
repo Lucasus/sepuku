@@ -34,5 +34,21 @@ namespace Seppuku.Services
         {
             return new MapDAO().GetAll();
         }
+
+        public void InitializeKingdom(int mapId, int kingdomId)
+        {
+            // 1: wyciągam z bazy wszystkie pola należące do danej mapy
+
+            // 2: wstawiam wyciągnięte pola do tablicy dwuwymiarowej
+
+            // 3: liczę środek ciężkości wszystkich dotychczasowych pól
+
+            // 4: dla każdego pola na mapie: sprawdzam czy jest wolne, oraz sprawdzam
+            //    czy w odległości mniejszej lub równej od 2 nie ma żadnych zajętych pól, ale
+            //    w odległości 3 już są zajęte pola. 
+            //    Dla pól tego typu wybieram pole z minimalną odległością od środka ciężkości.
+            //    Na tym polu powstanie nowe królestwo.
+            throw new NotImplementedException();
+        }
     }
 }

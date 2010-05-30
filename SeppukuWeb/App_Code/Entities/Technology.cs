@@ -12,5 +12,7 @@ namespace Seppuku.Domain
         public string TechnologyDescription { get; set; }
         public string TechnologyEffect { get; set; }
         public int TechnologyCost { get; set; }
+
+        public string TechnologyStatus { get; set; }
     }
 }

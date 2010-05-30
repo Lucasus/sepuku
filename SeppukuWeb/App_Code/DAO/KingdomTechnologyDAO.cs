@@ -17,7 +17,7 @@ namespace Seppuku.DAO
         public int Add(KingdomTechnology o)
         {
             DataObject = o;
-            return DAO<KingdomTechnologyDAO, KingdomTechnology>.Add("DnKingdomTechnologyAdd", this);
+            return DAO<KingdomTechnologyDAO, KingdomTechnology>.Add("SepKingdomTechnologyAdd", this);
         }
 
         public void FillParametersFromProperties(Database db, ref DbCommand cmd)
@@ -26,6 +26,8 @@ namespace Seppuku.DAO
             {
                 db.AddInParameter(cmd, "KingdomTechnologyId", DbType.Int32, this.DataObject.KingdomTechnologyId);
             }
+            db.AddInParameter(cmd, "TechnologyId", DbType.Int32, this.DataObject.TechnologyId);
+            db.AddInParameter(cmd, "KingdomId", DbType.Int32, this.DataObject.KingdomId);
         }
 
         public KingdomTechnology GetFromRow(DataRow dr)

@@ -46,6 +46,7 @@ namespace Seppuku.DAO
             obj.TechnologyDescription = Helper.GetData<string>(dr, "TechnologyDescription");
             obj.TechnologyEffect = Helper.GetData<string>(dr, "TechnologyEffect");
             obj.TechnologyCost = Helper.GetData<int>(dr, "TechnologyCost");
+            obj.TechnologyStatus = Helper.GetData<string>(dr, "TechnologyStatus");
             return obj;
         }
     }

@@ -47,5 +47,11 @@ namespace Seppuku.DAO
             obj.MapId = Helper.GetData<int>(dr, "MapId");
             return obj;
         }
+
+        public void Update(Kingdom k)
+        {
+            DataObject = k;
+            DAO<KingdomDAO, Kingdom>.Add("SepKingdomUpdate", this);
+        }
     }
 }

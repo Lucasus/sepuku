@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Web.Security;
 using Seppuku.Services;
 using Seppuku.Core;
+using Seppuku.Domain;
 
 public partial class ActivateUser : System.Web.UI.Page
 {
@@ -23,19 +24,24 @@ public partial class ActivateUser : System.Web.UI.Page
                 CommandStatus status = new CommandStatus();
                 new UserService().AuthorizeUser(userName, authorizationKey, status);
                 if (status.IsError == false)
-                    LblResult.Text = "Twoje konto zostało aktywowane. Możesz zalogować się na stronę.";
-                else switch (status.Message)
                 {
-                    case "Invalid UserName":
-                        LblResult.Text = "Link aktywacyjny niepoprawny. Błędna nazwa użytkownika";
-                        break;
-                    case "Invalid Authentication Key":
-                        LblResult.Text = "Link aktywacyjny niepoprawny. Błędny klucz aktywacyjny";
-                        break;
-                    case "Already Approved":
-                        LblResult.Text = "Użytkownik został już wcześniej aktywowany. Możesz zalogować się na swoje konto";
-                        break;
+                    User u = new UserService().GetByLogin(userName);
+                    Kingdom k = new KingdomService().GetByUserId(u.UserId);
+                    new MapService().InitializeKingdom(k.MapId, k.KingdomId);
+                    LblResult.Text = "Twoje konto zostało aktywowane. Możesz zalogować się na stronę.";
                 }
+                else switch (status.Message)
+                    {
+                        case "Invalid UserName":
+                            LblResult.Text = "Link aktywacyjny niepoprawny. Błędna nazwa użytkownika";
+                            break;
+                        case "Invalid Authentication Key":
+                            LblResult.Text = "Link aktywacyjny niepoprawny. Błędny klucz aktywacyjny";
+                            break;
+                        case "Already Approved":
+                            LblResult.Text = "Użytkownik został już wcześniej aktywowany. Możesz zalogować się na swoje konto";
+                            break;
+                    }
 
             }
         }

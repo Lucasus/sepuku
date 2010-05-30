@@ -20,6 +20,11 @@ namespace Seppuku.Services
             return new UserDAO().GetByUserEmail(email);
         }
 
+        public User GetByLogin(string login)
+        {
+            return new UserDAO().GetByUserName(login, null);
+        }
+
         public IList<User> GetAll()
         {
             return new UserDAO().GetAll();
