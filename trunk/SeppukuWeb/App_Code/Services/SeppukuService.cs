@@ -26,20 +26,34 @@ public class SeppukuService : System.Web.Services.WebService
 		}
 	}
 
+	public struct MapModel
+	{
+		public List<TileInfo> tiles;
+		public List<Owner> players;
+		public int rice;
+
+		public MapModel(int rice, List<TileInfo> tiles, List<Owner> players)
+		{
+			this.rice = rice;
+			this.tiles = tiles;
+			this.players = players;
+		}
+	}
+
 	public struct TileInfo
 	{
 		public int x;
 		public int y;
 		public string name;
-		public Owner? owner;
+		public int? ownerId;
 		public int numberOfWorkers;
 
-		public TileInfo(int x, int y, string name, Owner? owner, int numberOfWorkers)
+		public TileInfo(int x, int y, string name, int? ownerId, int numberOfWorkers)
 		{
 			this.x = x;
 			this.y = y;
 			this.name = name;
-			this.owner = owner;
+			this.ownerId = ownerId;
 			this.numberOfWorkers = numberOfWorkers;
 		}
 	}
@@ -58,19 +72,27 @@ public class SeppukuService : System.Web.Services.WebService
 	}
 
 	[WebMethod(EnableSession=true)]
-	public List<TileInfo> GetTiles() 
+	public MapModel GetMapModel() 
 	{
-		List<TileInfo> tiles = new List<TileInfo>();
+		int rice = 1000;
+
+		List<Owner> players = new List<Owner>();
 		
 		Owner owner1 = new Owner(1, "Moose", "#ff0000");
 		Owner owner2 = new Owner(2, "Lucas", "#00ff00");
 
-		tiles.Add(new TileInfo(1,1,"Krwawe wzgórza", owner1, 5));
-		tiles.Add(new TileInfo(2,1,"MooseVille", owner1, 5));
+		players.Add(owner1);
+		players.Add(owner2);
+
+		List<TileInfo> tiles = new List<TileInfo>();
+
+		tiles.Add(new TileInfo(1,1,"Krwawe wzgórza", owner1.playerId, 5));
+		tiles.Add(new TileInfo(2,1,"MooseVille", owner1.playerId, 5));
+		tiles.Add(new TileInfo(2,2,"Grunwald", owner1.playerId, 5));
 		tiles.Add(new TileInfo(1,2,"Bździochy dolne", null, 5));
-		tiles.Add(new TileInfo(3,4,"Cukierkowa Dolina", owner2, 10));
-		tiles.Add(new TileInfo(5,5,"Wilczy Szaniec", owner2, 10));
-		return  tiles;
+		tiles.Add(new TileInfo(3,4,"Cukierkowa Dolina", owner2.playerId, 10));
+		tiles.Add(new TileInfo(5,5,"Wilczy Szaniec", owner2.playerId, 10));
+		return new MapModel(rice, tiles, players);
 	}
 }
 

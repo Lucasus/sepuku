@@ -38,16 +38,23 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetTiles">
+      <s:element name="GetMapModel">
         <s:complexType />
       </s:element>
-      <s:element name="GetTilesResponse">
+      <s:element name="GetMapModelResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetTilesResult" type="tns:ArrayOfTileInfo" />
+            <s:element minOccurs="1" maxOccurs="1" name="GetMapModelResult" type="tns:MapModel" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="MapModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="tiles" type="tns:ArrayOfTileInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="players" type="tns:ArrayOfOwner" />
+          <s:element minOccurs="1" maxOccurs="1" name="rice" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:complexType name="ArrayOfTileInfo">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="TileInfo" type="tns:TileInfo" />
@@ -58,8 +65,13 @@
           <s:element minOccurs="1" maxOccurs="1" name="x" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="y" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="owner" type="tns:Owner" />
+          <s:element minOccurs="1" maxOccurs="1" name="ownerId" nillable="true" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="numberOfWorkers" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfOwner">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Owner" type="tns:Owner" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Owner">
@@ -90,11 +102,11 @@
   <wsdl:message name="UpdateGameStateSoapOut">
     <wsdl:part name="parameters" element="tns:UpdateGameStateResponse" />
   </wsdl:message>
-  <wsdl:message name="GetTilesSoapIn">
-    <wsdl:part name="parameters" element="tns:GetTiles" />
+  <wsdl:message name="GetMapModelSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMapModel" />
   </wsdl:message>
-  <wsdl:message name="GetTilesSoapOut">
-    <wsdl:part name="parameters" element="tns:GetTilesResponse" />
+  <wsdl:message name="GetMapModelSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMapModelResponse" />
   </wsdl:message>
   <wsdl:portType name="SeppukuServiceSoap">
     <wsdl:operation name="GetUsers">
@@ -105,9 +117,9 @@
       <wsdl:input message="tns:UpdateGameStateSoapIn" />
       <wsdl:output message="tns:UpdateGameStateSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetTiles">
-      <wsdl:input message="tns:GetTilesSoapIn" />
-      <wsdl:output message="tns:GetTilesSoapOut" />
+    <wsdl:operation name="GetMapModel">
+      <wsdl:input message="tns:GetMapModelSoapIn" />
+      <wsdl:output message="tns:GetMapModelSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="SeppukuServiceSoap" type="tns:SeppukuServiceSoap">
@@ -130,8 +142,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTiles">
-      <soap:operation soapAction="http://seppuku.pl/GetTiles" style="document" />
+    <wsdl:operation name="GetMapModel">
+      <soap:operation soapAction="http://seppuku.pl/GetMapModel" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -160,8 +172,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTiles">
-      <soap12:operation soapAction="http://seppuku.pl/GetTiles" style="document" />
+    <wsdl:operation name="GetMapModel">
+      <soap12:operation soapAction="http://seppuku.pl/GetMapModel" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

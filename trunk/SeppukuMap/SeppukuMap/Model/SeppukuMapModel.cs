@@ -36,6 +36,17 @@ namespace SeppukuMap.Model
 			}
 		}
 
+		private int selectedPopulation;
+		public int SelectedPopulation
+		{
+			get{
+				return selectedPopulation;
+			}
+			set{
+				this.selectedPopulation = value;
+			}
+		}
+
 		private SeppukuMapTileModel tileSelected;
 		public SeppukuMapTileModel TileSelected{
 			get
@@ -52,41 +63,24 @@ namespace SeppukuMap.Model
 			}
 		}
 
-
-		public event EventHandler Ready;
 		public event EventHandler destinationTileFieldModeSet;
 
-		public SeppukuMapModel(SeppukuModel model)
+		public SeppukuMapModel(SeppukuModel model, ICollection<TileInfo> tilesInfo)
 		{
 			this.model = model;
 			this.destinationTileFieldMode = false;
 			tiles = new List<SeppukuMapTileModel>();
-			SeppukuServiceSoapClient client = new SeppukuServiceSoapClient();
-			client.GetTilesCompleted += this.onMapLoad;
-			client.GetTilesAsync();
-		}
-		public void onMapLoad(object sender, GetTilesCompletedEventArgs e)
-		{
-			ICollection<TileInfo> tilesInfo = (ICollection<TileInfo>) e.Result;
 			
 			foreach(TileInfo info in tilesInfo)
 			{
 				Player player = null;
-				if(info.owner != null)
+				if(info.ownerId != null)
 				{
-					if(model.players.ContainsKey(info.owner.playerId))
-						player = model.players[info.owner.playerId];
-					else
-					{
-						player = new Player(info.owner.playerName, info.owner.playerColor, info.owner.playerId);
-						model.players[info.owner.playerId] = player;
-					}
+					if(model.players.ContainsKey((int)info.ownerId))
+						player = model.players[(int)info.ownerId];
 				}
 				tiles.Add(new SeppukuMapTileModel(this, info.x, info.y, player, info.name, info.numberOfWorkers));
 			}
-
-			if(this.Ready != null)
-				this.Ready(this, null);
 		}
 
 		public void tileAction(SeppukuMapTileModel model)
@@ -96,7 +90,7 @@ namespace SeppukuMap.Model
 				this.DestinationTileFieldMode = false;
 				if(Math.Abs(model.x - tileSelected.x) + Math.Abs(model.y - tileSelected.y) == 1)
 				{
-					this.model.addOrder(new MoveOrder(this.tileSelected, model, 5));
+					this.model.addOrder(new MoveOrder(this.tileSelected, model, SelectedPopulation));
 				}
 			}
 			else

@@ -89,6 +89,9 @@ namespace SeppukuMap
 						tile.MouseEnter += this.onTileOver;
 						tile.MouseLeave += this.onTileOut;
 						tile.MouseLeftButtonUp += this.onTileClicked;
+						this.TileElements.Children.Add(tempTile.orderDecals);
+						Canvas.SetLeft(tempTile.orderDecals, j * tileWidth);
+						Canvas.SetTop(tempTile.orderDecals, i * tileHeight);
 					}
 					else
 						tile = new Tile();

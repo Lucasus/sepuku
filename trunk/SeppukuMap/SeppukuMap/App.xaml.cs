@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
+using SeppukuMap.Model;
+
 namespace SeppukuMap
 {
 	public partial class App : Application
@@ -27,9 +29,19 @@ namespace SeppukuMap
 		private void Application_Startup(object sender, StartupEventArgs e)
 		{
 			if(e.InitParams.Keys.Contains("playerId"))
-				this.RootVisual = new MainPage(Convert.ToInt32(e.InitParams["playerId"]));
+			{
+				SeppukuModel model = new SeppukuModel(Convert.ToInt32(e.InitParams["playerId"]));
+				model.Ready += this.onReady;
+			}
 			else
+			{
 				this.RootVisual = new MainPage();
+			}
+		}
+
+		private void onReady(object sender, EventArgs e)
+		{
+			this.RootVisual = new MainPage((SeppukuModel)sender);
 		}
 
 		private void Application_Exit(object sender, EventArgs e)

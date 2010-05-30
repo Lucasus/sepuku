@@ -27,7 +27,31 @@ namespace SeppukuMap
 		{
 			this.model = model;
 			this.OrderList.ItemsSource = model.Orders;
-			this.OrderList.IsSynchronizedWithCurrentItem = true;
+		}
+
+		private void onDeleteOrderClicked(object sender, System.Windows.RoutedEventArgs e)
+		{
+			Button b = sender as Button;
+			AbstractOrder data = b.DataContext as AbstractOrder;
+			data.Source.mapModel.model.removeOrder(data);
+			// TODO: Add event handler implementation here.
+		}
+
+		private void SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+		{
+			 //order = (IOrder)this.OrderList.SelectedItem;
+
+			foreach(object order in e.RemovedItems)
+			{
+				IOrder newOrder = (IOrder)order;
+				newOrder.Source.deselectOrder(newOrder);
+			}
+			foreach(object order in e.AddedItems)
+			{
+				IOrder newOrder = (IOrder)order;
+				newOrder.Source.selectOrder(newOrder);
+			}
+			// TODO: Add event handler implementation here.
 		}
 	}
 }

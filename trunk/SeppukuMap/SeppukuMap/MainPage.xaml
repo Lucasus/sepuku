@@ -5,14 +5,14 @@
     mc:Ignorable="d" xmlns:local="clr-namespace:SeppukuMap" x:Class="SeppukuMap.MainPage"
     d:DesignWidth="640" d:DesignHeight="480" Width="700" Height="700">
   <Canvas x:Name="LayoutRoot">
-  	<Rectangle Stroke="Black" Height="700" Width="700" RadiusX="15" RadiusY="15" StrokeThickness="3" Fill="White" d:IsLocked="True"/>
-  	<Canvas Height="700" Width="700" Clip="M1.4999962,16.499998 C1.4999962,8.2157278 8.2157249,1.4999993 16.499996,1.4999993 L683.49994,1.4999993 C691.78424,1.4999993 698.49994,8.2157278 698.49994,16.499998 L698.49994,683.49994 C698.49994,691.78424 691.78424,698.49994 683.49994,698.49994 L16.499996,698.49994 C8.2157249,698.49994 1.4999962,691.78424 1.4999962,683.49994 z">
+  	<Rectangle Stroke="Black" Height="700" Width="700" RadiusX="15" RadiusY="15" Fill="White" StrokeThickness="0" d:IsLocked="True"/>
+  	<Canvas Height="700" Width="700" Clip="M0.5,15.543041 C0.5,7.2349997 7.2349997,0.5 15.543042,0.5 L684.45691,0.5 C692.76501,0.5 699.5,7.2349997 699.5,15.543041 L699.5,684.45691 C699.5,692.76501 692.76501,699.5 684.45691,699.5 L15.543042,699.5 C7.2349997,699.5 0.5,692.76501 0.5,684.45691 z">
   		<local:SeppukuMapScroll x:Name="MapWithScroll" d:LayoutOverrides="Width, Height" ScrollSpeed="20" Canvas.Top="30"/>
-  		<local:InfoPanel x:Name="InfoPanel" Canvas.Left="0" Canvas.Top="530" d:LayoutOverrides="Width, Height"/>
-  		<local:OrdersList x:Name="OrdersList" Canvas.Left="500" d:LayoutOverrides="Width, Height" Canvas.Top="530"/>
-  		<local:StatusBar x:Name="StatusPanel" Canvas.Top="650" d:LayoutOverrides="Width, Height"/>
-  		<local:KingdomOverviewPanel Canvas.Top="0" d:LayoutOverrides="Width, Height"/>
+  		<local:InfoPanel x:Name="InfoPanel" Canvas.Left="0" Canvas.Top="540" d:LayoutOverrides="Width, Height"/>
+  		<local:OrdersList x:Name="OrdersList" Canvas.Left="350" d:LayoutOverrides="Width, Height" Canvas.Top="540"/>
+  		<local:StatusBar x:Name="StatusPanel" Canvas.Top="660" d:LayoutOverrides="Width, Height"/>
+  		<local:KingdomOverviewPanel x:Name="KingdomPanel" Canvas.Top="0" d:LayoutOverrides="Width, Height"/>
   	</Canvas>
-  	<Rectangle Stroke="Black" StrokeThickness="3" RadiusX="15" RadiusY="15" Height="700" Width="700" d:IsLocked="True"/>
+  	<Rectangle Stroke="Black" RadiusX="14.167" RadiusY="14.167" Height="700" Width="700" d:IsLocked="True"/>
   </Canvas>
 </UserControl>
