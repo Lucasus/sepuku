@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using System.Text;
 using System.Net.Mail;
 using System.Web.Security;
+using Seppuku.Services;
+using Seppuku.Domain;
 
 public partial class Controls_Membership_Register : System.Web.UI.UserControl
 {
@@ -17,6 +19,9 @@ public partial class Controls_Membership_Register : System.Web.UI.UserControl
 
     protected void RegistrationWizard_CreatedUser(object sender, EventArgs e)
     {
+        TextBox TxtKingdom = RegistrationWizard.WizardSteps[0].Controls[0].FindControl("TxtKingdom") as TextBox;
+        DropDownList DdlMap = RegistrationWizard.WizardSteps[0].Controls[0].FindControl("DdlMapList") as DropDownList;
+
         string userName = RegistrationWizard.UserName;
         string emailAddress = RegistrationWizard.Email;
 
@@ -26,7 +31,7 @@ public partial class Controls_Membership_Register : System.Web.UI.UserControl
 
         //// Now lets create an email message
         StringBuilder emailMessage = new StringBuilder();
-        emailMessage.Append("Dziękujemy za stworzenie konta w serwisie dobre-nawyki.pl");
+        emailMessage.Append("Dziękujemy za stworzenie konta w serwisie seppuku.pl");
         emailMessage.Append("<br />");
         string appBaseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + '/';
         emailMessage.Append(string.Format("Kliknij <a href='" + appBaseUrl + "ActivateUser.aspx?userName={0}&Id={1}'> tutaj </a> aby dokończyć proces rejestracji.",
@@ -35,13 +40,27 @@ public partial class Controls_Membership_Register : System.Web.UI.UserControl
         MailMessage email = new MailMessage();
         email.From = new MailAddress("noReply@lukaszwiatrak.pl");
         email.To.Add(new MailAddress(emailAddress));
-        email.Subject = "Prośba o aktywację konta w dobre-nawyki.pl";
+        email.Subject = "Prośba o aktywację konta w seppuku.pl";
         email.Body = emailMessage.ToString();
         email.IsBodyHtml = true;
 
+        string KingdomName = TxtKingdom.Text;
+        int MapId = Int32.Parse(DdlMap.SelectedValue);
+        User u = new UserService().GetByEmail(user.Email);
+
+        Kingdom kingdom = new Kingdom()
+        {
+            KingdomName = KingdomName,
+            MapId = MapId,
+            KingdomResources = 0,
+            UserId = u.UserId
+        };
+
+        new KingdomService().Add(kingdom);
         // Send the email
         SmtpClient client = new SmtpClient();
         client.Send(email);
+
 
     }
     protected void RegistrationWizard_CreatingUser(object sender, LoginCancelEventArgs e)

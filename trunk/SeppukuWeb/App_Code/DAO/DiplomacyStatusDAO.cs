@@ -16,8 +16,7 @@ namespace Seppuku.DAO
 
         public int Add(DiplomacyStatus o)
         {
-            DataObject = o;
-            return DAO<DiplomacyStatusDAO, DiplomacyStatus>.Add("DnDiplomacyStatusAdd", this);
+            throw new NotImplementedException();
         }
 
         public DiplomacyStatus GetById(int id)

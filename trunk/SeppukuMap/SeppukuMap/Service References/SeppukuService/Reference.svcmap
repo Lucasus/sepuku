@@ -19,11 +19,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:52146/SeppukuWeb/SeppukuService.asmx" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:1572/SeppukuService.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="SeppukuService.disco" MetadataType="Disco" ID="214ae916-f5d1-482f-b44f-931637ab350f" SourceId="1" SourceUrl="http://localhost:52146/SeppukuWeb/SeppukuService.asmx?disco" />
-    <MetadataFile FileName="SeppukuService.wsdl" MetadataType="Wsdl" ID="f27f9bff-e39c-41c6-a81c-d64c416ee936" SourceId="1" SourceUrl="http://localhost:52146/SeppukuWeb/SeppukuService.asmx?wsdl" />
+    <MetadataFile FileName="SeppukuService1.disco" MetadataType="Disco" ID="644d3570-7051-4539-b899-581e3fbbddd6" SourceId="1" SourceUrl="http://localhost:1572/SeppukuService.asmx?disco" />
+    <MetadataFile FileName="SeppukuService1.wsdl" MetadataType="Wsdl" ID="f60f3ef2-9bde-42e5-a7ce-e9118c47071d" SourceId="1" SourceUrl="http://localhost:1572/SeppukuService.asmx?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

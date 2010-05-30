@@ -17,7 +17,7 @@ namespace Seppuku.DAO
         public int Add(Kingdom o)
         {
             DataObject = o;
-            return DAO<KingdomDAO, Kingdom>.Add("DnKingdomAdd", this);
+            return DAO<KingdomDAO, Kingdom>.Add("SepKingdomAdd", this);
         }
 
         public Kingdom GetByUserId(int userId)
@@ -31,12 +31,20 @@ namespace Seppuku.DAO
             {
                 db.AddInParameter(cmd, "KingdomId", DbType.Int32, this.DataObject.KingdomId);
             }
+            db.AddInParameter(cmd, "KingdomName", DbType.String, this.DataObject.KingdomName);
+            db.AddInParameter(cmd, "KingdomResources", DbType.Int32, this.DataObject.KingdomResources);
+            db.AddInParameter(cmd, "MapId", DbType.Int32, this.DataObject.MapId);
+            db.AddInParameter(cmd, "UserId", DbType.Int32, this.DataObject.UserId);
         }
 
         public Kingdom GetFromRow(DataRow dr)
         {
             Kingdom obj = new Kingdom();
             obj.KingdomId = Helper.GetData<int>(dr, "KingdomId");
+            obj.KingdomName = Helper.GetData<string>(dr, "KingdomName");
+            obj.KingdomResources = Helper.GetData<int>(dr, "KingdomResources");
+            obj.UserId = Helper.GetData<int>(dr, "UserId");
+            obj.MapId = Helper.GetData<int>(dr, "MapId");
             return obj;
         }
     }
