@@ -11,6 +11,9 @@ using System.Windows.Shapes;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
+using SeppukuMap.Events;
+using SeppukuMap.SeppukuService;
+
 namespace SeppukuMap.Model
 {
 	public class SeppukuModel
@@ -19,6 +22,18 @@ namespace SeppukuMap.Model
 
 		public SeppukuMapModel map;
 		public Dictionary<int, Player> players;
+
+		private int riceNumber;
+		public int RiceNumber{
+			get{
+				return riceNumber;
+			}
+			set{
+				this.riceNumber = value;
+				if(this.RiceNumberChanged != null)
+					this.RiceNumberChanged(this, null);
+			}
+		}
 
 		private ObservableCollection<IOrder> orders;
 		public ObservableCollection<IOrder> Orders
@@ -29,30 +44,71 @@ namespace SeppukuMap.Model
 		}
 
 		public event EventHandler Ready;
+		public event EventHandler RiceNumberChanged;
+
+		//public delegate void OrderEventHandler(object sender, OrderEventArgs e);
+		//public event OrderEventHandler OrderRemoved;
+		//public event OrderEventHandler OrderAdded;
 
 		public SeppukuModel(int currentPlayerId)
 		{
 			this.currentPlayerId = currentPlayerId;
 			players = new Dictionary<int,Player>();
 			this.orders = new ObservableCollection<IOrder>();
-			map = new SeppukuMapModel(this);
-			map.Ready += this.onReady;
+
+			SeppukuServiceSoapClient client = new SeppukuServiceSoapClient();
+			client.GetMapModelCompleted += this.onDataLoad;
+			client.GetMapModelAsync();
 		}
 
 		public void addOrder(IOrder order)
 		{
+			IOrder similiarOrder = null;
+			foreach(IOrder prevOrder in orders)
+			{
+				if(order.Source == prevOrder.Source && order.Type == prevOrder.Type && order.Destination == prevOrder.Destination)
+				{
+					similiarOrder = prevOrder;
+					break;
+				}
+			}
+
+			if(similiarOrder != null)
+			{
+				similiarOrder.undoChanges(this);
+				this.orders.Remove(similiarOrder);
+				order.join(similiarOrder);
+			}
 			this.orders.Add(order);
-			order.doChanges();
+			order.doChanges(this);
+			
+			order.Source.addOrder(order);
 		}
 
 		public void removeOrder(IOrder order)
 		{
-			order.undoChanges();
-			this.orders.Remove(order);
+			if(this.orders.Contains(order))
+			{
+				order.undoChanges(this);
+				this.orders.Remove(order);
+			}
+
+			order.Source.removeOrder(order);
 		}
 
-		public void onReady(object sender, EventArgs e)
+		public void onDataLoad(object sender, GetMapModelCompletedEventArgs e)
 		{
+			MapModel data = (MapModel) e.Result;
+
+			this.riceNumber = data.rice;
+
+			foreach(Owner player in data.players)
+			{
+				players.Add(player.playerId, new Player(player.playerName,player.playerColor, player.playerId));
+			}
+
+			map = new SeppukuMapModel(this, data.tiles);
+			
 			if(this.Ready != null)
 				this.Ready(this, null);
 		}

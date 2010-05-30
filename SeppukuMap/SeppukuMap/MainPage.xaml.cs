@@ -28,17 +28,18 @@ namespace SeppukuMap
 			this.MapWithScroll.MapTiles.tileOutEvent += this.clearInfo;
 		}
 
-		public MainPage(int playerId): this()
+		public MainPage(SeppukuModel model): this()
 		{
 			//this.playerName = playerName;
-			model = new SeppukuModel(playerId);
-			this.model.Ready += this.onReady;
+			this.MapWithScroll.MapTiles.initWithModel(model.map);
+			this.OrdersList.initWithModel(model);
+			this.KingdomPanel.initWithModel(model);
 		}
 
 		public void onReady(object sender, EventArgs e)
 		{
-			this.MapWithScroll.MapTiles.initWithModel(model.map);
-			this.OrdersList.initWithModel(model);
+			
+			
 		}
 
 		public void updateInfo(object sender, TileEventArgs e)

@@ -13,11 +13,11 @@ using System.ComponentModel;
 
 namespace SeppukuMap.Model
 {
-	public class MoveOrder : AbstractOrder
+	public class DeffendOrder : AbstractOrder
 	{
-		public MoveOrder(SeppukuMapTileModel source, SeppukuMapTileModel destination, int unitCount) : base("Move",source,destination,unitCount)
+		public DeffendOrder(SeppukuMapTileModel source, int unitCount) : base("Defend", source, source, unitCount)
 		{
-
+			
 		}
 
 		public override void doChanges(SeppukuModel model)

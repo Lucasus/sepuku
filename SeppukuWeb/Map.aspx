@@ -19,5 +19,3 @@
 			</a>
 	    </object>
 </asp:Content>
-
-

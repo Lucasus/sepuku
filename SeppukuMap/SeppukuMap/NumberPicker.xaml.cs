@@ -14,7 +14,18 @@ namespace SeppukuMap
 	{
 		public int upperLimit;
 		public int lowerLimit;
-		public int number;
+		private int number;
+		public int Number{
+			get{
+				return number;
+			}
+			set{
+				this.number = value;
+				this.myUpdate();
+				if(this.changed != null)
+					this.changed(this, null);
+			}
+		}
 
 		public event EventHandler changed;
 

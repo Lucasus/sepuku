@@ -9,13 +9,16 @@
 	d:DesignWidth="150" d:DesignHeight="199" Height="170">
 
 	<Canvas x:Name="LayoutRoot">
-		<Rectangle Fill="White" Stroke="Black" Height="170" Width="150" RadiusX="15" RadiusY="15" StrokeThickness="3"/>
-		<TextBlock Canvas.Left="8" Canvas.Top="8" TextWrapping="Wrap" Text="Ludnosc:"/>
-		<TextBlock x:Name="PeopleCount" Canvas.Left="62" Canvas.Top="8" Text="TextBlock" TextWrapping="Wrap"/>
-		<local:NumberPicker x:Name="Warriors" Canvas.Left="103" Canvas.Top="37" Height="20"/>
-		<Button x:Name="AttackButton" Height="25" Width="134" Canvas.Top="137" Content="Rusz Wojowników" Canvas.Left="8"/>
-		<TextBlock Canvas.Left="8" Canvas.Top="37" Text="Wojownicy:" TextWrapping="Wrap"/>
-		<local:NumberPicker x:Name="Attackers" Canvas.Left="103" Canvas.Top="69" Height="20"/>
-		<TextBlock Canvas.Left="8" Canvas.Top="71" Text="Atakuj:" TextWrapping="Wrap"/>
+		<Canvas Height="170" Width="151" Clip="M1.500011,16.5 C1.500011,8.2157278 8.2157393,1.4999995 16.500011,1.4999995 L133.50002,1.4999995 C141.78429,1.4999995 148.50002,8.2157278 148.50002,16.5 L148.50002,153.5 C148.50002,161.78427 141.78429,168.5 133.50002,168.5 L16.500011,168.5 C8.2157393,168.5 1.500011,161.78427 1.500011,153.5 z" Background="White">
+			<TextBlock Canvas.Left="8" Canvas.Top="8" TextWrapping="Wrap" Text="Ludzi Zbierających:"/>
+			<TextBlock x:Name="PeopleCount" Canvas.Left="120" Canvas.Top="8" Text="0" TextWrapping="Wrap"/>
+			<local:NumberPicker x:Name="PeopleSelectSlider" Canvas.Left="96" Canvas.Top="37" Height="20"/>
+			<Button x:Name="DeffendButton" Height="20" Width="64" Canvas.Top="69" Content="Broń" Canvas.Left="72"/>
+			<Button x:Name="AttackButton" Height="20" Width="64" Canvas.Top="69" Content="Rusz" Canvas.Left="8"/>
+			<Button x:Name="RecruitButton" Height="20" Width="64" Canvas.Top="114" Content="Kup" Canvas.Left="8"/>
+			<local:NumberPicker x:Name="RecruitSlider" Canvas.Left="103" Canvas.Top="114" Height="20"/>
+			<Path Fill="White" Stretch="Fill" Stroke="Black" Height="1" Width="151" UseLayoutRounding="False" Canvas.Top="99" Data="M0,89 L150,89"/>
+			<TextBlock Canvas.Top="39" TextWrapping="Wrap" Canvas.Left="8"><Run Text="Zaznacz ludzi"/><Run Text=":"/></TextBlock>
+		</Canvas>
 	</Canvas>
 </UserControl>

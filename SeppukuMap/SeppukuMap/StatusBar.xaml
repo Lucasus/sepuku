@@ -5,12 +5,12 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
 	x:Class="SeppukuMap.StatusBar"
-	d:DesignWidth="640" d:DesignHeight="480" Width="700" Height="50">
+	d:DesignWidth="640" d:DesignHeight="480" Width="350" Height="40">
 
 	<Grid x:Name="LayoutRoot">
-		<TextBlock HorizontalAlignment="Left" Margin="8,8,0,0" VerticalAlignment="Top" Text="Hint:" TextWrapping="Wrap"/>
-		<TextBlock x:Name="HintBox" HorizontalAlignment="Left" Margin="40,8,0,0" VerticalAlignment="Top" Text="TextBlock" TextWrapping="Wrap"/>
-		<TextBlock HorizontalAlignment="Left" Margin="8,0,0,8" VerticalAlignment="Bottom" Text="LastLog:" TextWrapping="Wrap"/>
-		<TextBlock x:Name="LogBox" HorizontalAlignment="Left" Margin="59,0,0,8" VerticalAlignment="Bottom" Text="TextBlock" TextWrapping="Wrap"/>
+		<TextBlock HorizontalAlignment="Left" Margin="2,2,0,0" VerticalAlignment="Top" Text="Hint:" TextWrapping="Wrap" d:LayoutOverrides="VerticalAlignment"/>
+		<TextBlock x:Name="HintBox" HorizontalAlignment="Left" Margin="34,2,0,0" VerticalAlignment="Top" Text="TextBlock" TextWrapping="Wrap" d:LayoutOverrides="VerticalAlignment"/>
+		<TextBlock HorizontalAlignment="Left" Margin="2,0,0,2" VerticalAlignment="Bottom" Text="LastLog:" TextWrapping="Wrap" d:LayoutOverrides="VerticalAlignment"/>
+		<TextBlock x:Name="LogBox" HorizontalAlignment="Left" Margin="53,0,0,2" VerticalAlignment="Bottom" Text="TextBlock" TextWrapping="Wrap" d:LayoutOverrides="VerticalAlignment"/>
 	</Grid>
 </UserControl>

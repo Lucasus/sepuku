@@ -9,25 +9,23 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-using System.ComponentModel;
-
 namespace SeppukuMap.Model
 {
-	public class MoveOrder : AbstractOrder
+	public class BuyOrder : AbstractOrder
 	{
-		public MoveOrder(SeppukuMapTileModel source, SeppukuMapTileModel destination, int unitCount) : base("Move",source,destination,unitCount)
+		public BuyOrder(SeppukuMapTileModel source, int count) : base("Buy", source, source, count)
 		{
-
+			
 		}
 
 		public override void doChanges(SeppukuModel model)
 		{
-			Source.Gatherers = Source.Gatherers - UnitCount;
+			model.RiceNumber -= 100 * UnitCount;
 		}
 
 		public override void undoChanges(SeppukuModel model)
 		{
-			Source.Gatherers = Source.Gatherers + UnitCount;
+			model.RiceNumber += 100 * UnitCount;
 		}
 	}
 }

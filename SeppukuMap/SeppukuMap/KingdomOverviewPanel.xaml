@@ -7,12 +7,22 @@
 	x:Class="SeppukuMap.KingdomOverviewPanel"
 	d:DesignWidth="640" d:DesignHeight="480" Height="30" Width="700">
 
-	<Canvas x:Name="LayoutRoot" Background="#FF6A0068">
+	<Canvas x:Name="LayoutRoot">
 		<Image Height="50" Width="50" Canvas.Left="4" Canvas.Top="-10" Source="Resources/RiceBowl.png" Stretch="Fill"/>
-		<TextBlock Canvas.Left="58" Canvas.Top="8" Text="RiceNumber" TextWrapping="Wrap"/>
+		<TextBlock x:Name="RiceNumber" Canvas.Left="58" Canvas.Top="8" Text="RiceNumber" TextWrapping="Wrap"/>
 		<Image Height="32" Width="32" Canvas.Left="178" Source="Resources/man.png" Stretch="Fill" Canvas.Top="-1"/>
-		<TextBlock Canvas.Left="214" Canvas.Top="8" Text="ManCount" TextWrapping="Wrap"/>
+		<TextBlock x:Name="ManNumber" Canvas.Left="214" Canvas.Top="8" Text="ManCount" TextWrapping="Wrap"/>
 		<Image Height="29" Width="23" Canvas.Left="326" Canvas.Top="1" Source="Resources/GrassBlock.png" Stretch="Fill"/>
-		<TextBlock Canvas.Left="353" Canvas.Top="8" Text="TileNumber" TextWrapping="Wrap"/>
+		<TextBlock x:Name="TileNumber" Canvas.Left="353" Canvas.Top="8" Text="TileNumber" TextWrapping="Wrap"/>
+		<Path x:Name="PlayerFlag" Fill="White" Stroke="Black" Height="15.536" Width="22.762" UseLayoutRounding="False" RenderTransformOrigin="0.5,0.5" Canvas.Left="669.238" Canvas.Top="8.464" Data="M0.5,0.77142113 C2.8339024,1.167545 4.6631765,1.9597739 7.5017056,1.9597925 C10.340235,1.9598112 10.459761,0.51321501 13.74647,0.29601759 C17.34194,0.058416232 19.234293,0.6129716 22.262056,0.77142113 L16.206528,5.8814182 L22.262056,11.22909 C18.981979,10.91219 15.449588,10.753741 12.421824,10.278393 C9.3940582,9.8030434 9.9617643,11.942112 6.3662939,12.179787 C2.7708232,12.41746 2.4554317,11.545988 0.5,11.22909 z">
+			<Path.RenderTransform>
+				<TransformGroup>
+					<ScaleTransform ScaleX="-1"/>
+					<SkewTransform AngleX="0" AngleY="0"/>
+					<RotateTransform Angle="0"/>
+					<TranslateTransform X="-0.24300003051757813"/>
+				</TransformGroup>
+			</Path.RenderTransform>
+		</Path>
 	</Canvas>
 </UserControl>

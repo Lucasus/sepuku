@@ -122,6 +122,66 @@ namespace SeppukuMap.SeppukuService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "3.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="MapModel", Namespace="http://seppuku.pl/")]
+    public partial class MapModel : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private System.Collections.ObjectModel.ObservableCollection<SeppukuMap.SeppukuService.TileInfo> tilesField;
+        
+        private System.Collections.ObjectModel.ObservableCollection<SeppukuMap.SeppukuService.Owner> playersField;
+        
+        private int riceField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public System.Collections.ObjectModel.ObservableCollection<SeppukuMap.SeppukuService.TileInfo> tiles {
+            get {
+                return this.tilesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.tilesField, value) != true)) {
+                    this.tilesField = value;
+                    this.RaisePropertyChanged("tiles");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public System.Collections.ObjectModel.ObservableCollection<SeppukuMap.SeppukuService.Owner> players {
+            get {
+                return this.playersField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.playersField, value) != true)) {
+                    this.playersField = value;
+                    this.RaisePropertyChanged("players");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=2)]
+        public int rice {
+            get {
+                return this.riceField;
+            }
+            set {
+                if ((this.riceField.Equals(value) != true)) {
+                    this.riceField = value;
+                    this.RaisePropertyChanged("rice");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "3.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="TileInfo", Namespace="http://seppuku.pl/")]
     public partial class TileInfo : object, System.ComponentModel.INotifyPropertyChanged {
         
@@ -131,7 +191,7 @@ namespace SeppukuMap.SeppukuService {
         
         private string nameField;
         
-        private SeppukuMap.SeppukuService.Owner ownerField;
+        private System.Nullable<int> ownerIdField;
         
         private int numberOfWorkersField;
         
@@ -174,15 +234,15 @@ namespace SeppukuMap.SeppukuService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, EmitDefaultValue=false, Order=3)]
-        public SeppukuMap.SeppukuService.Owner owner {
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=3)]
+        public System.Nullable<int> ownerId {
             get {
-                return this.ownerField;
+                return this.ownerIdField;
             }
             set {
-                if ((object.ReferenceEquals(this.ownerField, value) != true)) {
-                    this.ownerField = value;
-                    this.RaisePropertyChanged("owner");
+                if ((this.ownerIdField.Equals(value) != true)) {
+                    this.ownerIdField = value;
+                    this.RaisePropertyChanged("ownerId");
                 }
             }
         }
@@ -284,10 +344,10 @@ namespace SeppukuMap.SeppukuService {
         
         SeppukuMap.SeppukuService.UpdateGameStateResponse EndUpdateGameState(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://seppuku.pl/GetTiles", ReplyAction="*")]
-        System.IAsyncResult BeginGetTiles(SeppukuMap.SeppukuService.GetTilesRequest request, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://seppuku.pl/GetMapModel", ReplyAction="*")]
+        System.IAsyncResult BeginGetMapModel(SeppukuMap.SeppukuService.GetMapModelRequest request, System.AsyncCallback callback, object asyncState);
         
-        SeppukuMap.SeppukuService.GetTilesResponse EndGetTiles(System.IAsyncResult result);
+        SeppukuMap.SeppukuService.GetMapModelResponse EndGetMapModel(System.IAsyncResult result);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -407,15 +467,15 @@ namespace SeppukuMap.SeppukuService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class GetTilesRequest {
+    public partial class GetMapModelRequest {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetTiles", Namespace="http://seppuku.pl/", Order=0)]
-        public SeppukuMap.SeppukuService.GetTilesRequestBody Body;
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetMapModel", Namespace="http://seppuku.pl/", Order=0)]
+        public SeppukuMap.SeppukuService.GetMapModelRequestBody Body;
         
-        public GetTilesRequest() {
+        public GetMapModelRequest() {
         }
         
-        public GetTilesRequest(SeppukuMap.SeppukuService.GetTilesRequestBody Body) {
+        public GetMapModelRequest(SeppukuMap.SeppukuService.GetMapModelRequestBody Body) {
             this.Body = Body;
         }
     }
@@ -423,24 +483,24 @@ namespace SeppukuMap.SeppukuService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute()]
-    public partial class GetTilesRequestBody {
+    public partial class GetMapModelRequestBody {
         
-        public GetTilesRequestBody() {
+        public GetMapModelRequestBody() {
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class GetTilesResponse {
+    public partial class GetMapModelResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetTilesResponse", Namespace="http://seppuku.pl/", Order=0)]
-        public SeppukuMap.SeppukuService.GetTilesResponseBody Body;
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="GetMapModelResponse", Namespace="http://seppuku.pl/", Order=0)]
+        public SeppukuMap.SeppukuService.GetMapModelResponseBody Body;
         
-        public GetTilesResponse() {
+        public GetMapModelResponse() {
         }
         
-        public GetTilesResponse(SeppukuMap.SeppukuService.GetTilesResponseBody Body) {
+        public GetMapModelResponse(SeppukuMap.SeppukuService.GetMapModelResponseBody Body) {
             this.Body = Body;
         }
     }
@@ -448,16 +508,16 @@ namespace SeppukuMap.SeppukuService {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Namespace="http://seppuku.pl/")]
-    public partial class GetTilesResponseBody {
+    public partial class GetMapModelResponseBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public System.Collections.ObjectModel.ObservableCollection<SeppukuMap.SeppukuService.TileInfo> GetTilesResult;
+        public SeppukuMap.SeppukuService.MapModel GetMapModelResult;
         
-        public GetTilesResponseBody() {
+        public GetMapModelResponseBody() {
         }
         
-        public GetTilesResponseBody(System.Collections.ObjectModel.ObservableCollection<SeppukuMap.SeppukuService.TileInfo> GetTilesResult) {
-            this.GetTilesResult = GetTilesResult;
+        public GetMapModelResponseBody(SeppukuMap.SeppukuService.MapModel GetMapModelResult) {
+            this.GetMapModelResult = GetMapModelResult;
         }
     }
     
@@ -505,19 +565,19 @@ namespace SeppukuMap.SeppukuService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
-    public partial class GetTilesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class GetMapModelCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        public GetTilesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        public GetMapModelCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
         
-        public System.Collections.ObjectModel.ObservableCollection<SeppukuMap.SeppukuService.TileInfo> Result {
+        public SeppukuMap.SeppukuService.MapModel Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((System.Collections.ObjectModel.ObservableCollection<SeppukuMap.SeppukuService.TileInfo>)(this.results[0]));
+                return ((SeppukuMap.SeppukuService.MapModel)(this.results[0]));
             }
         }
     }
@@ -538,11 +598,11 @@ namespace SeppukuMap.SeppukuService {
         
         private System.Threading.SendOrPostCallback onUpdateGameStateCompletedDelegate;
         
-        private BeginOperationDelegate onBeginGetTilesDelegate;
+        private BeginOperationDelegate onBeginGetMapModelDelegate;
         
-        private EndOperationDelegate onEndGetTilesDelegate;
+        private EndOperationDelegate onEndGetMapModelDelegate;
         
-        private System.Threading.SendOrPostCallback onGetTilesCompletedDelegate;
+        private System.Threading.SendOrPostCallback onGetMapModelCompletedDelegate;
         
         private BeginOperationDelegate onBeginOpenDelegate;
         
@@ -601,7 +661,7 @@ namespace SeppukuMap.SeppukuService {
         
         public event System.EventHandler<UpdateGameStateCompletedEventArgs> UpdateGameStateCompleted;
         
-        public event System.EventHandler<GetTilesCompletedEventArgs> GetTilesCompleted;
+        public event System.EventHandler<GetMapModelCompletedEventArgs> GetMapModelCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
@@ -722,60 +782,60 @@ namespace SeppukuMap.SeppukuService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult SeppukuMap.SeppukuService.SeppukuServiceSoap.BeginGetTiles(SeppukuMap.SeppukuService.GetTilesRequest request, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGetTiles(request, callback, asyncState);
+        System.IAsyncResult SeppukuMap.SeppukuService.SeppukuServiceSoap.BeginGetMapModel(SeppukuMap.SeppukuService.GetMapModelRequest request, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetMapModel(request, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        private System.IAsyncResult BeginGetTiles(System.AsyncCallback callback, object asyncState) {
-            SeppukuMap.SeppukuService.GetTilesRequest inValue = new SeppukuMap.SeppukuService.GetTilesRequest();
-            inValue.Body = new SeppukuMap.SeppukuService.GetTilesRequestBody();
-            return ((SeppukuMap.SeppukuService.SeppukuServiceSoap)(this)).BeginGetTiles(inValue, callback, asyncState);
+        private System.IAsyncResult BeginGetMapModel(System.AsyncCallback callback, object asyncState) {
+            SeppukuMap.SeppukuService.GetMapModelRequest inValue = new SeppukuMap.SeppukuService.GetMapModelRequest();
+            inValue.Body = new SeppukuMap.SeppukuService.GetMapModelRequestBody();
+            return ((SeppukuMap.SeppukuService.SeppukuServiceSoap)(this)).BeginGetMapModel(inValue, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        SeppukuMap.SeppukuService.GetTilesResponse SeppukuMap.SeppukuService.SeppukuServiceSoap.EndGetTiles(System.IAsyncResult result) {
-            return base.Channel.EndGetTiles(result);
+        SeppukuMap.SeppukuService.GetMapModelResponse SeppukuMap.SeppukuService.SeppukuServiceSoap.EndGetMapModel(System.IAsyncResult result) {
+            return base.Channel.EndGetMapModel(result);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        private System.Collections.ObjectModel.ObservableCollection<SeppukuMap.SeppukuService.TileInfo> EndGetTiles(System.IAsyncResult result) {
-            SeppukuMap.SeppukuService.GetTilesResponse retVal = ((SeppukuMap.SeppukuService.SeppukuServiceSoap)(this)).EndGetTiles(result);
-            return retVal.Body.GetTilesResult;
+        private SeppukuMap.SeppukuService.MapModel EndGetMapModel(System.IAsyncResult result) {
+            SeppukuMap.SeppukuService.GetMapModelResponse retVal = ((SeppukuMap.SeppukuService.SeppukuServiceSoap)(this)).EndGetMapModel(result);
+            return retVal.Body.GetMapModelResult;
         }
         
-        private System.IAsyncResult OnBeginGetTiles(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            return this.BeginGetTiles(callback, asyncState);
+        private System.IAsyncResult OnBeginGetMapModel(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetMapModel(callback, asyncState);
         }
         
-        private object[] OnEndGetTiles(System.IAsyncResult result) {
-            System.Collections.ObjectModel.ObservableCollection<SeppukuMap.SeppukuService.TileInfo> retVal = this.EndGetTiles(result);
+        private object[] OnEndGetMapModel(System.IAsyncResult result) {
+            SeppukuMap.SeppukuService.MapModel retVal = this.EndGetMapModel(result);
             return new object[] {
                     retVal};
         }
         
-        private void OnGetTilesCompleted(object state) {
-            if ((this.GetTilesCompleted != null)) {
+        private void OnGetMapModelCompleted(object state) {
+            if ((this.GetMapModelCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.GetTilesCompleted(this, new GetTilesCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+                this.GetMapModelCompleted(this, new GetMapModelCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         
-        public void GetTilesAsync() {
-            this.GetTilesAsync(null);
+        public void GetMapModelAsync() {
+            this.GetMapModelAsync(null);
         }
         
-        public void GetTilesAsync(object userState) {
-            if ((this.onBeginGetTilesDelegate == null)) {
-                this.onBeginGetTilesDelegate = new BeginOperationDelegate(this.OnBeginGetTiles);
+        public void GetMapModelAsync(object userState) {
+            if ((this.onBeginGetMapModelDelegate == null)) {
+                this.onBeginGetMapModelDelegate = new BeginOperationDelegate(this.OnBeginGetMapModel);
             }
-            if ((this.onEndGetTilesDelegate == null)) {
-                this.onEndGetTilesDelegate = new EndOperationDelegate(this.OnEndGetTiles);
+            if ((this.onEndGetMapModelDelegate == null)) {
+                this.onEndGetMapModelDelegate = new EndOperationDelegate(this.OnEndGetMapModel);
             }
-            if ((this.onGetTilesCompletedDelegate == null)) {
-                this.onGetTilesCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetTilesCompleted);
+            if ((this.onGetMapModelCompletedDelegate == null)) {
+                this.onGetMapModelCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetMapModelCompleted);
             }
-            base.InvokeAsync(this.onBeginGetTilesDelegate, null, this.onEndGetTilesDelegate, this.onGetTilesCompletedDelegate, userState);
+            base.InvokeAsync(this.onBeginGetMapModelDelegate, null, this.onEndGetMapModelDelegate, this.onGetMapModelCompletedDelegate, userState);
         }
         
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -880,16 +940,16 @@ namespace SeppukuMap.SeppukuService {
                 return _result;
             }
             
-            public System.IAsyncResult BeginGetTiles(SeppukuMap.SeppukuService.GetTilesRequest request, System.AsyncCallback callback, object asyncState) {
+            public System.IAsyncResult BeginGetMapModel(SeppukuMap.SeppukuService.GetMapModelRequest request, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[1];
                 _args[0] = request;
-                System.IAsyncResult _result = base.BeginInvoke("GetTiles", _args, callback, asyncState);
+                System.IAsyncResult _result = base.BeginInvoke("GetMapModel", _args, callback, asyncState);
                 return _result;
             }
             
-            public SeppukuMap.SeppukuService.GetTilesResponse EndGetTiles(System.IAsyncResult result) {
+            public SeppukuMap.SeppukuService.GetMapModelResponse EndGetMapModel(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                SeppukuMap.SeppukuService.GetTilesResponse _result = ((SeppukuMap.SeppukuService.GetTilesResponse)(base.EndInvoke("GetTiles", _args, result)));
+                SeppukuMap.SeppukuService.GetMapModelResponse _result = ((SeppukuMap.SeppukuService.GetMapModelResponse)(base.EndInvoke("GetMapModel", _args, result)));
                 return _result;
             }
         }

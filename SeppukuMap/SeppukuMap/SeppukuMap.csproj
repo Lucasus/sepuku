@@ -69,6 +69,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Events\OrderEventArgs.cs" />
     <Compile Include="Events\TileEventArgs.cs" />
     <Compile Include="InfoPanel.xaml.cs">
       <DependentUpon>InfoPanel.xaml</DependentUpon>
@@ -79,6 +80,12 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MapTileOrderDecals.xaml.cs">
+      <DependentUpon>MapTileOrderDecals.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\AbstractOrder.cs" />
+    <Compile Include="Model\BuyOrder.cs" />
+    <Compile Include="Model\DeffendOrder.cs" />
     <Compile Include="Model\IOrder.cs" />
     <Compile Include="Model\Logger.cs" />
     <Compile Include="Model\MoveOrder.cs" />
@@ -138,6 +145,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </Page>
+    <Page Include="MapTileOrderDecals.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </Page>
     <Page Include="NumberPicker.xaml">
       <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
@@ -193,6 +204,10 @@
     <None Include="Properties\OutOfBrowserSettings.xml" />
     <Resource Include="Resources\RiceBowl.png" />
     <Resource Include="Resources\man.png" />
+    <Resource Include="Resources\Leg.png" />
+    <Resource Include="Resources\Shield.png" />
+    <Resource Include="Resources\money.png" />
+    <Resource Include="Resources\url.png" />
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
@@ -213,7 +228,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\SeppukuService\SeppukuMap.SeppukuService.GetTilesResponse.datasource">
+    <None Include="Service References\SeppukuService\SeppukuMap.SeppukuService.GetMapModelResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\SeppukuService\SeppukuMap.SeppukuService.GetUsersResponse.datasource">
@@ -222,6 +237,9 @@
     <None Include="Service References\SeppukuService\SeppukuMap.SeppukuService.UpdateGameStateResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SampleData\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\v3.0\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
