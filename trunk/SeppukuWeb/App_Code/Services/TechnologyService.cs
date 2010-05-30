@@ -26,5 +26,19 @@ namespace Seppuku.Services
             return new TechnologyDAO().GetById(technologyId);
         }
 
+
+        public void Buy(int kingdomId, int technologyId)
+        {
+            KingdomTechnology kt = new KingdomTechnology()
+            {
+                 KingdomId = kingdomId,
+                 TechnologyId = technologyId
+            };
+            new KingdomTechnologyDAO().Add(kt);
+            Kingdom k = new KingdomDAO().GetByUserId(CurrentUser.UserId);
+            Technology t = new TechnologyDAO().GetById(technologyId);
+            k.KingdomResources -= t.TechnologyCost;
+            new KingdomDAO().Update(k);
+        }
     }
 }

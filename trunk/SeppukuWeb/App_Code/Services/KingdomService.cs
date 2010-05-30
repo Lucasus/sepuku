@@ -20,5 +20,10 @@ namespace Seppuku.Services
             int userId = CurrentUser.UserId;
             return new KingdomDAO().GetByUserId(userId);
         }
+
+        public Kingdom GetByUserId(int userId)
+        {
+            return new KingdomDAO().GetByUserId(userId);
+        }
     }
 }
