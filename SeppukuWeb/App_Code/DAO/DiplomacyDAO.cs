@@ -16,13 +16,7 @@ namespace Seppuku.DAO
 
         public int Add(Diplomacy o)
         {
-            DataObject = o;
-            return DAO<DiplomacyDAO, Diplomacy>.Add("DnDiplomacyAdd", this);
-        }
-
-        public IList<Diplomacy> GetByUserId(int userId)
-        {
-            return DAO<DiplomacyDAO, Diplomacy>.GetObjectList("SepDiplomacyGetByUserId", userId);
+            throw new NotImplementedException();
         }
 
         public void FillParametersFromProperties(Database db, ref DbCommand cmd)
@@ -51,5 +45,9 @@ namespace Seppuku.DAO
             return DAO<DiplomacyDAO, Diplomacy>.GetSingleObject("SepDiplomacyGetById", diplomacyId);
         }
 
+        public IList<Diplomacy> GetByUserId(int userId)
+        {
+            return DAO<DiplomacyDAO, Diplomacy>.GetObjectList("SepDiplomacyGetByUserId", userId);
+        }
     }
 }

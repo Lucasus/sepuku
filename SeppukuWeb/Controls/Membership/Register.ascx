@@ -8,7 +8,7 @@
         <NavigationStyle HorizontalAlign="Center">
         </NavigationStyle>
         <WizardSteps>
-            <asp:CreateUserWizardStep>
+            <asp:CreateUserWizardStep ID="CreateUserStep">
                 <ContentTemplate>
                     <table class="register-table">
                         <tr style="text-align:center;">
@@ -59,6 +59,23 @@
                             <asp:CompareValidator ID="CmpConfirmPassword" ValidationGroup="default" ControlToCompare="Password" 
                                  ErrorMessage="<br />Hasła nie są zgodne" ControlToValidate="ConfirmPassword" Disply="Dynamic" runat="server" />
                             </td>
+                        </tr>
+                        <tr>
+                            <td><span class="medium-green3">Podaj nazwę Twojego królestwa</span></td>
+                            <td><asp:TextBox ID="TxtKingdom" CssClass="login-input-box"   runat="server" />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ValidationGroup="default" 
+                                 ErrorMessage="*" ControlToValidate="TxtKingdom" Disply="Dynamic" runat="server" />
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator7" Display="Dynamic" ControlToValidate="TxtKingdom" ValidationGroup="default"
+                                 runat="server" ValidationExpression="^[\s\S]{0,255}$" Text="<br />Dozwolone nie więcej niż 255 znaków" />                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="medium-green3">Wybierz świat:</span></td>
+                            <td><asp:DropDownList ID="DdlMapList" DataSourceID="OdsMapList" CssClass="login-input-box"
+                               DataTextField="MapName" DataValueField="MapId" runat="server" /></td>
+                            <asp:ObjectDataSource ID="OdsMapList" DataObjectTypeName="Seppuku.Domain.Map"
+                                TypeName="Seppuku.Services.MapService" SelectMethod="GetAll" 
+                                runat="server" />
                         </tr>
                         <tr>
                             <td colspan="2"><asp:Literal ID="ErrorMessage" runat="server" EnableViewState="False" /></td>

@@ -208,14 +208,11 @@
     <Resource Include="Resources\Shield.png" />
     <Resource Include="Resources\money.png" />
     <Resource Include="Resources\url.png" />
+    <None Include="Service References\SeppukuService\SeppukuService1.disco" />
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\SeppukuService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\SeppukuService\SeppukuService.disco" />
-    <None Include="Service References\SeppukuService\SeppukuService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\SeppukuService\configuration91.svcinfo" />
@@ -237,6 +234,7 @@
     <None Include="Service References\SeppukuService\SeppukuMap.SeppukuService.UpdateGameStateResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\SeppukuService\SeppukuService1.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SampleData\" />

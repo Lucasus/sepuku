@@ -16,13 +16,7 @@ namespace Seppuku.DAO
 
         public int Add(Field o)
         {
-            DataObject = o;
-            return DAO<FieldDAO, Field>.Add("DnFieldAdd", this);
-        }
-
-        public IList<Field> GetByUserId(int userId)
-        {
-            return DAO<FieldDAO, Field>.GetObjectList("SepFieldGetByUserId", userId);
+            throw new NotImplementedException();
         }
 
         public void FillParametersFromProperties(Database db, ref DbCommand cmd)
