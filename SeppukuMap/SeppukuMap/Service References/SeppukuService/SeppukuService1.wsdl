@@ -63,6 +63,7 @@
       </s:complexType>
       <s:complexType name="TileInfo">
         <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="tileId" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="x" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="y" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
@@ -185,10 +186,10 @@
   </wsdl:binding>
   <wsdl:service name="SeppukuService">
     <wsdl:port name="SeppukuServiceSoap" binding="tns:SeppukuServiceSoap">
-      <soap:address location="http://localhost:1572/SeppukuService.asmx" />
+      <soap:address location="http://localhost:52146/SeppukuWeb/SeppukuService.asmx" />
     </wsdl:port>
     <wsdl:port name="SeppukuServiceSoap12" binding="tns:SeppukuServiceSoap12">
-      <soap12:address location="http://localhost:1572/SeppukuService.asmx" />
+      <soap12:address location="http://localhost:52146/SeppukuWeb/SeppukuService.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

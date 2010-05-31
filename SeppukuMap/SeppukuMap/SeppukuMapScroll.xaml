@@ -4,10 +4,26 @@
     xmlns:local="clr-namespace:SeppukuMap" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Class="SeppukuMap.SeppukuMapScroll" 
     Width="700" Height="510" mc:Ignorable="d">
 	<Canvas>
-		<Canvas x:Name="MapTilesView" Height="510" Width="700" Clip="M1.8141425,-1.8873791E-15 C1.8141425,-1.8873791E-15 700,-1.8873791E-15 700,-1.8873791E-15 C700,-1.8873791E-15 698.18591,351.0094 698.18591,510 C698.18591,510 0,510 0,510 C0,510 1.8141425,-1.8873791E-15 1.8141425,-1.8873791E-15 z">
+		<Canvas x:Name="MapTilesView" Height="510" Width="700" Clip="M-0.18600532,1.6689301E-06 C-0.18600532,1.6689301E-06 700.00006,1.6689301E-06 700.00006,1.6689301E-06 C700.00006,1.6689301E-06 700.18597,509.99997 700.18597,509.99997 C700.18597,509.99997 -0.00014777099,509.99997 -0.00014777099,509.99997 C-0.00014777099,509.99997 -0.18600532,1.6689301E-06 -0.18600532,1.6689301E-06 z">
 			<local:SeppukuMapTiles x:Name="MapTiles" BorderBrush="Black" BorderThickness="0" Background="#FFFF4949" Height="{Binding Clip.Bounds.Height, ElementName=MapTiles, Mode=OneWay}" Width="{Binding Clip.Bounds.Width, ElementName=MapTiles, Mode=OneWay}" Canvas.Left="0"/>
+			<Canvas x:Name="ZoomIn" Height="48" Width="48" Canvas.Left="8" Canvas.Top="8">
+				<Image Height="48" Width="48" Source="Resources/search48.png" Stretch="Fill"/>
+				<TextBlock Canvas.Left="7" Text="+" TextWrapping="Wrap" FontSize="20" FontWeight="Bold" Canvas.Top="1"/>
+			</Canvas>
+			<Canvas x:Name="ZoomOut" Height="48" Width="48" Canvas.Left="644" Canvas.Top="8">
+				<Image Height="48" Width="48" Source="Resources/search48.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+					<Image.RenderTransform>
+						<TransformGroup>
+							<ScaleTransform ScaleX="-1"/>
+							<SkewTransform AngleX="0" AngleY="0"/>
+							<RotateTransform Angle="0"/>
+							<TranslateTransform/>
+						</TransformGroup>
+					</Image.RenderTransform>
+				</Image>
+				<TextBlock Canvas.Left="28" Text="-" TextWrapping="Wrap" FontSize="20" FontWeight="Bold" Canvas.Top="1"/>
+			</Canvas>
 		</Canvas>
-		<Image x:Name="ZoomIn" Height="48" Width="48" Source="Resources/search48.png" Stretch="Fill"/>
 		<local:ScrollButton x:Name="ScrollLeft" Direction="left" d:LayoutOverrides="Width" Opacity="0.5" Height="80" Canvas.Top="215"/>
 		<local:ScrollButton x:Name="ScrollUp" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" Canvas.Left="330" d:LayoutOverrides="Width, Height" d:LayoutRounding="Auto" Opacity="0.5" Canvas.Top="-20">
 			<local:ScrollButton.RenderTransform>
@@ -39,6 +55,5 @@
 				</TransformGroup>
 			</local:ScrollButton.RenderTransform>
 		</local:ScrollButton>
-		<Image x:Name="ZoomOut" Height="48" Width="48" Source="Resources/search48.png" Stretch="Fill" Canvas.Left="652"/>
 	</Canvas>
 </UserControl>

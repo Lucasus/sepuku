@@ -24,14 +24,24 @@ namespace SeppukuMap
 		public void displayTile(SeppukuMapTileModel tile)
 		{
 			TileName.Text = tile.name;
+			TileNameContainer.Visibility = Visibility.Visible;
 			if(tile.owner != null)
+			{
 				PlayerName.Text = tile.owner.name;
+				PlayerNameContainer.Visibility = Visibility.Visible;
+			}
+			Workers.Text = tile.Gatherers.ToString();
+			WorkersContainer.Visibility = Visibility.Visible;
 		}
 
 		public void clearDisplay()
 		{
 			TileName.Text = "";
+			TileNameContainer.Visibility = Visibility.Collapsed;
 			PlayerName.Text = "";
+			PlayerNameContainer.Visibility = Visibility.Collapsed;
+			Workers.Text = "";
+			WorkersContainer.Visibility = Visibility.Collapsed;
 		}
 	}
 }

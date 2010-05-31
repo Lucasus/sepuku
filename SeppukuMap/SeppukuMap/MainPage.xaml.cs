@@ -36,12 +36,6 @@ namespace SeppukuMap
 			this.KingdomPanel.initWithModel(model);
 		}
 
-		public void onReady(object sender, EventArgs e)
-		{
-			
-			
-		}
-
 		public void updateInfo(object sender, TileEventArgs e)
 		{
 			InfoPanel.displayTile(e.tile.model);

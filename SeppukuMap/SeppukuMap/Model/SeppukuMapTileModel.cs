@@ -15,6 +15,7 @@ namespace SeppukuMap.Model
 {
 	public class SeppukuMapTileModel
 	{
+		public int tileId;
 		public int x;
 		public int y;
 		public Player owner;
@@ -43,9 +44,10 @@ namespace SeppukuMap.Model
 		public event EventHandler deselct;
 		public event EventHandler workerDistributionChange;
 
-		public SeppukuMapTileModel(SeppukuMapModel mapModel, int x, int y, Player owner, String name, int gatherers)
+		public SeppukuMapTileModel(SeppukuMapModel mapModel, int tileId, int x, int y, Player owner, String name, int gatherers)
 		{
 			this.mapModel = mapModel;
+			this.tileId = tileId;
 			this.x = x;
 			this.y = y;
 			this.owner = owner;

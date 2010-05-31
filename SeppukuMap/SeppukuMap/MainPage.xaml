@@ -10,7 +10,6 @@
   		<local:SeppukuMapScroll x:Name="MapWithScroll" d:LayoutOverrides="Width, Height" ScrollSpeed="20" Canvas.Top="30"/>
   		<local:InfoPanel x:Name="InfoPanel" Canvas.Left="0" Canvas.Top="540" d:LayoutOverrides="Width, Height"/>
   		<local:OrdersList x:Name="OrdersList" Canvas.Left="350" d:LayoutOverrides="Width, Height" Canvas.Top="540"/>
-  		<local:StatusBar x:Name="StatusPanel" Canvas.Top="660" d:LayoutOverrides="Width, Height"/>
   		<local:KingdomOverviewPanel x:Name="KingdomPanel" Canvas.Top="0" d:LayoutOverrides="Width, Height"/>
   	</Canvas>
   	<Rectangle Stroke="Black" RadiusX="14.167" RadiusY="14.167" Height="700" Width="700" d:IsLocked="True"/>
