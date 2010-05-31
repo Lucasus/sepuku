@@ -42,14 +42,16 @@ public class SeppukuService : System.Web.Services.WebService
 
 	public struct TileInfo
 	{
+		public int tileId;
 		public int x;
 		public int y;
 		public string name;
 		public int? ownerId;
 		public int numberOfWorkers;
 
-		public TileInfo(int x, int y, string name, int? ownerId, int numberOfWorkers)
+		public TileInfo(int tileId, int x, int y, string name, int? ownerId, int numberOfWorkers)
 		{
+			this.tileId = tileId;
 			this.x = x;
 			this.y = y;
 			this.name = name;
@@ -86,12 +88,12 @@ public class SeppukuService : System.Web.Services.WebService
 
 		List<TileInfo> tiles = new List<TileInfo>();
 
-		tiles.Add(new TileInfo(1,1,"Krwawe wzgórza", owner1.playerId, 5));
-		tiles.Add(new TileInfo(2,1,"MooseVille", owner1.playerId, 5));
-		tiles.Add(new TileInfo(2,2,"Grunwald", owner1.playerId, 5));
-		tiles.Add(new TileInfo(1,2,"Bździochy dolne", null, 5));
-		tiles.Add(new TileInfo(3,4,"Cukierkowa Dolina", owner2.playerId, 10));
-		tiles.Add(new TileInfo(5,5,"Wilczy Szaniec", owner2.playerId, 10));
+		tiles.Add(new TileInfo(1,1,1,"Krwawe wzgórza", owner1.playerId, 5));
+		tiles.Add(new TileInfo(2,2,1,"MooseVille", owner1.playerId, 5));
+		tiles.Add(new TileInfo(3,2,2,"Grunwald", owner1.playerId, 5));
+		tiles.Add(new TileInfo(4,1,2,"Bździochy dolne", null, 5));
+		tiles.Add(new TileInfo(5,3,4,"Cukierkowa Dolina", owner2.playerId, 10));
+		tiles.Add(new TileInfo(6,5,5,"Wilczy Szaniec", owner2.playerId, 10));
 		return new MapModel(rice, tiles, players);
 	}
 }

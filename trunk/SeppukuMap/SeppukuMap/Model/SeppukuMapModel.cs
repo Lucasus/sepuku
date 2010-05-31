@@ -31,7 +31,6 @@ namespace SeppukuMap.Model
 				{
 					if(this.destinationTileFieldModeSet != null)
 						this.destinationTileFieldModeSet(this, null);
-					Logger.getInstance().logs.Add("Select a Tile");
 				}
 			}
 		}
@@ -79,7 +78,7 @@ namespace SeppukuMap.Model
 					if(model.players.ContainsKey((int)info.ownerId))
 						player = model.players[(int)info.ownerId];
 				}
-				tiles.Add(new SeppukuMapTileModel(this, info.x, info.y, player, info.name, info.numberOfWorkers));
+				tiles.Add(new SeppukuMapTileModel(this, info.tileId, info.x, info.y, player, info.name, info.numberOfWorkers));
 			}
 		}
 
