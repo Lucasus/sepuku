@@ -12,5 +12,8 @@ namespace Seppuku.Domain
         public int UserId { get; set; }
         public string KingdomName { get; set; }
         public int KingdomResources { get; set; }
+
+        public int KingdomArmy { get; set; }
+        public int KingdomSize { get; set; }
     }
 }

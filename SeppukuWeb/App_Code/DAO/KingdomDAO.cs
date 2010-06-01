@@ -45,6 +45,8 @@ namespace Seppuku.DAO
             obj.KingdomResources = Helper.GetData<int>(dr, "KingdomResources");
             obj.UserId = Helper.GetData<int>(dr, "UserId");
             obj.MapId = Helper.GetData<int>(dr, "MapId");
+            obj.KingdomArmy = Helper.GetData<int>(dr, "KingdomArmy");
+            obj.KingdomSize = Helper.GetData<int>(dr, "KingdomSize");
             return obj;
         }
 
@@ -52,6 +54,11 @@ namespace Seppuku.DAO
         {
             DataObject = k;
             DAO<KingdomDAO, Kingdom>.Add("SepKingdomUpdate", this);
+        }
+
+        public Kingdom GetInfoById(int kingdomId)
+        {
+            return DAO<KingdomDAO, Kingdom>.GetSingleObject("SepKingdomGetInfoById", kingdomId);
         }
     }
 }
