@@ -25,6 +25,11 @@ namespace Seppuku.DAO
             return DAO<UnitTypeDAO, UnitType>.GetObjectList("SepUnitTypeGetByUserId", userId);
         }
 
+        public IList<UnitType> GetAll()
+        {
+            return DAO<UnitTypeDAO, UnitType>.GetObjectList("SepUnitTypeGetAll");
+        }
+
         public void FillParametersFromProperties(Database db, ref DbCommand cmd)
         {
             if (this.DataObject.UnitTypeId > 0)
@@ -37,7 +42,15 @@ namespace Seppuku.DAO
         {
             UnitType obj = new UnitType();
             obj.UnitTypeId = Helper.GetData<int>(dr, "UnitTypeId");
+            obj.UnitTypeName = Helper.GetData<string>(dr, "UnitTypeName");
+            obj.UnitTypeDescription = Helper.GetData<string>(dr, "UnitTypeDescription");
+            obj.UnitTypePower = Helper.GetData<int>(dr, "UnitTypePower");
             return obj;
+        }
+
+        internal UnitType GetById(int unitTypeId)
+        {
+            return DAO<UnitTypeDAO, UnitType>.GetSingleObject("SepUnitTypeGetById", unitTypeId);
         }
     }
 }
