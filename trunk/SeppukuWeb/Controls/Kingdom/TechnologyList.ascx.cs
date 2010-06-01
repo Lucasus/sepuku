@@ -9,6 +9,8 @@ using Seppuku.Core;
 
 public partial class Controls_Kingdom_TechnologyList : System.Web.UI.UserControl
 {
+    public delegate void EventHandler(object sender, EventArgs e);
+    public event EventHandler TechnologyListChanged; 
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -29,6 +31,11 @@ public partial class Controls_Kingdom_TechnologyList : System.Web.UI.UserControl
             string s = GvTechnologies.DataKeys[Convert.ToInt32(e.CommandArgument)].Values["TechnologyId"].ToString();
             new TechnologyService().Buy(CurrentUser.KingdomId, Convert.ToInt32(s));
             GvTechnologies.DataBind();
+            if (this.TechnologyListChanged != null)
+            {
+                TechnologyListChanged(this, new EventArgs());
+            }
+
         }
     }
     protected void GvTechnologies_PreRender(object sender, EventArgs e)

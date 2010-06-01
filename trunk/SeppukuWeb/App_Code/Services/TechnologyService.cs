@@ -34,11 +34,16 @@ namespace Seppuku.Services
                  KingdomId = kingdomId,
                  TechnologyId = technologyId
             };
-            new KingdomTechnologyDAO().Add(kt);
-            Kingdom k = new KingdomDAO().GetByUserId(CurrentUser.UserId);
-            Technology t = new TechnologyDAO().GetById(technologyId);
-            k.KingdomResources -= t.TechnologyCost;
-            new KingdomDAO().Update(k);
+            KingdomTechnology old = new KingdomTechnologyDAO().GetByKingdomAndTechnology(kingdomId, technologyId);
+
+            if(old.KingdomTechnologyId == 0)
+            {
+                new KingdomTechnologyDAO().Add(kt);
+                Kingdom k = new KingdomDAO().GetByUserId(CurrentUser.UserId);
+                Technology t = new TechnologyDAO().GetById(technologyId);
+                k.KingdomResources -= t.TechnologyCost;
+                new KingdomDAO().Update(k);
+            }
         }
     }
 }

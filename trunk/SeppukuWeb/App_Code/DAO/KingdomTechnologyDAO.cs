@@ -38,5 +38,10 @@ namespace Seppuku.DAO
             obj.TechnologyId = Helper.GetData<int>(dr, "TechnologyId");
             return obj;
         }
+
+        public KingdomTechnology GetByKingdomAndTechnology(int kingdomId, int technologyId)
+        {
+            return DAO<KingdomTechnologyDAO, KingdomTechnology>.GetSingleObject("SepKingdomTechnologyGetByKingdomAndTechnology", kingdomId, technologyId);
+        }
     }
 }
