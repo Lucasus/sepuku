@@ -11,4 +11,8 @@ public partial class ZasadyGry : System.Web.UI.Page
     {
 
     }
+    protected void BtnArmy_Click(object sender, EventArgs e)
+    {
+        PnlArmy.Visible = true;
+    }
 }
