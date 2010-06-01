@@ -16,7 +16,13 @@ namespace Seppuku.DAO
 
         public int Add(Field o)
         {
-            throw new NotImplementedException();
+            this.DataObject = o;
+            return DAO<FieldDAO, Field>.Add("SepFieldAdd", this);
+        }
+
+        public Field GetByXY(int x, int y)
+        {
+            return DAO<FieldDAO, Field>.GetSingleObject("SepFieldGetByXY", x, y);
         }
 
         public void FillParametersFromProperties(Database db, ref DbCommand cmd)
@@ -25,6 +31,11 @@ namespace Seppuku.DAO
             {
                 db.AddInParameter(cmd, "FieldId", DbType.Int32, this.DataObject.FieldId);
             }
+            db.AddInParameter(cmd, "FieldName", DbType.String, this.DataObject.FieldName);
+            db.AddInParameter(cmd, "FieldX", DbType.Int32, this.DataObject.FieldX);
+            db.AddInParameter(cmd, "FieldY", DbType.Int32, this.DataObject.FieldY);
+            db.AddInParameter(cmd, "KingdomId", DbType.Int32, this.DataObject.KingdomId);
+            db.AddInParameter(cmd, "MapId", DbType.Int32, this.DataObject.MapId);
         }
 
         public Field GetFromRow(DataRow dr)
@@ -38,5 +49,6 @@ namespace Seppuku.DAO
             obj.MapId = Helper.GetData<int>(dr, "MapId");
             return obj;
         }
+
     }
 }

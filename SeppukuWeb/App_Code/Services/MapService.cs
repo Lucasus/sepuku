@@ -37,6 +37,27 @@ namespace Seppuku.Services
 
         public void InitializeKingdom(int mapId, int kingdomId)
         {
+            Random r = new Random();
+            for (int i = 0; i < 10; ++i)
+            {
+                int x = r.Next(10);
+                int y = r.Next(10);
+                Field old = new FieldService().GetByXY(x, y);
+                if (old.KingdomId == 0)
+                {
+                    Field newField = new Field()
+                    {
+                        FieldName = "Nowe pole",
+                        FieldX = x,
+                        FieldY = y,
+                        KingdomId = kingdomId,
+                        MapId = mapId
+                    };
+                    new FieldService().Add(newField);
+                    break;
+                }
+            }
+
             // 1: wyciągam z bazy wszystkie pola należące do danej mapy
 
             // 2: wstawiam wyciągnięte pola do tablicy dwuwymiarowej
@@ -48,7 +69,6 @@ namespace Seppuku.Services
             //    w odległości 3 już są zajęte pola. 
             //    Dla pól tego typu wybieram pole z minimalną odległością od środka ciężkości.
             //    Na tym polu powstanie nowe królestwo.
-            throw new NotImplementedException();
         }
     }
 }
