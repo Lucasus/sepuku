@@ -7,7 +7,7 @@
     </tr>
     <tr>
         <td><asp:Label ID="LblKingdomResources" Text="0" runat="server" /> jednostek ryżu</td>
-        <td><asp:Label ID="LblKingdomSize" Text="0" runat="server" /> wojowników</td>
-        <td><asp:Label ID="LblKingdomArmy" runat="server" Text="0" /> pól</td>
+        <td><asp:Label ID="LblKingdomSize" Text="0" runat="server" /> pól</td>
+        <td><asp:Label ID="LblKingdomArmy" runat="server" Text="0" /> wojowników</td>
     </tr>
 </table>
