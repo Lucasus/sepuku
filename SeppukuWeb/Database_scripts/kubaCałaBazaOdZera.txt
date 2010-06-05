@@ -1,0 +1,2018 @@
+USE [Seppuku]
+GO
+/****** Object:  Table [dbo].[SepDiplomacyStatus]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SepDiplomacyStatus](
+	[DiplomacyStatusId] [int] IDENTITY(1,1) NOT NULL,
+	[DiplomacyStatusName] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_DiplomacyStatus] PRIMARY KEY CLUSTERED 
+(
+	[DiplomacyStatusId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DnUser]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DnUser](
+	[UserId] [int] IDENTITY(1,1) NOT NULL,
+	[UserName] [nvarchar](255) NOT NULL,
+	[Email] [nvarchar](255) NOT NULL,
+	[CreateDate] [datetime] NULL,
+	[IsApproved] [bit] NULL,
+	[Password] [nvarchar](500) NULL,
+ CONSTRAINT [PK_DnUser] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DnRole]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DnRole](
+	[RoleId] [int] IDENTITY(1,1) NOT NULL,
+	[RoleName] [nvarchar](255) NOT NULL,
+ CONSTRAINT [PK_DnRole] PRIMARY KEY CLUSTERED 
+(
+	[RoleId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DnChangePassword]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DnChangePassword](
+	[ChangePasswordId] [int] NOT NULL,
+	[UserId] [int] NOT NULL,
+	[ChangePasswordKey] [nvarchar](50) NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SepMap]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SepMap](
+	[MapId] [int] IDENTITY(1,1) NOT NULL,
+	[MapName] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_SepMap] PRIMARY KEY CLUSTERED 
+(
+	[MapId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SepOrderType]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SepOrderType](
+	[OrderTypeId] [int] IDENTITY(1,1) NOT NULL,
+	[OrderTypeName] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_SepOrderType] PRIMARY KEY CLUSTERED 
+(
+	[OrderTypeId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SepTechnology]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SepTechnology](
+	[TechnologyId] [int] IDENTITY(1,1) NOT NULL,
+	[TechnologyName] [nvarchar](50) NOT NULL,
+	[TechnologyDescription] [nvarchar](500) NOT NULL,
+	[TechnologyEffect] [nvarchar](500) NOT NULL,
+	[TechnologyCost] [int] NOT NULL,
+ CONSTRAINT [PK_SepTechnology] PRIMARY KEY CLUSTERED 
+(
+	[TechnologyId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SepUnitType]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SepUnitType](
+	[UnitTypeId] [int] IDENTITY(1,1) NOT NULL,
+	[UnitTypeName] [nvarchar](50) NOT NULL,
+	[UnitTypeDescription] [nvarchar](150) NOT NULL,
+	[UnitTypePower] [int] NOT NULL,
+	[UnitTypeHealthPoint] [int] NULL,
+ CONSTRAINT [PK_SepUnitType] PRIMARY KEY CLUSTERED 
+(
+	[UnitTypeId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  StoredProcedure [dbo].[SepTechnologyGetById]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepTechnologyGetById]
+	@TechnologyId int
+AS
+BEGIN
+	SELECT * FROM SepTechnology WHERE TechnologyId = @TechnologyId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepTechnologyAdd]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepTechnologyAdd]
+	 @TechnologyName nvarchar(50)
+	,@TechnologyDescription nvarchar(500)
+	,@TechnologyEffect nvarchar(500)
+	,@TechnologyCost int
+AS
+BEGIN
+	declare @TechnologyId int
+
+	INSERT INTO [dbo].[SepTechnology]
+           ([TechnologyName]
+           ,[TechnologyDescription]
+           ,[TechnologyEffect]
+           ,[TechnologyCost]
+           )
+     VALUES
+           (@TechnologyName
+           ,@TechnologyDescription
+           ,@TechnologyEffect
+           ,@TechnologyCost
+           )
+           
+    set @TechnologyId = SCOPE_IDENTITY()           
+    select @TechnologyId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepOrderTypeGetByName]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Jakub Martyna
+-- Create date: 24.05.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepOrderTypeGetByName]
+	@OrderTypeName nvarchar(50)
+AS
+BEGIN
+	select * from SepOrderType where OrderTypeName = @OrderTypeName
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepOrderTypeGetById]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Jakub Martyna
+-- Create date: 24.05.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepOrderTypeGetById]
+	@OrderTypeId int
+AS
+BEGIN
+	select * from SepOrderType where OrderTypeId = @OrderTypeId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepOrderTypeAdd]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Jakub Martyna
+-- Create date: 24.05.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepOrderTypeAdd]
+	@OrderTypeName nvarchar(50)
+AS
+BEGIN
+	insert into SepOrderType (OrderTypeName)
+	values (@OrderTypeName)
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepUnitTypeGetById]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepUnitTypeGetById]
+	@UnitTypeId int
+AS
+BEGIN
+	SELECT * FROM SepUnitType WHERE UnitTypeId = @UnitTypeId
+END
+GO
+/****** Object:  Table [dbo].[SepKingdom]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SepKingdom](
+	[KingdomId] [int] IDENTITY(1,1) NOT NULL,
+	[MapId] [int] NOT NULL,
+	[UserId] [int] NOT NULL,
+	[KingdomName] [nvarchar](50) NOT NULL,
+	[KingdomResources] [int] NOT NULL,
+ CONSTRAINT [PK_SepKingdom] PRIMARY KEY CLUSTERED 
+(
+	[KingdomId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SepLog]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SepLog](
+	[LogId] [int] IDENTITY(1,1) NOT NULL,
+	[MapId] [int] NOT NULL,
+	[LogTime] [datetime] NOT NULL,
+	[LogTimeCounter] [int] NOT NULL,
+ CONSTRAINT [PK_SepLog] PRIMARY KEY CLUSTERED 
+(
+	[LogId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  StoredProcedure [dbo].[SepMapUpdate]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepMapUpdate]
+	 @MapId int
+	,@MapName nvarchar(50)
+AS
+BEGIN
+	UPDATE [dbo].[SepMap]
+		SET	 MapName = @MapName
+		WHERE MapId = @MapId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepMapGetById]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepMapGetById]
+	@MapId int
+AS
+BEGIN
+	SELECT * FROM SepMap WHERE MapId = @MapId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepMapGetAll]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[SepMapGetAll]
+AS
+BEGIN
+	SELECT MapId, MapName
+		FROM SepMap
+	ORDER BY MapName asc
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepMapDelete]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[SepMapDelete]
+	@MapId int
+AS
+BEGIN
+	DELETE FROM [dbo].[SepMap]
+		  WHERE MapId = @MapId 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepMapAdd]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepMapAdd]
+	 @MapName nvarchar(50)
+AS
+BEGIN
+	declare @MapId int
+
+	INSERT INTO [dbo].[SepMap]
+           ([MapName]
+           )
+     VALUES
+           (@MapName
+           )
+           
+    set @MapId = SCOPE_IDENTITY()           
+    select @MapId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DnRoleGetAll]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- Description:	Zwraca role u¿ytkownika
+-- =============================================
+CREATE PROCEDURE [dbo].[DnRoleGetAll]
+AS
+BEGIN
+	SELECT r.RoleId, r.RoleName
+		FROM DnRole r
+END
+GO
+/****** Object:  Table [dbo].[DnMessage]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DnMessage](
+	[MessageId] [int] IDENTITY(1,1) NOT NULL,
+	[MainUserId] [int] NOT NULL,
+	[SecondaryUserId] [int] NOT NULL,
+	[Title] [nvarchar](50) NULL,
+	[Text] [text] NULL,
+	[IsRead] [bit] NULL,
+	[SendDate] [datetime] NULL,
+ CONSTRAINT [PK_DnMessage] PRIMARY KEY CLUSTERED 
+(
+	[MessageId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[DnAuthorizationKey]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DnAuthorizationKey](
+	[AuthorizationKeyId] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [int] NOT NULL,
+	[KeyGuid] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_DnAuthorizationKey] PRIMARY KEY CLUSTERED 
+(
+	[AuthorizationKeyId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  StoredProcedure [dbo].[DnUserGetById]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[DnUserGetById]
+	@UserId int
+AS
+BEGIN
+	SELECT * FROM [dbo].DnUser as u WHERE u.UserId = @UserId;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DnUserGetByEmail]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- Description:	Zwraca uzytkownika po emailu
+-- =============================================
+CREATE PROCEDURE [dbo].[DnUserGetByEmail]
+	@Email nvarchar(255)
+AS
+BEGIN
+	SELECT UserId, UserName, CreateDate, IsApproved, Email
+		FROM DnUser
+		WHERE Email = @Email 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DnUserGetAll]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- Description:	Zwraca uzytkownika po emailu
+-- =============================================
+CREATE PROCEDURE [dbo].[DnUserGetAll]
+AS
+BEGIN
+	SELECT UserId, UserName, CreateDate, IsApproved, Email
+		FROM DnUser
+	ORDER BY UserName asc
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DnUserCount]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- Description:	Zwraca uzytkownika po emailu
+-- =============================================
+CREATE PROCEDURE [dbo].[DnUserCount]
+AS
+BEGIN
+	SELECT COUNT(*) FROM DnUser
+END
+GO
+/****** Object:  Table [dbo].[DnUserRole]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DnUserRole](
+	[UserRoleId] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [int] NOT NULL,
+	[RoleId] [int] NOT NULL,
+ CONSTRAINT [PK_DnUserRole] PRIMARY KEY CLUSTERED 
+(
+	[UserRoleId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SepEpoch]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SepEpoch](
+	[EpochId] [int] NOT NULL,
+	[MapId] [int] NOT NULL,
+	[EpochStart] [datetime] NOT NULL,
+ CONSTRAINT [PK_SepEpoch] PRIMARY KEY CLUSTERED 
+(
+	[EpochId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  StoredProcedure [dbo].[SepDiplomacyStatusGetById]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepDiplomacyStatusGetById]
+	@id int
+AS
+BEGIN
+	SELECT * FROM [dbo].SepDiplomacyStatus as dipStat WHERE dipStat.DiplomacyStatusId = @id;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepDiplomacyStatusAdd]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub mArtyna>
+-- Create date: <10.05.2010>
+-- =============================================
+CREATE PROCEDURE [dbo].[SepDiplomacyStatusAdd]
+	@DiplomacyStatusName nvarchar(50)
+	
+AS
+BEGIN
+	declare @DiplomacyStatusId int
+
+	INSERT INTO [dbo].[SepDiplomacyStatus]
+           ([DiplomacyStatusName]
+           )
+     VALUES
+           (@DiplomacyStatusName
+           )
+           
+    set @DiplomacyStatusId = SCOPE_IDENTITY()           
+    select @DiplomacyStatusId
+END
+GO
+/****** Object:  Table [dbo].[SepDiplomacy]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SepDiplomacy](
+	[DiplomacyId] [int] IDENTITY(1,1) NOT NULL,
+	[DiplomacyStatusId] [int] NOT NULL,
+	[MainUserId] [int] NOT NULL,
+	[SecondaryUserId] [int] NOT NULL,
+ CONSTRAINT [PK_Diplomacy] PRIMARY KEY CLUSTERED 
+(
+	[DiplomacyId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  StoredProcedure [dbo].[DnUserValidate]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- Description:	Sprawdza czy u¿ytkownik z podanym loginem i has³em mo¿e siê zalogowaæ
+-- =============================================
+CREATE PROCEDURE [dbo].[DnUserValidate]
+	@UserName nvarchar(255),
+	@Password nvarchar(100)
+AS
+BEGIN
+	IF EXISTS (SELECT UserId FROM DnUser
+		WHERE UserName = @UserName AND Password = @Password AND IsApproved = 1)
+	BEGIN
+		select 1
+	END
+	ELSE
+	BEGIN
+		select 0
+	END
+END
+GO
+/****** Object:  Table [dbo].[SepEvent]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SepEvent](
+	[EventId] [int] IDENTITY(1,1) NOT NULL,
+	[LogId] [int] NOT NULL,
+	[KingdomId] [int] NOT NULL,
+	[EventDescription] [nvarchar](250) NOT NULL,
+ CONSTRAINT [PK_SepEvent] PRIMARY KEY CLUSTERED 
+(
+	[EventId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  StoredProcedure [dbo].[SepEpochGetCurrentByMapId]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Jakub Martyna
+-- Create date: 04.06.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepEpochGetCurrentByMapId]
+	@MapId int
+AS
+BEGIN
+	SELECT top 1 * FROM SepEpoch
+	WHERE MapId = @MapId 
+	Order by EpochId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepEpochGetById]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Jakub Martyna
+-- Create date: 04.06.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepEpochGetById]
+	@EpochId int
+AS
+BEGIN
+	SELECT * FROM SepEpoch
+	WHERE EpochId = @EpochId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DnUserRoleDelete]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[DnUserRoleDelete]
+	@UserName nvarchar(255),
+	@RoleName nvarchar(255)
+AS
+BEGIN
+	declare @UserId int
+	set @UserId = (Select UserId from DnUser where UserName = @UserName)
+
+	declare @RoleId int
+	set @RoleId = (Select RoleId from DnRole where RoleName = @RoleName)
+
+	DELETE FROM [dbo].[DnUserRole]
+		  WHERE UserId = @UserId and RoleId = @RoleId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DnUserRoleAdd]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[DnUserRoleAdd]
+	@UserName nvarchar(255),
+	@RoleName nvarchar(255)
+AS
+BEGIN
+	declare @UserRoleId int
+
+	declare @UserId int
+	set @UserId = (Select UserId from DnUser where UserName = @UserName)
+
+	declare @RoleId int
+	set @RoleId = (Select RoleId from DnRole where RoleName = @RoleName)
+
+	INSERT INTO [dbo].[DnUserRole]
+           ([UserId]
+           ,[RoleId] 
+           )
+     VALUES
+           (@UserId
+           ,@RoleId
+           )
+
+    set @UserRoleId = SCOPE_IDENTITY()
+           
+    select @UserId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepDiplomacyGetByUserId]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepDiplomacyGetByUserId]
+	@UserId int
+AS
+BEGIN
+	select dip.DiplomacyId,dip.DiplomacyStatusId, stat.DiplomacyStatusName, dip.MainUserId, mainusr.UserName as MainUserName,dip.SecondaryUserId, secusr.UserName as SecondaryUserName
+from dbo.SepDiplomacy as dip inner join dbo.SepDiplomacyStatus as stat on dip.DiplomacyStatusId = stat.DiplomacyStatusId 
+							 inner join dbo.DnUser as mainusr on dip.MainUserId = mainusr.UserId
+							 inner join dbo.DnUser as secusr on dip.SecondaryUserId = secusr.UserId WHERE dip.MainUserId = @UserId;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepDiplomacyGetById]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub Martyna>
+-- Create date: <10.05.2010>
+-- =============================================
+CREATE PROCEDURE [dbo].[SepDiplomacyGetById]
+	@DiplomacyId int	
+AS
+BEGIN
+	select dip.DiplomacyId,dip.DiplomacyStatusId, stat.DiplomacyStatusName, dip.MainUserId, mainusr.UserName as MainUserName,dip.SecondaryUserId, secusr.UserName as SecondaryUserName
+from dbo.SepDiplomacy as dip inner join dbo.SepDiplomacyStatus as stat on dip.DiplomacyStatusId = stat.DiplomacyStatusId 
+							 inner join dbo.DnUser as mainusr on dip.MainUserId = mainusr.UserId
+							 inner join dbo.DnUser as secusr on dip.SecondaryUserId = secusr.UserId WHERE dip.DiplomacyId= @DiplomacyId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepDiplomacyAdd]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub mArtyna>
+-- Create date: <10.05.2010>
+-- =============================================
+CREATE PROCEDURE [dbo].[SepDiplomacyAdd]
+	@DiplomacyStatusId int
+	,@MainUserId int
+	,@SecondaryUserId int
+	
+AS
+BEGIN
+	declare @DiplomacyId int
+
+	INSERT INTO [dbo].[SepDiplomacy]
+           ([DiplomacyStatusId]
+           ,[MainUserId]
+           ,[SecondaryUserId]
+           )
+     VALUES
+           (@DiplomacyStatusId
+			,@MainUserId
+			,@SecondaryUserId
+           )
+           
+    set @DiplomacyId = SCOPE_IDENTITY()           
+    select @DiplomacyId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DnUserGetByLogin]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 04.03.2010
+-- Description:	Zwraca uzytkownika po loginie
+-- =============================================
+CREATE PROCEDURE [dbo].[DnUserGetByLogin]
+	@UserName nvarchar(255)
+AS
+BEGIN
+	--RAISERROR('B³¹d jakiœ!', 17, 1)
+	SELECT u.UserId, UserName, CreateDate, IsApproved, Email, KeyGuid
+		FROM DnUser u
+			LEFT JOIN DnAuthorizationKey ak on u.UserId = ak.UserId 
+		WHERE UserName = @UserName 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DnUserAuthorize]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 06.03.2010
+-- Description:	Aktywuje u¿ytkownika
+-- =============================================
+CREATE PROCEDURE [dbo].[DnUserAuthorize]
+	@UserName nvarchar(255),
+	@AuthorizationKey nvarchar(50)
+AS
+BEGIN
+	declare @UserId int
+	set @UserId = (select UserId from DnUser where UserName = @UserName)
+	IF @UserId IS NULL
+	BEGIN
+		RAISERROR('Invalid UserName', 17, 1)
+	END	
+	ELSE
+	BEGIN
+		IF EXISTS (SELECT UserId from DnAuthorizationKey WHERE KeyGuid = @AuthorizationKey and UserId = @UserId)
+		BEGIN
+			IF EXISTS (SELECT UserId from DnUser WHERE UserId = @UserId and IsApproved = 1)
+			BEGIN
+				RAISERROR('Already Approved', 17, 1)				
+			END
+			ELSE
+			BEGIN		
+				UPDATE [dbo].[DnUser]
+				   SET [IsApproved] = 1
+				 WHERE UserName = @UserName	
+			END
+		END
+		ELSE
+		BEGIN
+			RAISERROR('Invalid Authentication Key', 18, 1)
+		END
+	END
+	
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DnUserAdd]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 06.03.2010
+-- Description:	Dodaje uzytkownika
+-- =============================================
+CREATE PROCEDURE [dbo].[DnUserAdd]
+	@UserName nvarchar(255),
+	@Email nvarchar(255),
+	@Password nvarchar(255),
+	@CreateDate datetime,
+	@AuthorizationKey nvarchar(50)
+AS
+BEGIN
+	declare @UserId int
+
+	INSERT INTO [dbo].[DnUser]
+           ([UserName]
+           ,[Email] 
+           ,[Password] 
+           ,[CreateDate] 
+           ,[IsApproved]
+           )
+     VALUES
+           (@UserName
+           ,@Email
+           ,@Password
+           ,@CreateDate
+           ,0
+           )
+    set @UserId = SCOPE_IDENTITY()
+
+	INSERT INTO [dbo].[DnAuthorizationKey] 
+           ([UserId] 
+           ,[KeyGuid]  
+           )
+     VALUES
+           (@UserId
+           ,@AuthorizationKey
+           )
+           
+    select @UserId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DnRoleGetByUserName]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- Description:	Zwraca role u¿ytkownika
+-- =============================================
+CREATE PROCEDURE [dbo].[DnRoleGetByUserName]
+	@UserName nvarchar(255)
+AS
+BEGIN
+	SELECT r.RoleId, r.RoleName
+		FROM DnUserRole ur
+		INNER JOIN DnRole r on r.RoleId = ur.RoleId
+		INNER JOIN DnUser u on u.UserId = ur.UserId
+		WHERE u.UserName = @UserName
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DnRoleGetByUserId]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- Description:	Zwraca role u¿ytkownika
+-- =============================================
+CREATE PROCEDURE [dbo].[DnRoleGetByUserId]
+	@UserId int
+AS
+BEGIN
+	SELECT r.RoleId, r.RoleName
+		FROM DnUserRole ur
+		INNER JOIN DnRole r on r.RoleId = ur.RoleId
+		WHERE ur.UserId = @UserId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DnMessageOutGetByUserId]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub Martyna>
+-- Create date: <10.05.2010>
+-- =============================================
+CREATE PROCEDURE [dbo].[DnMessageOutGetByUserId]
+	@MainUserId int	
+AS
+BEGIN
+	SELECT * FROM DnMessage as m WHERE m.MainUserId = @MainUserId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DnMessageInGetByUserId]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub Martyna>
+-- Create date: <10.05.2010>
+-- =============================================
+CREATE PROCEDURE [dbo].[DnMessageInGetByUserId]
+	@UserId int	
+AS
+BEGIN
+	SELECT * FROM DnMessage as m WHERE m.SecondaryUserId = @UserId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DnMessageGetByUserId]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub Martyna>
+-- Create date: <10.05.2010>
+-- =============================================
+CREATE PROCEDURE [dbo].[DnMessageGetByUserId]
+	@UserId int	
+AS
+BEGIN
+	SELECT * FROM DnMessage as m WHERE m.MainUserId = @UserId or m.SecondaryUserId = @UserId 
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DnMessageChatByUserIdWithUserId]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub Martyna>
+-- Create date: <10.05.2010>
+-- =============================================
+CREATE PROCEDURE [dbo].[DnMessageChatByUserIdWithUserId]
+	@MainUserId int
+	,@SecondaryUserId int	
+AS
+BEGIN
+	SELECT m.IsRead,m.MainUserId,m.MessageId, m.SecondaryUserId, m.SendDate, m.Text, m.Title, u1.UserName as MainUserName, u2.UserName as SecondaryUserName
+	FROM DnMessage as m INNER JOIN DnUser as u1 on u1.UserId = m.MainUserId
+						INNER JOIN DnUser as u2 on u2.UserId = m.SecondaryUserId
+	
+	WHERE (m.MainUserId = @MainUserId and m.SecondaryUserId =@SecondaryUserId) or (m.MainUserId = @SecondaryUserId and m.SecondaryUserId =@MainUserId)
+END
+GO
+/****** Object:  StoredProcedure [dbo].[DnMessageAdd]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Jakub mArtyna>
+-- Create date: <10.05.2010>
+-- =============================================
+CREATE PROCEDURE [dbo].[DnMessageAdd]
+	@MainUserId int
+	,@SecondaryUserId int
+	,@Title nvarchar(50)
+	,@Text text
+	
+AS
+BEGIN
+	declare @MessageId int
+
+	INSERT INTO [dbo].[DnMessage]
+           ([MainUserId]
+           ,[SecondaryUserId]
+           ,[Title]
+           ,[Text]
+           ,[IsRead]
+           ,[SendDate]
+           )
+     VALUES
+           (@MainUserId
+			,@SecondaryUserId
+			,@Title
+			,@Text
+			,0
+			,GETDATE()
+           )
+           
+    set @MessageId = SCOPE_IDENTITY()           
+    select @MessageId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepNewEpochForMap]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Jakub Martyna
+-- Create date: 04.06.2010
+-- Description:	Dodaje nowa epoke do mapy
+-- =============================================
+CREATE PROCEDURE [dbo].[SepNewEpochForMap]
+	@MapId int
+AS
+BEGIN
+	INSERT INTO SepEpoch (MapId,EpochStart) values(@MapId,GETDATE())
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepNewEpocForMap]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Jakub Martyna
+-- Create date: 04.06.2010
+-- Description:	Dodaje nowa epoke do mapy
+-- =============================================
+CREATE PROCEDURE [dbo].[SepNewEpocForMap]
+	@MapId int
+AS
+BEGIN
+	INSERT INTO SepEpoch (MapId,EpochStart) values(@MapId,GETDATE())
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepLogGetById]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepLogGetById]
+	@LogId int
+AS
+BEGIN
+	SELECT * FROM SepLog WHERE LogId = @LogId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepLogAdd]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepLogAdd]
+	 @LogTime datetime
+	,@LogTimeCounter int
+AS
+BEGIN
+	declare @LogId int
+
+	INSERT INTO [dbo].[SepLog]
+           ([LogTime]
+           ,[LogTimeCounter] 
+           )
+     VALUES
+           (@LogTime
+           ,@LogTimeCounter
+           )
+           
+    set @LogId = SCOPE_IDENTITY()           
+    select @LogId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepKingdomUpdate]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepKingdomUpdate]
+	 @KingdomId int
+	,@MapId int
+	,@UserId int
+	,@KingdomName nvarchar(50)
+	,@KingdomResources int
+AS
+BEGIN
+	UPDATE [dbo].[SepKingdom]
+		SET	 MapId = @MapId
+			,UserId = @UserId
+			,KingdomName = @KingdomName
+			,KingdomResources = @KingdomResources
+		WHERE KingdomId = @KingdomId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepKingdomGetByUserId]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepKingdomGetByUserId]
+	@UserId int
+AS
+BEGIN
+	SELECT * FROM SepKingdom WHERE UserId = @UserId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepKingdomGetByMapId]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepKingdomGetByMapId]
+	@MapId int
+AS
+BEGIN
+	SELECT * FROM SepKingdom WHERE MapId = @MapId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepKingdomGetById]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepKingdomGetById]
+	@KingdomId int
+AS
+BEGIN
+	SELECT * FROM SepKingdom WHERE KingdomId = @KingdomId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepKingdomAdd]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepKingdomAdd]
+	 @MapId int
+	,@UserId int
+	,@KingdomName nvarchar(255)
+	,@KingdomResources int
+AS
+BEGIN
+	declare @KingdomId int
+
+	INSERT INTO [dbo].[SepKingdom]
+           ([MapId]
+           ,[UserId] 
+           ,[KingdomName] 
+           ,[KingdomResources]
+           )
+     VALUES
+           (@MapId
+           ,@UserId
+           ,@KingdomName
+           ,@KingdomResources
+           )
+           
+    set @KingdomId = SCOPE_IDENTITY()           
+    select @KingdomId
+END
+GO
+/****** Object:  Table [dbo].[SepKingdomTechnology]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SepKingdomTechnology](
+	[KingdomTechnologyId] [int] IDENTITY(1,1) NOT NULL,
+	[KingdomId] [int] NOT NULL,
+	[TechnologyId] [int] NOT NULL,
+ CONSTRAINT [PK_SepUserTechnology] PRIMARY KEY CLUSTERED 
+(
+	[KingdomTechnologyId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SepField]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SepField](
+	[FieldId] [int] IDENTITY(1,1) NOT NULL,
+	[MapId] [int] NOT NULL,
+	[KingdomId] [int] NULL,
+	[FieldX] [int] NOT NULL,
+	[FieldY] [int] NOT NULL,
+	[FieldName] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_SepField] PRIMARY KEY CLUSTERED 
+(
+	[FieldId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[SepUnit]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SepUnit](
+	[UnitId] [int] NOT NULL,
+	[UnitName] [nvarchar](50) NOT NULL,
+	[UnitTypeId] [int] NOT NULL,
+	[KingdomId] [int] NOT NULL,
+	[FieldId] [int] NOT NULL,
+	[Count] [int] NULL,
+ CONSTRAINT [PK_SepUnit] PRIMARY KEY CLUSTERED 
+(
+	[UnitId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  StoredProcedure [dbo].[SepTechnologyGetByKingdomId]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepTechnologyGetByKingdomId]
+	@KingdomId int
+AS
+BEGIN
+	declare @KingdomResources int
+	set @KingdomResources = (select KingdomResources from SepKingdom where KingdomId = @KingdomId)
+
+	SELECT t.*, 'Kupiony' as 'TechnologyStatus' FROM SepTechnology t
+		inner join SepKingdomTechnology kt on t.TechnologyId = kt.TechnologyId
+		where kt.KingdomId = @KingdomId 
+		
+	UNION
+
+	SELECT *, 'Dostepny' as 'TechnologyStatus' FROM SepTechnology t
+		where TechnologyId not in (Select TechnologyId from SepKingdomTechnology where KingdomId = @KingdomId)
+		and t.TechnologyCost <= @KingdomResources
+
+	UNION
+	
+	SELECT *, 'Niedostêpny' as 'TechnologyStatus' FROM SepTechnology t
+		where TechnologyId not in (Select TechnologyId from SepKingdomTechnology where KingdomId = @KingdomId)
+		and t.TechnologyCost > @KingdomResources
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepFieldGetByXY]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepFieldGetByXY]
+	 @FieldX int
+	,@FieldY int
+AS
+BEGIN
+	SELECT * FROM SepField WHERE FieldX = @FieldX and FieldY = @FieldY
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepFieldGetByMapId]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- Description:	Zwraca uzytkownika po emailu
+-- =============================================
+CREATE PROCEDURE [dbo].[SepFieldGetByMapId]
+	@MapId int
+AS
+BEGIN
+	SELECT * FROM SepField as sf
+	WHERE sf.MapId = @MapId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepFieldGetById]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepFieldGetById]
+	@FieldId int
+AS
+BEGIN
+	SELECT * FROM SepField WHERE FieldId = @FieldId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepFieldGetArea]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepFieldGetArea]
+	 @MapId int
+	,@LeftX int
+	,@TopY int
+	,@Width int
+	,@Height int
+AS
+BEGIN
+	SELECT * 
+		FROM SepField 
+		WHERE   MapId = @MapId 
+			and FieldX >= @LeftX and FieldX < @LeftX + @Width 
+			and FieldY >= @TopY and FieldY < @TopY + @Height
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepFieldAdd]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepFieldAdd]
+	 @MapId int
+	,@KingdomId int
+	,@FieldName nvarchar(255)
+	,@FieldX int
+	,@FieldY int
+AS
+BEGIN
+	declare @FieldId int
+
+	INSERT INTO [dbo].[SepField]
+           ([MapId]
+           ,[KingdomId] 
+           ,[FieldName] 
+           ,[FieldX]
+           ,[FieldY]
+           )
+     VALUES
+           (@MapId
+           ,@KingdomId
+           ,@FieldName
+           ,@FieldX
+           ,@FieldY
+           )
+           
+    set @FieldId = SCOPE_IDENTITY()           
+    select @FieldId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepEventGetByLogIdKingdomId]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepEventGetByLogIdKingdomId]
+	 @LogId int
+	,@KingdomId int
+AS
+BEGIN
+	SELECT * FROM SepEvent WHERE LogId = @LogId and KingdomId = @KingdomId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepEventGetByLogId]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepEventGetByLogId]
+	@LogId int
+AS
+BEGIN
+	SELECT * FROM SepEvent WHERE LogId = @LogId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepEventGetById]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepEventGetById]
+	@EventId int
+AS
+BEGIN
+	SELECT * FROM SepEvent WHERE EventId = @EventId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepEventAdd]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepEventAdd]
+	 @LogId int
+	,@KingdomId int
+	,@EventDescription nvarchar(255)
+AS
+BEGIN
+	declare @EventId int
+
+	INSERT INTO [dbo].[SepEvent]
+           ([LogId]
+           ,[KingdomId] 
+           ,[EventDescription] 
+           )
+     VALUES
+           (@LogId
+           ,@KingdomId
+           ,@EventDescription
+           )
+    set @EventId = SCOPE_IDENTITY()           
+    select @EventId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepKingdomTechnologyGetByKingdomAndTechnology]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepKingdomTechnologyGetByKingdomAndTechnology]
+	 @KingdomId int
+	,@TechnologyId int
+AS
+BEGIN
+	SELECT * FROM SepKingdomTechnology WHERE KingdomId = @KingdomId and TechnologyId = @TechnologyId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepKingdomTechnologyGetById]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepKingdomTechnologyGetById]
+	@KingdomTechnologyId int
+AS
+BEGIN
+	SELECT * FROM SepKingdomTechnology WHERE KingdomTechnologyId = @KingdomTechnologyId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepKingdomTechnologyAdd]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepKingdomTechnologyAdd]
+	 @KingdomId int
+	,@TechnologyId int
+AS
+BEGIN
+	declare @KingdomTechnologyId int
+
+	INSERT INTO [dbo].[SepKingdomTechnology]
+           ([KingdomId]
+           ,[TechnologyId] 
+           )
+     VALUES
+           (@KingdomId
+           ,@TechnologyId
+           )
+           
+    set @KingdomTechnologyId = SCOPE_IDENTITY()           
+    select @KingdomTechnologyId
+END
+GO
+/****** Object:  Table [dbo].[SepOrder]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SepOrder](
+	[OrderId] [int] IDENTITY(1,1) NOT NULL,
+	[OrderTypeId] [int] NOT NULL,
+	[FieldId] [int] NULL,
+	[FieldIdDestination] [int] NOT NULL,
+	[OrderTime] [datetime] NOT NULL,
+	[Epoch] [int] NOT NULL,
+	[KingdomId] [int] NULL,
+ CONSTRAINT [PK_SepOrder] PRIMARY KEY CLUSTERED 
+(
+	[OrderId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  StoredProcedure [dbo].[SepOrderAdd]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Jakub Martyna
+-- Create date: 24.05.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepOrderAdd]
+	@FieldId int
+	,@FieldIdDestination int
+	,@OrderTypeId int
+	,@Epoch int
+AS
+BEGIN
+	insert into SepOrder (OrderTypeId,FieldId,FieldIdDestination,OrderTime,Epoch)
+	values (@OrderTypeId,@FieldId,@FieldIdDestination,GETDATE(),@Epoch)
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepKingdomGetInfoById]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepKingdomGetInfoById]
+	@KingdomId int
+AS
+BEGIN
+	declare @KingdomSize int
+	declare @KingdomArmy int
+	
+	set @KingdomSize = (select COUNT(*) from SepField where
+	    KingdomId = @KingdomId)
+
+	set @KingdomArmy = (select COUNT(*) from SepUnit where
+		KingdomId = @KingdomId)
+		
+	SELECT *, @KingdomArmy as 'KingdomArmy', @KingdomSize as 'KingdomSize'  FROM SepKingdom WHERE KingdomId = @KingdomId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepUnitUpdate]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepUnitUpdate]
+	 @UnitId int
+	,@UnitName nvarchar(50)
+	,@UnitTypeId int
+	,@KingdomId int
+	,@FieldId int
+	,@Count int
+AS
+BEGIN
+	UPDATE [dbo].[SepUnit]
+		SET	 UnitName = @UnitName
+			,UnitTypeId = @UnitTypeId
+			,KingdomId = @KingdomId
+			,FieldId = @FieldId
+			,Count = @Count
+		WHERE UnitId = @UnitId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepUnitRemove]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Jakub Martyna
+-- Create date: 05.06.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepUnitRemove]
+	 @UnitId int
+AS
+BEGIN
+	DELETE FROM SepUnit where UnitId =@UnitId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepUnitGetFromArea]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepUnitGetFromArea]
+	 @MapId int
+	,@LeftX int
+	,@TopY int
+	,@Width int
+	,@Height int
+AS
+BEGIN
+	SELECT u.FieldId, u.KingdomId, u.UnitId, u.UnitName, u.UnitTypeId,
+		   f.FieldX, f.FieldY, u.Count 
+		FROM SepUnit u
+			inner join SepField f on u.FieldId = f.FieldId 
+		WHERE   MapId = @MapId 
+			and f.FieldX >= @LeftX and f.FieldX < @LeftX + @Width 
+			and f.FieldY >= @TopY and f.FieldY < @TopY + @Height
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepUnitGetById]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 11.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepUnitGetById]
+	@UnitId int
+AS
+BEGIN
+	SELECT * FROM SepUnit WHERE UnitId = @UnitId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepUnitAdd]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		£ukasz Wiatrak
+-- Create date: 06.03.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepUnitAdd]
+	 @UnitName nvarchar(50)
+	,@UnitTypeId int
+	,@KingdomId int
+	,@FieldId int
+	,@Count int
+AS
+BEGIN
+	declare @UnitId int
+
+	INSERT INTO [dbo].[SepUnit]
+           ([UnitName]
+           ,[UnitTypeId]
+           ,[KingdomId]
+           ,[FieldId]
+           ,[Count] 
+           )
+     VALUES
+           (@UnitName
+           ,@UnitTypeId
+           ,@KingdomId
+           ,@FieldId
+           ,@Count
+           )
+           
+    set @UnitId = SCOPE_IDENTITY()           
+    select @UnitId
+END
+GO
+/****** Object:  Table [dbo].[SepOrderUnitType]    Script Date: 06/05/2010 15:42:53 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SepOrderUnitType](
+	[UnitTypeId] [int] NOT NULL,
+	[OrderId] [int] NOT NULL,
+	[Count] [int] NOT NULL,
+	[OrderUnitTypeId] [int] IDENTITY(1,1) NOT NULL,
+ CONSTRAINT [PK_SepOrderUnitType] PRIMARY KEY CLUSTERED 
+(
+	[OrderUnitTypeId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  StoredProcedure [dbo].[SepOrderGetById]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Jakub Martyna
+-- Create date: 24.05.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepOrderGetById]
+	@OrderId int
+AS
+BEGIN
+	select so.OrderId, so.OrderTypeId, sot.OrderTypeName, so.FieldId, so.FieldIdDestination, so.OrderTime, so.Epoch, sout.Count, sout.UnitTypeId, so.KingdomId
+	from SepOrder as so inner join SepOrderType as sot on so.OrderTypeId=sot.OrderTypeId
+						inner join SepOrderUnitType as sout on so.OrderId=sout.OrderId
+	where so.OrderId = @OrderId
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepOrderGetByFieldEpoch]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Jakub Martyna
+-- Create date: 24.05.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepOrderGetByFieldEpoch]
+	@Epoch int
+	,@FieldIdDestination int
+AS
+BEGIN
+	select so.OrderId, so.OrderTypeId, sot.OrderTypeName, so.FieldId, so.FieldIdDestination, so.OrderTime, so.Epoch, sout.Count, sout.UnitTypeId, so.KingdomId
+	from SepOrder as so inner join SepOrderType as sot on so.OrderTypeId=sot.OrderTypeId
+						inner join SepOrderUnitType as sout on so.OrderId=sout.OrderId
+	where so.Epoch = @Epoch and so.FieldIdDestination=@FieldIdDestination
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepOrderGetByEpoch]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Jakub Martyna
+-- Create date: 24.05.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepOrderGetByEpoch]
+	@Epoch int
+AS
+BEGIN
+	select so.OrderId, so.OrderTypeId, sot.OrderTypeName, so.FieldId, so.FieldIdDestination, so.OrderTime, so.Epoch, sout.Count, sout.UnitTypeId, so.KingdomId
+	from SepOrder as so inner join SepOrderType as sot on so.OrderTypeId=sot.OrderTypeId
+						inner join SepOrderUnitType as sout on so.OrderId=sout.OrderId
+	where so.Epoch = @Epoch
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepOrderGetByDateFrame]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Jakub Martyna
+-- Create date: 24.05.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepOrderGetByDateFrame]
+	@DateStart datetime
+	,@DateEnd datetime
+AS
+BEGIN
+	select so.OrderId, so.OrderTypeId, sot.OrderTypeName, so.FieldId, so.FieldIdDestination, so.OrderTime, so.Epoch, sout.Count, sout.UnitTypeId, so.KingdomId
+	from SepOrder as so inner join SepOrderType as sot on so.OrderTypeId=sot.OrderTypeId
+						inner join SepOrderUnitType as sout on so.OrderId=sout.OrderId
+	where so.OrderTime < @DateEnd and so.OrderTime > @DateStart
+END
+GO
+/****** Object:  StoredProcedure [dbo].[SepOrderGetAll]    Script Date: 06/05/2010 15:42:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Jakub Martyna
+-- Create date: 24.05.2010
+-- =============================================
+CREATE PROCEDURE [dbo].[SepOrderGetAll]
+AS
+BEGIN
+	select so.OrderId, so.OrderTypeId, sot.OrderTypeName, so.FieldId, so.FieldIdDestination, so.OrderTime, so.Epoch, sout.Count, sout.UnitTypeId, so.KingdomId
+	from SepOrder as so inner join SepOrderType as sot on so.OrderTypeId=sot.OrderTypeId
+						inner join SepOrderUnitType as sout on so.OrderId=sout.OrderId
+END
+GO
+/****** Object:  ForeignKey [FK_DnAuthorizationKey_DnUser]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[DnAuthorizationKey]  WITH CHECK ADD  CONSTRAINT [FK_DnAuthorizationKey_DnUser] FOREIGN KEY([UserId])
+REFERENCES [dbo].[DnUser] ([UserId])
+GO
+ALTER TABLE [dbo].[DnAuthorizationKey] CHECK CONSTRAINT [FK_DnAuthorizationKey_DnUser]
+GO
+/****** Object:  ForeignKey [FK_DnMessage_DnUser]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[DnMessage]  WITH CHECK ADD  CONSTRAINT [FK_DnMessage_DnUser] FOREIGN KEY([MainUserId])
+REFERENCES [dbo].[DnUser] ([UserId])
+GO
+ALTER TABLE [dbo].[DnMessage] CHECK CONSTRAINT [FK_DnMessage_DnUser]
+GO
+/****** Object:  ForeignKey [FK_DnMessage_DnUser1]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[DnMessage]  WITH CHECK ADD  CONSTRAINT [FK_DnMessage_DnUser1] FOREIGN KEY([SecondaryUserId])
+REFERENCES [dbo].[DnUser] ([UserId])
+GO
+ALTER TABLE [dbo].[DnMessage] CHECK CONSTRAINT [FK_DnMessage_DnUser1]
+GO
+/****** Object:  ForeignKey [FK_DnUserRole_DnRole]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[DnUserRole]  WITH CHECK ADD  CONSTRAINT [FK_DnUserRole_DnRole] FOREIGN KEY([RoleId])
+REFERENCES [dbo].[DnRole] ([RoleId])
+GO
+ALTER TABLE [dbo].[DnUserRole] CHECK CONSTRAINT [FK_DnUserRole_DnRole]
+GO
+/****** Object:  ForeignKey [FK_DnUserRole_DnUser]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[DnUserRole]  WITH CHECK ADD  CONSTRAINT [FK_DnUserRole_DnUser] FOREIGN KEY([UserId])
+REFERENCES [dbo].[DnUser] ([UserId])
+GO
+ALTER TABLE [dbo].[DnUserRole] CHECK CONSTRAINT [FK_DnUserRole_DnUser]
+GO
+/****** Object:  ForeignKey [FK_Diplomacy_DiplomacyStatus]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepDiplomacy]  WITH CHECK ADD  CONSTRAINT [FK_Diplomacy_DiplomacyStatus] FOREIGN KEY([DiplomacyStatusId])
+REFERENCES [dbo].[SepDiplomacyStatus] ([DiplomacyStatusId])
+GO
+ALTER TABLE [dbo].[SepDiplomacy] CHECK CONSTRAINT [FK_Diplomacy_DiplomacyStatus]
+GO
+/****** Object:  ForeignKey [FK_Diplomacy_DnUser]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepDiplomacy]  WITH CHECK ADD  CONSTRAINT [FK_Diplomacy_DnUser] FOREIGN KEY([MainUserId])
+REFERENCES [dbo].[DnUser] ([UserId])
+GO
+ALTER TABLE [dbo].[SepDiplomacy] CHECK CONSTRAINT [FK_Diplomacy_DnUser]
+GO
+/****** Object:  ForeignKey [FK_Diplomacy_DnUser1]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepDiplomacy]  WITH CHECK ADD  CONSTRAINT [FK_Diplomacy_DnUser1] FOREIGN KEY([SecondaryUserId])
+REFERENCES [dbo].[DnUser] ([UserId])
+GO
+ALTER TABLE [dbo].[SepDiplomacy] CHECK CONSTRAINT [FK_Diplomacy_DnUser1]
+GO
+/****** Object:  ForeignKey [FK_SepEpoch_SepMap]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepEpoch]  WITH CHECK ADD  CONSTRAINT [FK_SepEpoch_SepMap] FOREIGN KEY([MapId])
+REFERENCES [dbo].[SepMap] ([MapId])
+GO
+ALTER TABLE [dbo].[SepEpoch] CHECK CONSTRAINT [FK_SepEpoch_SepMap]
+GO
+/****** Object:  ForeignKey [FK_SepEvent_DnUser]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepEvent]  WITH CHECK ADD  CONSTRAINT [FK_SepEvent_DnUser] FOREIGN KEY([KingdomId])
+REFERENCES [dbo].[SepKingdom] ([KingdomId])
+GO
+ALTER TABLE [dbo].[SepEvent] CHECK CONSTRAINT [FK_SepEvent_DnUser]
+GO
+/****** Object:  ForeignKey [FK_SepEvent_SepLog]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepEvent]  WITH CHECK ADD  CONSTRAINT [FK_SepEvent_SepLog] FOREIGN KEY([LogId])
+REFERENCES [dbo].[SepLog] ([LogId])
+GO
+ALTER TABLE [dbo].[SepEvent] CHECK CONSTRAINT [FK_SepEvent_SepLog]
+GO
+/****** Object:  ForeignKey [FK_SepField_SepKingdom]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepField]  WITH CHECK ADD  CONSTRAINT [FK_SepField_SepKingdom] FOREIGN KEY([KingdomId])
+REFERENCES [dbo].[SepKingdom] ([KingdomId])
+GO
+ALTER TABLE [dbo].[SepField] CHECK CONSTRAINT [FK_SepField_SepKingdom]
+GO
+/****** Object:  ForeignKey [FK_SepField_SepMap]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepField]  WITH CHECK ADD  CONSTRAINT [FK_SepField_SepMap] FOREIGN KEY([MapId])
+REFERENCES [dbo].[SepMap] ([MapId])
+GO
+ALTER TABLE [dbo].[SepField] CHECK CONSTRAINT [FK_SepField_SepMap]
+GO
+/****** Object:  ForeignKey [FK_SepKingdom_DnUser]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepKingdom]  WITH CHECK ADD  CONSTRAINT [FK_SepKingdom_DnUser] FOREIGN KEY([UserId])
+REFERENCES [dbo].[DnUser] ([UserId])
+GO
+ALTER TABLE [dbo].[SepKingdom] CHECK CONSTRAINT [FK_SepKingdom_DnUser]
+GO
+/****** Object:  ForeignKey [FK_SepKingdom_SepMap]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepKingdom]  WITH CHECK ADD  CONSTRAINT [FK_SepKingdom_SepMap] FOREIGN KEY([MapId])
+REFERENCES [dbo].[SepMap] ([MapId])
+GO
+ALTER TABLE [dbo].[SepKingdom] CHECK CONSTRAINT [FK_SepKingdom_SepMap]
+GO
+/****** Object:  ForeignKey [FK_SepUserTechnology_DnUser]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepKingdomTechnology]  WITH CHECK ADD  CONSTRAINT [FK_SepUserTechnology_DnUser] FOREIGN KEY([KingdomId])
+REFERENCES [dbo].[SepKingdom] ([KingdomId])
+GO
+ALTER TABLE [dbo].[SepKingdomTechnology] CHECK CONSTRAINT [FK_SepUserTechnology_DnUser]
+GO
+/****** Object:  ForeignKey [FK_SepUserTechnology_SepTechnology]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepKingdomTechnology]  WITH CHECK ADD  CONSTRAINT [FK_SepUserTechnology_SepTechnology] FOREIGN KEY([TechnologyId])
+REFERENCES [dbo].[SepTechnology] ([TechnologyId])
+GO
+ALTER TABLE [dbo].[SepKingdomTechnology] CHECK CONSTRAINT [FK_SepUserTechnology_SepTechnology]
+GO
+/****** Object:  ForeignKey [FK_SepLog_SepMap]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepLog]  WITH CHECK ADD  CONSTRAINT [FK_SepLog_SepMap] FOREIGN KEY([MapId])
+REFERENCES [dbo].[SepMap] ([MapId])
+GO
+ALTER TABLE [dbo].[SepLog] CHECK CONSTRAINT [FK_SepLog_SepMap]
+GO
+/****** Object:  ForeignKey [FK_SepOrder_SepEpoch]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepOrder]  WITH CHECK ADD  CONSTRAINT [FK_SepOrder_SepEpoch] FOREIGN KEY([Epoch])
+REFERENCES [dbo].[SepEpoch] ([EpochId])
+GO
+ALTER TABLE [dbo].[SepOrder] CHECK CONSTRAINT [FK_SepOrder_SepEpoch]
+GO
+/****** Object:  ForeignKey [FK_SepOrder_SepField]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepOrder]  WITH CHECK ADD  CONSTRAINT [FK_SepOrder_SepField] FOREIGN KEY([FieldId])
+REFERENCES [dbo].[SepField] ([FieldId])
+GO
+ALTER TABLE [dbo].[SepOrder] CHECK CONSTRAINT [FK_SepOrder_SepField]
+GO
+/****** Object:  ForeignKey [FK_SepOrder_SepField1]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepOrder]  WITH CHECK ADD  CONSTRAINT [FK_SepOrder_SepField1] FOREIGN KEY([FieldIdDestination])
+REFERENCES [dbo].[SepField] ([FieldId])
+GO
+ALTER TABLE [dbo].[SepOrder] CHECK CONSTRAINT [FK_SepOrder_SepField1]
+GO
+/****** Object:  ForeignKey [FK_SepOrder_SepKingdom]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepOrder]  WITH CHECK ADD  CONSTRAINT [FK_SepOrder_SepKingdom] FOREIGN KEY([KingdomId])
+REFERENCES [dbo].[SepKingdom] ([KingdomId])
+GO
+ALTER TABLE [dbo].[SepOrder] CHECK CONSTRAINT [FK_SepOrder_SepKingdom]
+GO
+/****** Object:  ForeignKey [FK_SepOrder_SepOrderType]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepOrder]  WITH CHECK ADD  CONSTRAINT [FK_SepOrder_SepOrderType] FOREIGN KEY([OrderTypeId])
+REFERENCES [dbo].[SepOrderType] ([OrderTypeId])
+GO
+ALTER TABLE [dbo].[SepOrder] CHECK CONSTRAINT [FK_SepOrder_SepOrderType]
+GO
+/****** Object:  ForeignKey [FK_SepOrderUnitType_SepOrder]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepOrderUnitType]  WITH CHECK ADD  CONSTRAINT [FK_SepOrderUnitType_SepOrder] FOREIGN KEY([OrderId])
+REFERENCES [dbo].[SepOrder] ([OrderId])
+GO
+ALTER TABLE [dbo].[SepOrderUnitType] CHECK CONSTRAINT [FK_SepOrderUnitType_SepOrder]
+GO
+/****** Object:  ForeignKey [FK_SepOrderUnitType_SepUnitType]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepOrderUnitType]  WITH CHECK ADD  CONSTRAINT [FK_SepOrderUnitType_SepUnitType] FOREIGN KEY([UnitTypeId])
+REFERENCES [dbo].[SepUnitType] ([UnitTypeId])
+GO
+ALTER TABLE [dbo].[SepOrderUnitType] CHECK CONSTRAINT [FK_SepOrderUnitType_SepUnitType]
+GO
+/****** Object:  ForeignKey [FK_SepUnit_SepField]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepUnit]  WITH CHECK ADD  CONSTRAINT [FK_SepUnit_SepField] FOREIGN KEY([FieldId])
+REFERENCES [dbo].[SepField] ([FieldId])
+GO
+ALTER TABLE [dbo].[SepUnit] CHECK CONSTRAINT [FK_SepUnit_SepField]
+GO
+/****** Object:  ForeignKey [FK_SepUnit_SepKingdom1]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepUnit]  WITH CHECK ADD  CONSTRAINT [FK_SepUnit_SepKingdom1] FOREIGN KEY([KingdomId])
+REFERENCES [dbo].[SepKingdom] ([KingdomId])
+GO
+ALTER TABLE [dbo].[SepUnit] CHECK CONSTRAINT [FK_SepUnit_SepKingdom1]
+GO
+/****** Object:  ForeignKey [FK_SepUnit_SepUnitType]    Script Date: 06/05/2010 15:42:53 ******/
+ALTER TABLE [dbo].[SepUnit]  WITH CHECK ADD  CONSTRAINT [FK_SepUnit_SepUnitType] FOREIGN KEY([UnitTypeId])
+REFERENCES [dbo].[SepUnitType] ([UnitTypeId])
+GO
+ALTER TABLE [dbo].[SepUnit] CHECK CONSTRAINT [FK_SepUnit_SepUnitType]
+GO
