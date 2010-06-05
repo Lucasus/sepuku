@@ -70,7 +70,8 @@ public class SeppukuService : System.Web.Services.WebService
 	public String UpdateGameState() 
 	{
 		//Add some sort of authorization here!!!!
-		return  "Hello World";
+
+		return new GameStateUpdater().UpdateAll();
 	}
 
 	[WebMethod(EnableSession=true)]

@@ -14,5 +14,8 @@ namespace Seppuku.Domain
         public int FieldIdDestination { get; set; }
         public DateTime OrderTime { get; set; }
         public int Epoch { get; set; }
+        public int Count { get; set; }
+        public int UnitTypeId { get; set; }
+        public int KingdomId { get; set; }
     }
 }
