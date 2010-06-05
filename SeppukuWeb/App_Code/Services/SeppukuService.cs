@@ -77,25 +77,64 @@ public class SeppukuService : System.Web.Services.WebService
 	[WebMethod(EnableSession=true)]
 	public MapModel GetMapModel() 
 	{
-		int rice = 1000;
+        User user = CurrentUser.Current;
+        Kingdom userKingdom = new KingdomDAO().GetByUserId(user.UserId);
 
-		List<Owner> players = new List<Owner>();
+        IList<Kingdom> kingdoms = new KingdomDAO().GetByMapId(userKingdom.MapId);
+
+        List<Owner> players = new List<Owner>();
+
+        Random random = new Random();
+        
+        foreach (Kingdom k in kingdoms)
+        {
+            if (k == userKingdom)
+            {
+                players.Add(new Owner(k.KingdomId, k.KingdomName, "#FF0000"));
+            }
+            else
+            {
+                players.Add(new Owner(k.KingdomId, k.KingdomName, String.Format("#{0:X6}", random.Next(0x1000000))));
+            }
+        }
+
+        List<TileInfo> tiles = new List<TileInfo>();
+
+        IList<Field> fields = new FieldDAO().GetByMapId(userKingdom.MapId);
+
+
+        foreach (Field field in fields)
+        {
+            IList<Unit> units = new UnitDAO().GetFromArea(field.MapId, field.FieldX, field.FieldY, 1, 1);
+            int unitCount = 0;
+            foreach (Unit u in units)
+            {
+                unitCount += u.Count;
+            }
+
+            tiles.Add(new TileInfo(field.FieldId, field.FieldX, field.FieldY, field.FieldName, field.KingdomId, unitCount));
+        }
+
+        //int rice = 1000;
+
+        //List<Owner> players = new List<Owner>();
 		
-		Owner owner1 = new Owner(1, "Moose", "#ff0000");
-		Owner owner2 = new Owner(2, "Lucas", "#00ff00");
+        //Owner owner1 = new Owner(1, "Moose", "#ff0000");
+        //Owner owner2 = new Owner(2, "Lucas", "#00ff00");
 
-		players.Add(owner1);
-		players.Add(owner2);
+        //players.Add(owner1);
+        //players.Add(owner2);
 
-		List<TileInfo> tiles = new List<TileInfo>();
+        //List<TileInfo> tiles = new List<TileInfo>();
 
-		tiles.Add(new TileInfo(1,1,1,"Krwawe wzgórza", owner1.playerId, 5));
-		tiles.Add(new TileInfo(2,2,1,"MooseVille", owner1.playerId, 5));
-		tiles.Add(new TileInfo(3,2,2,"Grunwald", owner1.playerId, 5));
-		tiles.Add(new TileInfo(4,1,2,"Bździochy dolne", null, 5));
-		tiles.Add(new TileInfo(5,3,4,"Cukierkowa Dolina", owner2.playerId, 10));
-		tiles.Add(new TileInfo(6,5,5,"Wilczy Szaniec", owner2.playerId, 10));
-		return new MapModel(rice, tiles, players);
+        //tiles.Add(new TileInfo(1,1,1,"Krwawe wzgórza", owner1.playerId, 5));
+        //tiles.Add(new TileInfo(2,2,1,"MooseVille", owner1.playerId, 5));
+        //tiles.Add(new TileInfo(3,2,2,"Grunwald", owner1.playerId, 5));
+        //tiles.Add(new TileInfo(4,1,2,"Bździochy dolne", null, 5));
+        //tiles.Add(new TileInfo(5,3,4,"Cukierkowa Dolina", owner2.playerId, 10));
+        //tiles.Add(new TileInfo(6,5,5,"Wilczy Szaniec", owner2.playerId, 10));
+
+		return new MapModel(userKingdom.KingdomResources, tiles, players);
 	}
 }
 

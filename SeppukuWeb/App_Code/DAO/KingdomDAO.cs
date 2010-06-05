@@ -25,6 +25,11 @@ namespace Seppuku.DAO
             return DAO<KingdomDAO, Kingdom>.GetSingleObject("SepKingdomGetByUserId", userId);
         }
 
+        public IList<Kingdom> GetByMapId(int mapId)
+        {
+            return DAO<KingdomDAO, Kingdom>.GetObjectList("SepKingdomGetByMapId", mapId);
+        }
+
         public void FillParametersFromProperties(Database db, ref DbCommand cmd)
         {
             if (this.DataObject.KingdomId > 0)
