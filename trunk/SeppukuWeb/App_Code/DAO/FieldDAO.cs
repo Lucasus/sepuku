@@ -25,6 +25,11 @@ namespace Seppuku.DAO
             return DAO<FieldDAO, Field>.GetSingleObject("SepFieldGetByXY", x, y);
         }
 
+        public Field GetById(int fieldId)
+        {
+            return DAO<FieldDAO, Field>.GetSingleObject("SepFieldGetById", fieldId);
+        }
+
         public void FillParametersFromProperties(Database db, ref DbCommand cmd)
         {
             if (this.DataObject.FieldId > 0)
@@ -49,6 +54,12 @@ namespace Seppuku.DAO
             obj.MapId = Helper.GetData<int>(dr, "MapId");
             return obj;
         }
+
+        public IList<Field> GetByMapId(int MapId)
+        {
+            return DAO<FieldDAO, Field>.GetObjectList("SepFieldGetByMapId", MapId);
+        }
+
 
     }
 }

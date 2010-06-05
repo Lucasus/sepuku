@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Global.master" AutoEventWireup="true" CodeFile="GameRules.aspx.cs" Inherits="ZasadyGry" %>
 <%@ Register Src="Controls/Navigation/LoggedInMenu.ascx" TagName="loggedInMenu" TagPrefix="uc1" %>
 <%@ Register Src="Controls/Navigation/AnonymousMenu.ascx" TagName="anonymousMenu" TagPrefix="uc1" %>
-<%@ Register Src="Controls/GameRules/ArmyList.ascx" TagName="army" TagPrefix="uc1" %>
+
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <title>Zasady gry</title>
@@ -21,9 +21,6 @@
     <asp:LinkButton CommandName="Select" ID="BtnArmy" 
         Text="Wojsko" runat="server" 
         onclick="BtnArmy_Click" />
-    <asp:Panel ID="PnlArmy" Visible="false" runat="server">
-        <uc1:Army ID="UcArmy" runat="server" />
-    </asp:Panel>
 </asp:Content>
 
 

@@ -12,5 +12,6 @@ namespace Seppuku.Domain
         public int UnitTypeId { get; set; }
         public int KingdomId { get; set; }
         public int FieldId { get; set; }
+        public int Count { get; set; }
     }
 }

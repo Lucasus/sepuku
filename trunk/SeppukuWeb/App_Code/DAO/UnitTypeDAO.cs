@@ -45,6 +45,7 @@ namespace Seppuku.DAO
             obj.UnitTypeName = Helper.GetData<string>(dr, "UnitTypeName");
             obj.UnitTypeDescription = Helper.GetData<string>(dr, "UnitTypeDescription");
             obj.UnitTypePower = Helper.GetData<int>(dr, "UnitTypePower");
+            obj.UnitTypeHealthPoint = Helper.GetData<int>(dr, "UnitTypeHealthPoint");
             return obj;
         }
 

@@ -35,6 +35,12 @@ namespace Seppuku.DAO
             return DAO<OrderDAO, Order>.GetObjectList("SepOrderGetByEpoch", epoch);
         }
 
+        public List<Order> GetByFieldEpoch(int epoch, int fieldDest)
+        {
+            return DAO<OrderDAO, Order>.GetObjectList("SepOrderGetByFieldEpoch", epoch, fieldDest);
+        }
+
+
 
         public void FillParametersFromProperties(Database db, ref DbCommand cmd)
         {
@@ -46,6 +52,9 @@ namespace Seppuku.DAO
             db.AddInParameter(cmd, "FieldId", DbType.Int32, this.DataObject.FieldId);
             db.AddInParameter(cmd, "FieldIdDestination", DbType.Int32, this.DataObject.FieldIdDestination);
             db.AddInParameter(cmd, "Epoch", DbType.Int32, this.DataObject.Epoch);
+            db.AddInParameter(cmd, "Count", DbType.Int32, this.DataObject.Count);
+            db.AddInParameter(cmd, "UnitTypeId", DbType.Int32, this.DataObject.UnitTypeId);
+            db.AddInParameter(cmd, "KingdomId", DbType.Int32, this.DataObject.KingdomId);
         }
 
         public Order GetFromRow(DataRow dr)
@@ -57,7 +66,9 @@ namespace Seppuku.DAO
             obj.FieldIdDestination = Helper.GetData<int>(dr, "FieldIdDestination");
             obj.OrderTime = Helper.GetData<DateTime>(dr, "OrderTime");
             obj.Epoch = Helper.GetData<int>(dr, "Epoch");
-
+            obj.Count = Helper.GetData<int>(dr, "Count");
+            obj.UnitTypeId = Helper.GetData<int>(dr, "UnitTypeId");
+            obj.KingdomId = Helper.GetData<int>(dr, "KingdomId");
             return obj;
         }  
     }
