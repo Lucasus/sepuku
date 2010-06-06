@@ -15,7 +15,7 @@ namespace SeppukuMap.Model
 {
 	public class DeffendOrder : AbstractOrder
 	{
-		public DeffendOrder(SeppukuMapTileModel source, int unitCount) : base("Defend", source, source, unitCount)
+		public DeffendOrder(SeppukuMapTileModel source, int unitCount) : base("Defend", source, source, unitCount, 0)
 		{
 			
 		}
@@ -23,11 +23,13 @@ namespace SeppukuMap.Model
 		public override void doChanges(SeppukuModel model)
 		{
 			Source.Gatherers = Source.Gatherers - UnitCount;
+			base.doChanges(model);
 		}
 
 		public override void undoChanges(SeppukuModel model)
 		{
 			Source.Gatherers = Source.Gatherers + UnitCount;
+			base.undoChanges(model);
 		}
 	}
 }

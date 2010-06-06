@@ -100,5 +100,15 @@ namespace SeppukuMap.Model
 					this.TileSelected = null;
 			}
 		}
+
+		public SeppukuMapTileModel getTileById(int id)
+		{
+			foreach(SeppukuMapTileModel model in this.tiles)
+			{
+				if(model.tileId == id)
+					return model;
+			}
+			return null;
+		}
 	}
 }

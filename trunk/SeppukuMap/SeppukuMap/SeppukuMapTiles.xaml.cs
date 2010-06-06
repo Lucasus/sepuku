@@ -79,9 +79,9 @@ namespace SeppukuMap
 				{
 					UserControl tile;
 
-					if(model.tiles.Any(tileInfo => (tileInfo.x == j && tileInfo.y == i)))
+					if(model.tiles.Any(tileInfo => (tileInfo.x == j + minX - 1 && tileInfo.y == i + minY - 1)))
 					{
-						SeppukuMapTileModel tileModel = model.tiles.First(tileInfo => (tileInfo.x == j && tileInfo.y == i));
+						SeppukuMapTileModel tileModel = model.tiles.First(tileInfo => (tileInfo.x == j + minX - 1 && tileInfo.y == i + minY - 1));
 
 						PlayableTile tempTile = new PlayableTile(this, tileModel);
 						tempTile.TileName = tileModel.name;

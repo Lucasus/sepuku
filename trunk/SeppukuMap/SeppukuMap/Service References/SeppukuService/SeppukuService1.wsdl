@@ -39,6 +39,35 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="addOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="orderInfo" type="tns:OrderInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OrderInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="orderType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sourceTileId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="destinationTileId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="unitCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="orderCost" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="addOrderResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="removeOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="orderInfo" type="tns:OrderInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="removeOrderResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="GetMapModel">
         <s:complexType />
       </s:element>
@@ -53,6 +82,7 @@
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="tiles" type="tns:ArrayOfTileInfo" />
           <s:element minOccurs="0" maxOccurs="1" name="players" type="tns:ArrayOfOwner" />
+          <s:element minOccurs="0" maxOccurs="1" name="orders" type="tns:ArrayOfOrderInfo" />
           <s:element minOccurs="1" maxOccurs="1" name="rice" type="s:int" />
         </s:sequence>
       </s:complexType>
@@ -83,6 +113,11 @@
           <s:element minOccurs="0" maxOccurs="1" name="playerColor" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:complexType name="ArrayOfOrderInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OrderInfo" type="tns:OrderInfo" />
+        </s:sequence>
+      </s:complexType>
     </s:schema>
     <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
       <s:simpleType name="guid">
@@ -104,6 +139,18 @@
   <wsdl:message name="UpdateGameStateSoapOut">
     <wsdl:part name="parameters" element="tns:UpdateGameStateResponse" />
   </wsdl:message>
+  <wsdl:message name="addOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:addOrder" />
+  </wsdl:message>
+  <wsdl:message name="addOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:addOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="removeOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:removeOrder" />
+  </wsdl:message>
+  <wsdl:message name="removeOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:removeOrderResponse" />
+  </wsdl:message>
   <wsdl:message name="GetMapModelSoapIn">
     <wsdl:part name="parameters" element="tns:GetMapModel" />
   </wsdl:message>
@@ -118,6 +165,14 @@
     <wsdl:operation name="UpdateGameState">
       <wsdl:input message="tns:UpdateGameStateSoapIn" />
       <wsdl:output message="tns:UpdateGameStateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="addOrder">
+      <wsdl:input message="tns:addOrderSoapIn" />
+      <wsdl:output message="tns:addOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="removeOrder">
+      <wsdl:input message="tns:removeOrderSoapIn" />
+      <wsdl:output message="tns:removeOrderSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetMapModel">
       <wsdl:input message="tns:GetMapModelSoapIn" />
@@ -137,6 +192,24 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateGameState">
       <soap:operation soapAction="http://seppuku.pl/UpdateGameState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addOrder">
+      <soap:operation soapAction="http://seppuku.pl/addOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeOrder">
+      <soap:operation soapAction="http://seppuku.pl/removeOrder" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -167,6 +240,24 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateGameState">
       <soap12:operation soapAction="http://seppuku.pl/UpdateGameState" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addOrder">
+      <soap12:operation soapAction="http://seppuku.pl/addOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeOrder">
+      <soap12:operation soapAction="http://seppuku.pl/removeOrder" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

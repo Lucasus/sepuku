@@ -137,12 +137,104 @@ namespace SeppukuMap.SeppukuService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "3.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OrderInfo", Namespace="http://seppuku.pl/")]
+    public partial class OrderInfo : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string orderTypeField;
+        
+        private int sourceTileIdField;
+        
+        private int destinationTileIdField;
+        
+        private int unitCountField;
+        
+        private int orderCostField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string orderType {
+            get {
+                return this.orderTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.orderTypeField, value) != true)) {
+                    this.orderTypeField = value;
+                    this.RaisePropertyChanged("orderType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int sourceTileId {
+            get {
+                return this.sourceTileIdField;
+            }
+            set {
+                if ((this.sourceTileIdField.Equals(value) != true)) {
+                    this.sourceTileIdField = value;
+                    this.RaisePropertyChanged("sourceTileId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=2)]
+        public int destinationTileId {
+            get {
+                return this.destinationTileIdField;
+            }
+            set {
+                if ((this.destinationTileIdField.Equals(value) != true)) {
+                    this.destinationTileIdField = value;
+                    this.RaisePropertyChanged("destinationTileId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=3)]
+        public int unitCount {
+            get {
+                return this.unitCountField;
+            }
+            set {
+                if ((this.unitCountField.Equals(value) != true)) {
+                    this.unitCountField = value;
+                    this.RaisePropertyChanged("unitCount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=4)]
+        public int orderCost {
+            get {
+                return this.orderCostField;
+            }
+            set {
+                if ((this.orderCostField.Equals(value) != true)) {
+                    this.orderCostField = value;
+                    this.RaisePropertyChanged("orderCost");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "3.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MapModel", Namespace="http://seppuku.pl/")]
     public partial class MapModel : object, System.ComponentModel.INotifyPropertyChanged {
         
         private System.Collections.ObjectModel.ObservableCollection<SeppukuMap.SeppukuService.TileInfo> tilesField;
         
         private System.Collections.ObjectModel.ObservableCollection<SeppukuMap.SeppukuService.Owner> playersField;
+        
+        private System.Collections.ObjectModel.ObservableCollection<SeppukuMap.SeppukuService.OrderInfo> ordersField;
         
         private int riceField;
         
@@ -172,7 +264,20 @@ namespace SeppukuMap.SeppukuService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=2)]
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public System.Collections.ObjectModel.ObservableCollection<SeppukuMap.SeppukuService.OrderInfo> orders {
+            get {
+                return this.ordersField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ordersField, value) != true)) {
+                    this.ordersField = value;
+                    this.RaisePropertyChanged("orders");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=3)]
         public int rice {
             get {
                 return this.riceField;
@@ -374,6 +479,16 @@ namespace SeppukuMap.SeppukuService {
         
         SeppukuMap.SeppukuService.UpdateGameStateResponse EndUpdateGameState(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://seppuku.pl/addOrder", ReplyAction="*")]
+        System.IAsyncResult BeginaddOrder(SeppukuMap.SeppukuService.addOrderRequest request, System.AsyncCallback callback, object asyncState);
+        
+        SeppukuMap.SeppukuService.addOrderResponse EndaddOrder(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://seppuku.pl/removeOrder", ReplyAction="*")]
+        System.IAsyncResult BeginremoveOrder(SeppukuMap.SeppukuService.removeOrderRequest request, System.AsyncCallback callback, object asyncState);
+        
+        SeppukuMap.SeppukuService.removeOrderResponse EndremoveOrder(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://seppuku.pl/GetMapModel", ReplyAction="*")]
         System.IAsyncResult BeginGetMapModel(SeppukuMap.SeppukuService.GetMapModelRequest request, System.AsyncCallback callback, object asyncState);
         
@@ -491,6 +606,120 @@ namespace SeppukuMap.SeppukuService {
         
         public UpdateGameStateResponseBody(string UpdateGameStateResult) {
             this.UpdateGameStateResult = UpdateGameStateResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class addOrderRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="addOrder", Namespace="http://seppuku.pl/", Order=0)]
+        public SeppukuMap.SeppukuService.addOrderRequestBody Body;
+        
+        public addOrderRequest() {
+        }
+        
+        public addOrderRequest(SeppukuMap.SeppukuService.addOrderRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://seppuku.pl/")]
+    public partial class addOrderRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public SeppukuMap.SeppukuService.OrderInfo orderInfo;
+        
+        public addOrderRequestBody() {
+        }
+        
+        public addOrderRequestBody(SeppukuMap.SeppukuService.OrderInfo orderInfo) {
+            this.orderInfo = orderInfo;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class addOrderResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="addOrderResponse", Namespace="http://seppuku.pl/", Order=0)]
+        public SeppukuMap.SeppukuService.addOrderResponseBody Body;
+        
+        public addOrderResponse() {
+        }
+        
+        public addOrderResponse(SeppukuMap.SeppukuService.addOrderResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class addOrderResponseBody {
+        
+        public addOrderResponseBody() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class removeOrderRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="removeOrder", Namespace="http://seppuku.pl/", Order=0)]
+        public SeppukuMap.SeppukuService.removeOrderRequestBody Body;
+        
+        public removeOrderRequest() {
+        }
+        
+        public removeOrderRequest(SeppukuMap.SeppukuService.removeOrderRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://seppuku.pl/")]
+    public partial class removeOrderRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public SeppukuMap.SeppukuService.OrderInfo orderInfo;
+        
+        public removeOrderRequestBody() {
+        }
+        
+        public removeOrderRequestBody(SeppukuMap.SeppukuService.OrderInfo orderInfo) {
+            this.orderInfo = orderInfo;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class removeOrderResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="removeOrderResponse", Namespace="http://seppuku.pl/", Order=0)]
+        public SeppukuMap.SeppukuService.removeOrderResponseBody Body;
+        
+        public removeOrderResponse() {
+        }
+        
+        public removeOrderResponse(SeppukuMap.SeppukuService.removeOrderResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class removeOrderResponseBody {
+        
+        public removeOrderResponseBody() {
         }
     }
     
@@ -628,6 +857,18 @@ namespace SeppukuMap.SeppukuService {
         
         private System.Threading.SendOrPostCallback onUpdateGameStateCompletedDelegate;
         
+        private BeginOperationDelegate onBeginaddOrderDelegate;
+        
+        private EndOperationDelegate onEndaddOrderDelegate;
+        
+        private System.Threading.SendOrPostCallback onaddOrderCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginremoveOrderDelegate;
+        
+        private EndOperationDelegate onEndremoveOrderDelegate;
+        
+        private System.Threading.SendOrPostCallback onremoveOrderCompletedDelegate;
+        
         private BeginOperationDelegate onBeginGetMapModelDelegate;
         
         private EndOperationDelegate onEndGetMapModelDelegate;
@@ -690,6 +931,10 @@ namespace SeppukuMap.SeppukuService {
         public event System.EventHandler<GetUsersCompletedEventArgs> GetUsersCompleted;
         
         public event System.EventHandler<UpdateGameStateCompletedEventArgs> UpdateGameStateCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> addOrderCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> removeOrderCompleted;
         
         public event System.EventHandler<GetMapModelCompletedEventArgs> GetMapModelCompleted;
         
@@ -809,6 +1054,122 @@ namespace SeppukuMap.SeppukuService {
                 this.onUpdateGameStateCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnUpdateGameStateCompleted);
             }
             base.InvokeAsync(this.onBeginUpdateGameStateDelegate, null, this.onEndUpdateGameStateDelegate, this.onUpdateGameStateCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult SeppukuMap.SeppukuService.SeppukuServiceSoap.BeginaddOrder(SeppukuMap.SeppukuService.addOrderRequest request, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginaddOrder(request, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        private System.IAsyncResult BeginaddOrder(SeppukuMap.SeppukuService.OrderInfo orderInfo, System.AsyncCallback callback, object asyncState) {
+            SeppukuMap.SeppukuService.addOrderRequest inValue = new SeppukuMap.SeppukuService.addOrderRequest();
+            inValue.Body = new SeppukuMap.SeppukuService.addOrderRequestBody();
+            inValue.Body.orderInfo = orderInfo;
+            return ((SeppukuMap.SeppukuService.SeppukuServiceSoap)(this)).BeginaddOrder(inValue, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SeppukuMap.SeppukuService.addOrderResponse SeppukuMap.SeppukuService.SeppukuServiceSoap.EndaddOrder(System.IAsyncResult result) {
+            return base.Channel.EndaddOrder(result);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        private void EndaddOrder(System.IAsyncResult result) {
+            SeppukuMap.SeppukuService.addOrderResponse retVal = ((SeppukuMap.SeppukuService.SeppukuServiceSoap)(this)).EndaddOrder(result);
+        }
+        
+        private System.IAsyncResult OnBeginaddOrder(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            SeppukuMap.SeppukuService.OrderInfo orderInfo = ((SeppukuMap.SeppukuService.OrderInfo)(inValues[0]));
+            return this.BeginaddOrder(orderInfo, callback, asyncState);
+        }
+        
+        private object[] OnEndaddOrder(System.IAsyncResult result) {
+            this.EndaddOrder(result);
+            return null;
+        }
+        
+        private void OnaddOrderCompleted(object state) {
+            if ((this.addOrderCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.addOrderCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void addOrderAsync(SeppukuMap.SeppukuService.OrderInfo orderInfo) {
+            this.addOrderAsync(orderInfo, null);
+        }
+        
+        public void addOrderAsync(SeppukuMap.SeppukuService.OrderInfo orderInfo, object userState) {
+            if ((this.onBeginaddOrderDelegate == null)) {
+                this.onBeginaddOrderDelegate = new BeginOperationDelegate(this.OnBeginaddOrder);
+            }
+            if ((this.onEndaddOrderDelegate == null)) {
+                this.onEndaddOrderDelegate = new EndOperationDelegate(this.OnEndaddOrder);
+            }
+            if ((this.onaddOrderCompletedDelegate == null)) {
+                this.onaddOrderCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnaddOrderCompleted);
+            }
+            base.InvokeAsync(this.onBeginaddOrderDelegate, new object[] {
+                        orderInfo}, this.onEndaddOrderDelegate, this.onaddOrderCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult SeppukuMap.SeppukuService.SeppukuServiceSoap.BeginremoveOrder(SeppukuMap.SeppukuService.removeOrderRequest request, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginremoveOrder(request, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        private System.IAsyncResult BeginremoveOrder(SeppukuMap.SeppukuService.OrderInfo orderInfo, System.AsyncCallback callback, object asyncState) {
+            SeppukuMap.SeppukuService.removeOrderRequest inValue = new SeppukuMap.SeppukuService.removeOrderRequest();
+            inValue.Body = new SeppukuMap.SeppukuService.removeOrderRequestBody();
+            inValue.Body.orderInfo = orderInfo;
+            return ((SeppukuMap.SeppukuService.SeppukuServiceSoap)(this)).BeginremoveOrder(inValue, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SeppukuMap.SeppukuService.removeOrderResponse SeppukuMap.SeppukuService.SeppukuServiceSoap.EndremoveOrder(System.IAsyncResult result) {
+            return base.Channel.EndremoveOrder(result);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        private void EndremoveOrder(System.IAsyncResult result) {
+            SeppukuMap.SeppukuService.removeOrderResponse retVal = ((SeppukuMap.SeppukuService.SeppukuServiceSoap)(this)).EndremoveOrder(result);
+        }
+        
+        private System.IAsyncResult OnBeginremoveOrder(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            SeppukuMap.SeppukuService.OrderInfo orderInfo = ((SeppukuMap.SeppukuService.OrderInfo)(inValues[0]));
+            return this.BeginremoveOrder(orderInfo, callback, asyncState);
+        }
+        
+        private object[] OnEndremoveOrder(System.IAsyncResult result) {
+            this.EndremoveOrder(result);
+            return null;
+        }
+        
+        private void OnremoveOrderCompleted(object state) {
+            if ((this.removeOrderCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.removeOrderCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void removeOrderAsync(SeppukuMap.SeppukuService.OrderInfo orderInfo) {
+            this.removeOrderAsync(orderInfo, null);
+        }
+        
+        public void removeOrderAsync(SeppukuMap.SeppukuService.OrderInfo orderInfo, object userState) {
+            if ((this.onBeginremoveOrderDelegate == null)) {
+                this.onBeginremoveOrderDelegate = new BeginOperationDelegate(this.OnBeginremoveOrder);
+            }
+            if ((this.onEndremoveOrderDelegate == null)) {
+                this.onEndremoveOrderDelegate = new EndOperationDelegate(this.OnEndremoveOrder);
+            }
+            if ((this.onremoveOrderCompletedDelegate == null)) {
+                this.onremoveOrderCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnremoveOrderCompleted);
+            }
+            base.InvokeAsync(this.onBeginremoveOrderDelegate, new object[] {
+                        orderInfo}, this.onEndremoveOrderDelegate, this.onremoveOrderCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -967,6 +1328,32 @@ namespace SeppukuMap.SeppukuService {
             public SeppukuMap.SeppukuService.UpdateGameStateResponse EndUpdateGameState(System.IAsyncResult result) {
                 object[] _args = new object[0];
                 SeppukuMap.SeppukuService.UpdateGameStateResponse _result = ((SeppukuMap.SeppukuService.UpdateGameStateResponse)(base.EndInvoke("UpdateGameState", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginaddOrder(SeppukuMap.SeppukuService.addOrderRequest request, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = request;
+                System.IAsyncResult _result = base.BeginInvoke("addOrder", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public SeppukuMap.SeppukuService.addOrderResponse EndaddOrder(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                SeppukuMap.SeppukuService.addOrderResponse _result = ((SeppukuMap.SeppukuService.addOrderResponse)(base.EndInvoke("addOrder", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginremoveOrder(SeppukuMap.SeppukuService.removeOrderRequest request, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = request;
+                System.IAsyncResult _result = base.BeginInvoke("removeOrder", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public SeppukuMap.SeppukuService.removeOrderResponse EndremoveOrder(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                SeppukuMap.SeppukuService.removeOrderResponse _result = ((SeppukuMap.SeppukuService.removeOrderResponse)(base.EndInvoke("removeOrder", _args, result)));
                 return _result;
             }
             

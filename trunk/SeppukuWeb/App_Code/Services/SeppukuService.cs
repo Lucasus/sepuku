@@ -30,13 +30,15 @@ public class SeppukuService : System.Web.Services.WebService
 	{
 		public List<TileInfo> tiles;
 		public List<Owner> players;
+		public List<OrderInfo> orders;
 		public int rice;
 
-		public MapModel(int rice, List<TileInfo> tiles, List<Owner> players)
+		public MapModel(int rice, List<TileInfo> tiles, List<Owner> players, List<OrderInfo> orders)
 		{
 			this.rice = rice;
 			this.tiles = tiles;
 			this.players = players;
+			this.orders = orders;
 		}
 	}
 
@@ -60,6 +62,24 @@ public class SeppukuService : System.Web.Services.WebService
 		}
 	}
 
+	public struct OrderInfo
+	{
+		public string orderType;
+		public int sourceTileId;
+		public int destinationTileId;
+		public int unitCount;
+		public int orderCost;
+
+		public OrderInfo(string orderType, int sourceTileId, int destinationTileId, int unitCount, int orderCost)
+		{
+			this.orderType = orderType;
+			this.sourceTileId = sourceTileId;
+			this.destinationTileId = destinationTileId;
+			this.unitCount = unitCount;
+			this.orderCost = orderCost;
+		}
+	}
+
 	[WebMethod(EnableSession=true)]
 	public List<User> GetUsers() 
 	{
@@ -72,6 +92,27 @@ public class SeppukuService : System.Web.Services.WebService
 		//Add some sort of authorization here!!!!
 
 		return new GameStateUpdater().UpdateAll();
+	}
+
+	[WebMethod(EnableSession=true)]
+	public void addOrder(OrderInfo orderInfo)
+	{
+		OrderType orderType = new OrderTypeDAO().GetByName(orderInfo.orderType);
+
+		Order orderToAdd = new Order();
+		orderToAdd.Count = 10;
+		orderToAdd.KingdomId = 1;
+		orderToAdd.Epoch = 1;
+		orderToAdd.FieldId = 1;//orderInfo.sourceTileId;
+		orderToAdd.FieldIdDestination = 1;//orderInfo.destinationTileId;
+		orderToAdd.OrderTypeId = 1;//orderType.OrderTypeId;
+		new OrderDAO().Add(orderToAdd);
+	}
+
+	[WebMethod(EnableSession=true)]
+	public void removeOrder(OrderInfo orderInfo)
+	{
+		
 	}
 
 	[WebMethod(EnableSession=true)]
@@ -88,7 +129,7 @@ public class SeppukuService : System.Web.Services.WebService
         
         foreach (Kingdom k in kingdoms)
         {
-            if (k == userKingdom)
+            if (k.KingdomId == userKingdom.KingdomId)
             {
                 players.Add(new Owner(k.KingdomId, k.KingdomName, "#FF0000"));
             }
@@ -114,7 +155,11 @@ public class SeppukuService : System.Web.Services.WebService
 
             tiles.Add(new TileInfo(field.FieldId, field.FieldX, field.FieldY, field.FieldName, field.KingdomId, unitCount));
         }
-
+	
+	
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Orders need to be taken away from the database too !!!!!!!!!!!!!!!!!!1
+		List<OrderInfo> orders = new List<OrderInfo>();
+		orders.Add(new OrderInfo("Defend",1,1,5,0));
         //int rice = 1000;
 
         //List<Owner> players = new List<Owner>();
@@ -134,7 +179,7 @@ public class SeppukuService : System.Web.Services.WebService
         //tiles.Add(new TileInfo(5,3,4,"Cukierkowa Dolina", owner2.playerId, 10));
         //tiles.Add(new TileInfo(6,5,5,"Wilczy Szaniec", owner2.playerId, 10));
 
-		return new MapModel(userKingdom.KingdomResources, tiles, players);
+		return new MapModel(userKingdom.KingdomResources, tiles, players, orders);
 	}
 }
 
