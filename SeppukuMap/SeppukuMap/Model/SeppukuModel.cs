@@ -109,6 +109,30 @@ namespace SeppukuMap.Model
 
 			map = new SeppukuMapModel(this, data.tiles);
 			
+			foreach(OrderInfo order in data.orders)
+			{
+				IOrder tempOrder = null;
+
+				if(order.orderType == "Buy")
+				{
+					tempOrder = new BuyOrder(map.getTileById(order.sourceTileId), order.unitCount);
+				}
+				else if(order.orderType == "Defend")
+				{
+					tempOrder = new DeffendOrder(map.getTileById(order.sourceTileId), order.unitCount);
+				}
+				else if(order.orderType == "Gather")
+				{
+					tempOrder = new GatherOrder(map.getTileById(order.sourceTileId), order.unitCount);
+				}
+				else if(order.orderType == "Move")
+				{
+					tempOrder = new MoveOrder(map.getTileById(order.sourceTileId), map.getTileById(order.destinationTileId), order.unitCount);
+				}
+
+				this.Orders.Add(tempOrder);
+			}
+
 			if(this.Ready != null)
 				this.Ready(this, null);
 		}

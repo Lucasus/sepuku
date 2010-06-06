@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 
 using System.ComponentModel;
 
+using SeppukuMap.SeppukuService;
+
 namespace SeppukuMap.Model
 {
 	public abstract class AbstractOrder : IOrder, INotifyPropertyChanged
@@ -67,6 +69,19 @@ namespace SeppukuMap.Model
 			}
 		}
 
+		private int orderCost;
+		public int OrderCost{
+			get{
+				return this.orderCost;
+			}
+			set{
+				this.orderCost = value;
+				if(PropertyChanged != null)
+					PropertyChanged(this, new PropertyChangedEventArgs("OrderCost"));
+			}
+
+		}
+
 		private String image;
 		public String Image{
 			get{
@@ -91,7 +106,7 @@ namespace SeppukuMap.Model
 			}
 		}
 
-		public AbstractOrder(String type, SeppukuMapTileModel source, SeppukuMapTileModel destination, int unitCount)
+		public AbstractOrder(String type, SeppukuMapTileModel source, SeppukuMapTileModel destination, int unitCount, int cost)
 		{
 			this.Type = type;
 			if(type == "Defend")
@@ -106,16 +121,39 @@ namespace SeppukuMap.Model
 			{
 				this.Image = "Resources/money.png";
 			}
+			else if(type == "Gather")
+			{
+				this.Image = "Resources/gather.png";
+			}
 			
 
 			this.Source = source;
 			this.Destination = destination;
 			this.UnitCount = unitCount;
+			this.orderCost = cost;
 		}
 
-		public abstract void doChanges(SeppukuModel model);
+		public virtual void doChanges(SeppukuModel model)
+		{
+			SeppukuServiceSoapClient client = new SeppukuServiceSoapClient();
+			OrderInfo info = new OrderInfo();
+			info.orderType = this.Type;
+			info.sourceTileId = this.Source.tileId;
+			info.destinationTileId = this.Destination.tileId;
+			info.unitCount = this.UnitCount;
+			client.addOrderAsync(info);
+		}
 
-		public abstract void undoChanges(SeppukuModel model);
+		public virtual void undoChanges(SeppukuModel model)
+		{
+			SeppukuServiceSoapClient client = new SeppukuServiceSoapClient();
+			OrderInfo info = new OrderInfo();
+			info.orderType = this.Type;
+			info.sourceTileId = this.Source.tileId;
+			info.destinationTileId = this.Destination.tileId;
+			info.unitCount = this.UnitCount;
+			client.removeOrderAsync(info);
+		}
 
 		public void join(IOrder order)
 		{

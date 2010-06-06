@@ -13,7 +13,7 @@ namespace SeppukuMap.Model
 {
 	public class BuyOrder : AbstractOrder
 	{
-		public BuyOrder(SeppukuMapTileModel source, int count) : base("Buy", source, source, count)
+		public BuyOrder(SeppukuMapTileModel source, int count) : base("Buy", source, source, count, 100 * count)
 		{
 			
 		}
@@ -21,11 +21,13 @@ namespace SeppukuMap.Model
 		public override void doChanges(SeppukuModel model)
 		{
 			model.RiceNumber -= 100 * UnitCount;
+			base.doChanges(model);
 		}
 
 		public override void undoChanges(SeppukuModel model)
 		{
 			model.RiceNumber += 100 * UnitCount;
+			base.undoChanges(model);
 		}
 	}
 }

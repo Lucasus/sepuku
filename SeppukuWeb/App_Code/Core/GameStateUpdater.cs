@@ -143,6 +143,7 @@ namespace Seppuku.Core
                 }
                 else
                 {
+
                     UnitUpdate(winner, field, attackForces[winner]);
                 }
 

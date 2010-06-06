@@ -52,6 +52,7 @@ namespace SeppukuMap
 
 			this.AttackButton.Click += this.onAttackButtonClicked;
 			this.DeffendButton.Click += this.onDeffendButtonClicked;
+			this.GatherButton.Click += this.onGatherButtonClicked;
 			this.RecruitButton.Click += this.onRecruitButtonClicked;
 			this.MouseLeftButtonUp += this.onMouseClick;
 		}
@@ -62,11 +63,13 @@ namespace SeppukuMap
 			{
 				this.DeffendButton.IsEnabled = false;
 				this.AttackButton.IsEnabled = false;
+				this.GatherButton.IsEnabled = false;
 			}
 			else
 			{
 				this.DeffendButton.IsEnabled = true;
 				this.AttackButton.IsEnabled = true;
+				this.GatherButton.IsEnabled = true;
 			}
 
 			if(this.RecruitSlider.Number == 0)
@@ -106,6 +109,15 @@ namespace SeppukuMap
 			if(this.PeopleSelectSlider.Number > 0)
 			{
 				this.tileModel.mapModel.model.addOrder(new DeffendOrder(this.tileModel, this.PeopleSelectSlider.Number));
+				this.PeopleSelectSlider.Number = 0;
+			}
+		}
+
+		private void onGatherButtonClicked(object sender, EventArgs e)
+		{
+			if(this.PeopleSelectSlider.Number > 0)
+			{
+				this.tileModel.mapModel.model.addOrder(new GatherOrder(this.tileModel, this.PeopleSelectSlider.Number));
 				this.PeopleSelectSlider.Number = 0;
 			}
 		}

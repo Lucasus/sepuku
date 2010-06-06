@@ -86,6 +86,7 @@
     <Compile Include="Model\AbstractOrder.cs" />
     <Compile Include="Model\BuyOrder.cs" />
     <Compile Include="Model\DeffendOrder.cs" />
+    <Compile Include="Model\GatherOrder.cs" />
     <Compile Include="Model\IOrder.cs" />
     <Compile Include="Model\Logger.cs" />
     <Compile Include="Model\MoveOrder.cs" />
@@ -202,6 +203,7 @@
     <Resource Include="Resources\money.png" />
     <Resource Include="Resources\url.png" />
     <None Include="Service References\SeppukuService\SeppukuService1.disco" />
+    <Resource Include="Resources\gather.png" />
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
@@ -218,10 +220,16 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\SeppukuService\SeppukuMap.SeppukuService.addOrderResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\SeppukuService\SeppukuMap.SeppukuService.GetMapModelResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\SeppukuService\SeppukuMap.SeppukuService.GetUsersResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SeppukuService\SeppukuMap.SeppukuService.removeOrderResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\SeppukuService\SeppukuMap.SeppukuService.UpdateGameStateResponse.datasource">

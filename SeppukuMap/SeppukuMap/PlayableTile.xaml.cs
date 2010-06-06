@@ -53,6 +53,12 @@ namespace SeppukuMap
 			}
 			else
 				this.FlagContainer.Visibility = Visibility.Collapsed;
+
+			foreach(IOrder order in this.model.mapModel.model.Orders)
+			{
+				if(order.Source == this.model)
+					this.displayAddedOrder(order);
+			}
 		}
 
 		public PlayableTile()
@@ -84,41 +90,51 @@ namespace SeppukuMap
 			map.hideTileMenu();
 		}
 
-		private void onOrderAdded(object sender, OrderEventArgs e)
+		private void displayAddedOrder(IOrder order)
 		{
-			if(e.order.Type == "Defend")
+			if(order.Type == "Defend")
 			{
 				this.orderDecals.DefendOrderContainer.Visibility = Visibility.Visible;
-				this.orderDecals.DefendValue.Text = e.order.UnitCount.ToString();
+				this.orderDecals.DefendValue.Text = order.UnitCount.ToString();
 			}
-			else if(e.order.Type == "Buy")
+			else if(order.Type == "Buy")
 			{
 				this.orderDecals.BuyOrderContainer.Visibility = Visibility.Visible;
-				this.orderDecals.BuyValue.Text = e.order.UnitCount.ToString();
+				this.orderDecals.BuyValue.Text = order.UnitCount.ToString();
 			}
-			else if(e.order.Type == "Move")
+			else if(order.Type == "Gather")
 			{
-				if(e.order.Source.x - e.order.Destination.x == 1)
+				this.orderDecals.GatherOrderContainer.Visibility = Visibility.Visible;
+				this.orderDecals.GatherValue.Text = order.UnitCount.ToString();
+			}
+			else if(order.Type == "Move")
+			{
+				if(order.Source.x - order.Destination.x == 1)
 				{
 					this.orderDecals.LeftMoveOrderContainer.Visibility = Visibility.Visible;
-					this.orderDecals.LeftMoveValue.Text = e.order.UnitCount.ToString();
+					this.orderDecals.LeftMoveValue.Text = order.UnitCount.ToString();
 				}
-				else if(e.order.Source.x - e.order.Destination.x == -1)
+				else if(order.Source.x - order.Destination.x == -1)
 				{
 					this.orderDecals.RightMoveOrderContainer.Visibility = Visibility.Visible;
-					this.orderDecals.RightMoveValue.Text = e.order.UnitCount.ToString();
+					this.orderDecals.RightMoveValue.Text = order.UnitCount.ToString();
 				}
-				else if(e.order.Source.y - e.order.Destination.y == 1)
+				else if(order.Source.y - order.Destination.y == 1)
 				{
 					this.orderDecals.UpMoveOrderContainer.Visibility = Visibility.Visible;
-					this.orderDecals.UpMoveValue.Text = e.order.UnitCount.ToString();
+					this.orderDecals.UpMoveValue.Text = order.UnitCount.ToString();
 				}
-				else if(e.order.Source.y - e.order.Destination.y == -1)
+				else if(order.Source.y - order.Destination.y == -1)
 				{
 					this.orderDecals.DownMoveOrderContainer.Visibility = Visibility.Visible;
-					this.orderDecals.DownMoveValue.Text = e.order.UnitCount.ToString();
+					this.orderDecals.DownMoveValue.Text = order.UnitCount.ToString();
 				}
 			}
+		}
+
+		private void onOrderAdded(object sender, OrderEventArgs e)
+		{
+			this.displayAddedOrder(e.order);
 		}
 
 		private void onOrderRemoved(object sender, OrderEventArgs e)
@@ -127,6 +143,8 @@ namespace SeppukuMap
 				this.orderDecals.DefendOrderContainer.Visibility = Visibility.Collapsed;
 			else if(e.order.Type == "Buy")
 				this.orderDecals.BuyOrderContainer.Visibility = Visibility.Collapsed;
+			else if(e.order.Type == "Gather")
+				this.orderDecals.GatherOrderContainer.Visibility = Visibility.Collapsed;
 			else if(e.order.Type == "Move")
 			{
 				if(e.order.Source.x - e.order.Destination.x == 1)
@@ -146,6 +164,8 @@ namespace SeppukuMap
 				this.orderDecals.DefendOrderContainer.Opacity = 1;
 			else if(e.order.Type == "Buy")
 				this.orderDecals.BuyOrderContainer.Opacity = 1;
+			else if(e.order.Type == "Gather")
+				this.orderDecals.GatherOrderContainer.Opacity = 1;
 			else if(e.order.Type == "Move")
 			{
 				if(e.order.Source.x - e.order.Destination.x == 1)
@@ -165,6 +185,8 @@ namespace SeppukuMap
 				this.orderDecals.DefendOrderContainer.Opacity = 0.5;
 			else if(e.order.Type == "Buy")
 				this.orderDecals.BuyOrderContainer.Opacity = 0.5;
+			else if(e.order.Type == "Gather")
+				this.orderDecals.GatherOrderContainer.Opacity = 0.5;
 			else if(e.order.Type == "Move")
 			{
 				if(e.order.Source.x - e.order.Destination.x == 1)
