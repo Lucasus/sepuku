@@ -25,9 +25,9 @@ public partial class ActivateUser : System.Web.UI.Page
                 new UserService().AuthorizeUser(userName, authorizationKey, status);
                 if (status.IsError == false)
                 {
-                    User u = new UserService().GetByLogin(userName);
-                    Seppuku.Domain.Kingdom k = new KingdomService().GetByUserId(u.UserId);
-                    new MapService().InitializeKingdom(k.MapId, k.KingdomId);
+                    //User u = new UserService().GetByLogin(userName);
+                    //Seppuku.Domain.Kingdom k = new KingdomService().GetByUserId(u.UserId);
+                    //new MapService().InitializeKingdom(k.MapId, k.KingdomId);
                     LblResult.Text = "Twoje konto zostało aktywowane. Możesz zalogować się na stronę.";
                 }
                 else switch (status.Message)
