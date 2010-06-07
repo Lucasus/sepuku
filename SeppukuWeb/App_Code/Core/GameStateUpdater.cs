@@ -223,25 +223,45 @@ namespace Seppuku.Core
                         attackPower[kingdom] += unitTypes[ut].UnitTypePower * attackForces[kingdom][ut];
                     }
 
-                    attackPower[kingdom] /= attackForces.Count;
+                    attackPower[kingdom] /= (attackForces.Count-1);
                 }
 
-                foreach (int kingdomD in attackForces.Keys)
+                HashSet<int> tmp3 = new HashSet<int>();
+                HashSet<int> tmp4 = new HashSet<int>();
+                foreach (int ut in attackForces.Keys)
                 {
-                    foreach (int kingdomA in attackForces.Keys)
+                    tmp3.Add(ut);
+                    tmp4.Add(ut);
+                }
+
+                foreach (int kingdomD in tmp3)
+                {
+                    foreach (int kingdomA in tmp4)
                     {
                         if(kingdomA != kingdomD)
                         {
+
+                            HashSet<int> tmp = new HashSet<int>();
+
                             foreach (int ut in attackForces[kingdomD].Keys)
+                            {
+                                tmp.Add(ut);
+                            }
+                            
+                            foreach (int ut in tmp)
                             {
                                 attackForces[kingdomD][ut] -= (int)(attackPower[kingdomA] / attackForces[kingdomD].Keys.Count / unitTypes[ut].UnitTypeHealthPoint);
                             }
                         }
                     }
 
-                    
-                   
+                    HashSet<int> tmp2 = new HashSet<int>();
                     foreach (int ut in attackForces[kingdomD].Keys)
+                    {
+                        tmp2.Add(ut);
+                    }
+                   
+                    foreach (int ut in tmp2)
                     {
                         if(attackForces[kingdomD][ut] < 1)
                         {
