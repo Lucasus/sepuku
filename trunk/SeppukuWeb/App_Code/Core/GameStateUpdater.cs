@@ -9,10 +9,25 @@ using Seppuku.Domain;
 
 namespace Seppuku.Core
 {
+    class Rectangle
+    {
+        public int minX = 99999;
+        public int minY = 999999;
+        public int maxX = -99999;
+        public int maxY = -99999;
+
+
+        public bool CollidesWith(Rectangle rec, int margine)
+        {
+            return (this.minX - margine < rec.maxX && this.maxX + margine > rec.minX && this.minY - margine < rec.maxY && this.maxY + margine > rec.minY);
+        }
+    }
+
     public class GameStateUpdater
     {
         // ile zbiera pojedynczy chlopek
         const int RICE_BY_ONE_MAN = 50;
+
 
         public String UpdateAll()
         {
@@ -169,6 +184,8 @@ namespace Seppuku.Core
                 
             }
             new EpochDAO().Add(MapId);
+
+            this.DiplomacyStatusUpdate(MapId,fields);
             return "Hello world";
 
             // 1: wyciągnąc z bazy wszystkie pola danej mapy
@@ -306,6 +323,59 @@ namespace Seppuku.Core
 
         }
 
+        public void DiplomacyStatusUpdate(int mapId, IList<Field> fields)
+        {
+            IList<Kingdom> kingdoms = new KingdomDAO().GetByMapId(mapId);
+
+            Dictionary<int, Rectangle> kingdomsArea = new Dictionary<int, Rectangle>();
+
+            foreach (Field field in fields)
+            {
+                if (!kingdomsArea.ContainsKey(field.KingdomId))
+                {
+                    kingdomsArea[field.KingdomId] = new Rectangle();
+                }
+
+                if (field.FieldX > kingdomsArea[field.KingdomId].maxX) kingdomsArea[field.KingdomId].maxX = field.FieldX;
+                if (field.FieldY > kingdomsArea[field.KingdomId].maxY) kingdomsArea[field.KingdomId].maxY = field.FieldY;
+
+                if (field.FieldX < kingdomsArea[field.KingdomId].minX) kingdomsArea[field.KingdomId].minX = field.FieldX;
+                if (field.FieldY < kingdomsArea[field.KingdomId].minY) kingdomsArea[field.KingdomId].minY = field.FieldY;
+            }
+
+
+            foreach (Kingdom kingdom in kingdoms)
+            {
+                IList<Diplomacy> diplomacy = new DiplomacyDAO().GetByUserId(kingdom.UserId);
+
+                foreach (Kingdom kingdomA in kingdoms)
+                {
+                    if(kingdomsArea[kingdom.KingdomId].CollidesWith(kingdomsArea[kingdomA.KingdomId],2)){
+                        bool mustAdd = true;
+                        foreach (Diplomacy dip in diplomacy)
+                        {
+                            if (dip.SecondaryUserId == kingdomA.UserId) mustAdd = false;
+                        }
+
+                        if (mustAdd)
+                        {
+                            Diplomacy dip = new Diplomacy();
+                            dip.MainUserId = kingdom.UserId;
+                            dip.SecondaryUserId = kingdomA.UserId;
+                            dip.DiplomacyStatusId = 1;// hardcode, nie che mi sie znowu do bazy dodawac pierdolowatej metody, w bazie najlepiej by pod tym id byla wojna
+
+                            new DiplomacyDAO().Add(dip);
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+
+
+        
     }
 
 
