@@ -16,7 +16,8 @@ namespace Seppuku.DAO
 
         public int Add(Diplomacy o)
         {
-            throw new NotImplementedException();
+            this.DataObject = o;
+            return DAO<DiplomacyDAO, Diplomacy>.Add("SepDiplomacyAdd", this);
         }
 
         public void FillParametersFromProperties(Database db, ref DbCommand cmd)
@@ -25,6 +26,9 @@ namespace Seppuku.DAO
             {
                 db.AddInParameter(cmd, "DiplomacyId", DbType.Int32, this.DataObject.DiplomacyId);
             }
+            db.AddInParameter(cmd, "DiplomacyStatusId", DbType.Int32, this.DataObject.DiplomacyStatusId);
+            db.AddInParameter(cmd, "MainUserId", DbType.Int32, this.DataObject.MainUserId);
+            db.AddInParameter(cmd, "SecondaryUserId", DbType.Int32, this.DataObject.SecondaryUserId);
         }
 
         public Diplomacy GetFromRow(DataRow dr)
