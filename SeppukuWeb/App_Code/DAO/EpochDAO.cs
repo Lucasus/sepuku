@@ -44,7 +44,7 @@ namespace Seppuku.DAO
 
         public Epoch GetCurrentByMapId(int mapId)
         {
-            return DAO<EpochDAO, Epoch>.GetSingleObject("SepEpochGetCurrentByMapId");
+            return DAO<EpochDAO, Epoch>.GetSingleObject("SepEpochGetCurrentByMapId", mapId);
         }
     }
 }

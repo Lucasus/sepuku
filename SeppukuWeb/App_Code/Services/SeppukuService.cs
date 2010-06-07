@@ -70,6 +70,7 @@ public class SeppukuService : System.Web.Services.WebService
 		public int unitCount;
 		public int orderCost;
 
+
 		public OrderInfo(string orderType, int sourceTileId, int destinationTileId, int unitCount, int orderCost)
 		{
 			this.orderType = orderType;
@@ -97,22 +98,42 @@ public class SeppukuService : System.Web.Services.WebService
 	[WebMethod(EnableSession=true)]
 	public void addOrder(OrderInfo orderInfo)
 	{
+        User user = CurrentUser.Current;
+        Kingdom userKingdom = new KingdomDAO().GetByUserId(user.UserId);
+
 		OrderType orderType = new OrderTypeDAO().GetByName(orderInfo.orderType);
 
 		Order orderToAdd = new Order();
-		orderToAdd.Count = 10;
-		orderToAdd.KingdomId = 1;
-		orderToAdd.Epoch = 1;
-		orderToAdd.FieldId = 1;//orderInfo.sourceTileId;
-		orderToAdd.FieldIdDestination = 1;//orderInfo.destinationTileId;
-		orderToAdd.OrderTypeId = 1;//orderType.OrderTypeId;
+
+		orderToAdd.Count = orderInfo.unitCount;
+        orderToAdd.KingdomId = userKingdom.KingdomId;
+		orderToAdd.Epoch = new EpochDAO().GetCurrentByMapId(userKingdom.MapId).EpochId;
+		orderToAdd.FieldId = orderInfo.sourceTileId;
+		orderToAdd.FieldIdDestination = orderInfo.destinationTileId;
+        orderToAdd.OrderTypeId = orderType.OrderTypeId;
+        orderToAdd.UnitTypeId = 1; //Na razie mamy hardcode na piechote
+
+        //db.AddInParameter(cmd, "OrderTypeId", DbType.Int32, this.DataObject.OrderTypeId);
+        //db.AddInParameter(cmd, "FieldId", DbType.Int32, this.DataObject.FieldId);
+        //db.AddInParameter(cmd, "FieldIdDestination", DbType.Int32, this.DataObject.FieldIdDestination);
+        //db.AddInParameter(cmd, "Epoch", DbType.Int32, this.DataObject.Epoch);
+        //db.AddInParameter(cmd, "Count", DbType.Int32, this.DataObject.Count);
+        //db.AddInParameter(cmd, "UnitTypeId", DbType.Int32, this.DataObject.UnitTypeId);
+       // db.AddInParameter(cmd, "KingdomId", DbType.Int32, this.DataObject.KingdomId);
+
+
 		new OrderDAO().Add(orderToAdd);
 	}
 
 	[WebMethod(EnableSession=true)]
 	public void removeOrder(OrderInfo orderInfo)
 	{
-		
+
+        Order o = new OrderDAO().GetByFieldEpochOrderTypeName(new EpochDAO().GetCurrentByMapId(new KingdomDAO().GetByUserId(CurrentUser.KingdomId).MapId).EpochId,
+                                                        orderInfo.sourceTileId,
+                                                        orderInfo.destinationTileId,
+                                                        orderInfo.orderType);
+        new OrderDAO().DeleteById(o.OrderId);
 	}
 
 	[WebMethod(EnableSession=true)]
@@ -126,18 +147,22 @@ public class SeppukuService : System.Web.Services.WebService
         List<Owner> players = new List<Owner>();
 
         Random random = new Random();
+
         
+
         foreach (Kingdom k in kingdoms)
         {
             if (k.KingdomId == userKingdom.KingdomId)
             {
-                players.Add(new Owner(k.KingdomId, k.KingdomName, "#FF0000"));
+                players.Add(new Owner(userKingdom.KingdomId, userKingdom.KingdomName, "#FF0000"));
             }
             else
             {
                 players.Add(new Owner(k.KingdomId, k.KingdomName, String.Format("#{0:X6}", random.Next(0x1000000))));
             }
         }
+
+        
 
         List<TileInfo> tiles = new List<TileInfo>();
 
@@ -159,7 +184,30 @@ public class SeppukuService : System.Web.Services.WebService
 	
 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Orders need to be taken away from the database too !!!!!!!!!!!!!!!!!!1
 		List<OrderInfo> orders = new List<OrderInfo>();
-		orders.Add(new OrderInfo("Defend",1,1,5,0));
+        IList<Order> ordersDB = new OrderDAO().GetByKingdomEpoch(userKingdom.KingdomId, new EpochDAO().GetCurrentByMapId(userKingdom.MapId).EpochId);
+
+        Dictionary<int,UnitType> unitTypes = new Dictionary<int,UnitType>();
+         
+        IList<UnitType> unitTypesAll = new UnitTypeDAO().GetAll();
+
+        foreach (UnitType ut in unitTypesAll)
+        {
+           unitTypes.Add(ut.UnitTypeId,ut);
+        }
+
+        foreach (Order o in ordersDB)
+        {     
+            if (o.OrderTypeName.Equals("Buy"))
+            {
+                orders.Add(new OrderInfo(o.OrderTypeName, o.FieldId, o.FieldIdDestination, o.Count, unitTypes[o.UnitTypeId].UnitTypeCost * o.Count));
+            }
+            else
+            {
+                orders.Add(new OrderInfo(o.OrderTypeName, o.FieldId, o.FieldIdDestination, o.Count, 0));
+            }
+        }
+
+        //orders.Add(new OrderInfo("Defend",1,1,5,0));
         //int rice = 1000;
 
         //List<Owner> players = new List<Owner>();
@@ -178,7 +226,10 @@ public class SeppukuService : System.Web.Services.WebService
         //tiles.Add(new TileInfo(4,1,2,"Bździochy dolne", null, 5));
         //tiles.Add(new TileInfo(5,3,4,"Cukierkowa Dolina", owner2.playerId, 10));
         //tiles.Add(new TileInfo(6,5,5,"Wilczy Szaniec", owner2.playerId, 10));
+        //List<OrderInfo> orders = new List<OrderInfo>();
 
+
+        //orders.Add(new OrderInfo("Defend",1,1,5,0));
 		return new MapModel(userKingdom.KingdomResources, tiles, players, orders);
 	}
 }

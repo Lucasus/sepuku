@@ -20,6 +20,11 @@ namespace Seppuku.DAO
             return DAO<OrderDAO, Order>.Add("SepOrderAdd", this);
         }
 
+        public void DeleteById(int orderId)
+        {
+            DAO<OrderDAO, Order>.ExecuteScalar("SepOrderDeleteById", orderId);
+        }
+
         public Order GetById(int orderId)
         {
             return DAO<OrderDAO, Order>.GetSingleObject("SepOrderGetById", orderId);
@@ -40,6 +45,15 @@ namespace Seppuku.DAO
             return DAO<OrderDAO, Order>.GetObjectList("SepOrderGetByFieldEpoch", epoch, fieldDest);
         }
 
+        public List<Order> GetByKingdomEpoch(int KindgomId, int epoch)
+        {
+            return DAO<OrderDAO, Order>.GetObjectList("SepOrderGetCurrentByKingdomId", KindgomId, epoch);
+        }
+
+        public Order GetByFieldEpochOrderTypeName(int epoch, int fieldSour, int fieldDest, string orderTypeName)
+        {
+            return DAO<OrderDAO, Order>.GetSingleObject("SepOrderGetByFieldEpochOrderTypeName", epoch,fieldSour, fieldDest,orderTypeName);
+        }
 
 
         public void FillParametersFromProperties(Database db, ref DbCommand cmd)
@@ -60,6 +74,7 @@ namespace Seppuku.DAO
         public Order GetFromRow(DataRow dr)
         {
             Order obj = new Order();
+            obj.OrderId = Helper.GetData<int>(dr, "OrderId");
             obj.OrderTypeId = Helper.GetData<int>(dr, "OrderTypeId");
             obj.OrderTypeName = Helper.GetData<string>(dr, "OrderTypeName");
             obj.FieldId = Helper.GetData<int>(dr, "FieldId");

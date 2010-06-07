@@ -79,4 +79,11 @@ public partial class Controls_Kingdom_Map : System.Web.UI.UserControl
             }
         }
     }
+
+    protected void BtnNextEpochOnClick(object sender, EventArgs e)
+    {
+        new Seppuku.Core.GameStateUpdater().Update(MapId);
+    }
+
+    
 }

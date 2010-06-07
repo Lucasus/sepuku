@@ -60,6 +60,10 @@ namespace Seppuku.DAO
             return DAO<FieldDAO, Field>.GetObjectList("SepFieldGetByMapId", MapId);
         }
 
-
+        public void Update(Field f)
+        {
+            DataObject = f;
+            DAO<FieldDAO, Field>.Update("SepFieldUpdate", this);
+        }
     }
 }

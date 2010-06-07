@@ -59,7 +59,7 @@ public partial class Controls_Membership_Register : System.Web.UI.UserControl
         new KingdomService().Add(kingdom);
         // Send the email
         SmtpClient client = new SmtpClient();
-        client.Send(email);
+        //client.Send(email);
 
 
     }

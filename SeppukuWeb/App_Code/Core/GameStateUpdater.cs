@@ -37,7 +37,7 @@ namespace Seppuku.Core
             IList<Order> orders = new OrderDAO().GetByEpoch(epoch.EpochId);
             foreach (Order o in orders)
             {
-                if (o.OrderTypeName.Equals("Attack") || o.OrderTypeName.Equals("Defend"))
+                if (o.OrderTypeName.Equals("Move") || o.OrderTypeName.Equals("Defend"))
                 {
                     Field f = new FieldDAO().GetById(o.FieldId);
 
@@ -47,108 +47,128 @@ namespace Seppuku.Core
                 }
             }
             
+            Dictionary<int,UnitType> unitTypes = new Dictionary<int,UnitType>();
+            
+            foreach(UnitType ut in new UnitTypeDAO().GetAll())
+            {
+                unitTypes.Add(ut.UnitTypeId,ut);
+            }
 
             // rozpatrywanie rozkazów
             foreach (Field field in fields)
             {
                 IList<Order> ordersAll = new OrderDAO().GetByFieldEpoch(epoch.EpochId, field.FieldId);
-                IList<Order> orderAttack = new List<Order>();
-                IList<Order> orderDefend = new List<Order>();
-                IList<Order> orderReqruit = new List<Order>();
-                IList<Order> orderCollectRice = new List<Order>();
-
-
-                // Podział rozkazów według rodzaju
-                foreach (Order order in ordersAll)
+                if (ordersAll.Count > 0)
                 {
-                    if (order.OrderTypeName.Equals("Attack"))
+                    IList<Order> orderMove = new List<Order>();
+                    IList<Order> orderDefend = new List<Order>();
+                    IList<Order> orderBuy = new List<Order>();
+                    IList<Order> orderGather = new List<Order>();
+
+
+                    // Podział rozkazów według rodzaju
+                    foreach (Order order in ordersAll)
                     {
-                        orderAttack.Add(order);
+                        if (order.OrderTypeName.Equals("Move"))
+                        {
+                            orderMove.Add(order);
+                        }
+                        else if (order.OrderTypeName.Equals("Defend"))
+                        {
+                            orderDefend.Add(order);
+                        }
+                        else if (order.OrderTypeName.Equals("Buy"))
+                        {
+                            orderBuy.Add(order);
+                        }
+                        else if (order.OrderTypeName.Equals("Gather"))
+                        {
+                            orderGather.Add(order);
+                        }
                     }
-                    else if (order.OrderTypeName.Equals("Defend"))
+
+                    // królestwo do którego naley pole na początku tury
+                    Kingdom startKingdom = new KingdomDAO().GetInfoById(field.KingdomId);
+
+                    if (startKingdom.KingdomId!=0)
                     {
-                        orderDefend.Add(order);
+
+                        // zbieranie ryżu
+                        int collectedRice = 0;
+                        foreach (Order o in orderGather)
+                        {
+                            collectedRice += o.Count * RICE_BY_ONE_MAN;
+                        }
+                        startKingdom.KingdomResources += collectedRice;
+                        
+
+
+
+                        // rekrutacja 
+                        Dictionary<int, int> unitModifier = new Dictionary<int, int>();
+                        int toPay = 0;
+                        foreach (Order o in orderBuy)
+                        {
+                            if (unitModifier.ContainsKey(o.UnitTypeId))
+                            {
+                                unitModifier[o.UnitTypeId] += o.Count;
+                            }
+                            else
+                            {
+                                unitModifier[o.UnitTypeId] = o.Count;
+                            }
+                            toPay += o.Count * unitTypes[o.UnitTypeId].UnitTypeCost;
+                        }
+                        UnitUpdate(startKingdom.KingdomId, field, unitModifier);
+                        
+                        startKingdom.KingdomResources -= toPay;
+                        new KingdomDAO().Update(startKingdom);
                     }
-                    else if (order.OrderTypeName.Equals("Reqruit"))
+
+                    // af[kingdom][unitType] = count
+                    Dictionary<int, Dictionary<int, int>> attackForces = new Dictionary<int, Dictionary<int, int>>();
+                    foreach (Order o in orderDefend.Concat(orderMove))
                     {
-                        orderReqruit.Add(order);
+                        if (!attackForces.ContainsKey(o.KingdomId))
+                        {
+                            attackForces[o.KingdomId] = new Dictionary<int, int>();
+                        }
+
+                        if (attackForces[o.KingdomId].ContainsKey(o.UnitTypeId))
+                        {
+                            attackForces[o.KingdomId][o.UnitTypeId] += o.Count;
+                        }
+                        else
+                        {
+                            attackForces[o.KingdomId][o.UnitTypeId] = o.Count;
+                        }
                     }
-                    else if (order.OrderTypeName.Equals("Collect"))
+                     
+
+                    int winner = Battle(attackForces);
+
+                    if (winner == 0)
                     {
-                        orderDefend.Add(order);
+                        // nic sie nie dzieje
+                        // wszyscy bioracy udzial w walkach zostali wycieci w pień, więc nie ma kto wrócić na pole
                     }
-                }
-
-                // królestwo do którego naley pole na początku tury
-                Kingdom startKingdom = new KingdomDAO().GetInfoById(field.KingdomId);
-
-
-                // zbieranie ryżu
-                int collectedRice = 0;
-                foreach (Order o in orderCollectRice)
-                {
-                    collectedRice += o.Count * RICE_BY_ONE_MAN;
-                }
-                startKingdom.KingdomResources += collectedRice;
-                new KingdomDAO().Update(startKingdom);
-
-
-
-                // rekrutacja 
-                Dictionary<int, int> unitModifier = new Dictionary<int, int>();
-                foreach (Order o in orderReqruit)
-                {
-                    if(unitModifier.ContainsKey(o.UnitTypeId))
+                    else if (winner == startKingdom.KingdomId)
                     {
-                        unitModifier[o.UnitTypeId] += o.Count;
+                        UnitUpdate(startKingdom.KingdomId, field, attackForces[startKingdom.KingdomId]);
                     }
                     else
                     {
-                        unitModifier[o.UnitTypeId] = 0;
-                    }
-                }
-                UnitUpdate(startKingdom.KingdomId, field, unitModifier);
-
-               
-                // af[kingdom][unitType] = count
-                Dictionary<int, Dictionary<int,int>> attackForces = new Dictionary<int, Dictionary<int,int>>();
-                foreach (Order o in orderDefend.Concat(orderAttack))
-                {
-                    if(!attackForces.ContainsKey(o.KingdomId))
-                    {
-                        attackForces[o.KingdomId] = new Dictionary<int, int>();
+                        field.KingdomId = winner;
+                        new FieldDAO().Update(field);
+                        UnitUpdate(winner, field, attackForces[winner]);
                     }
 
-                    if (attackForces[o.KingdomId].ContainsKey(o.UnitTypeId))
-                    {
-                        attackForces[o.KingdomId][o.UnitTypeId] += o.Count;
-                    }
-                    else
-                    {
-                        attackForces[o.KingdomId][o.UnitTypeId] = o.Count;
-                    }  
                 }
 
 
-                int winner = Battle(attackForces);
-
-                if (winner == 0)
-                {
-                    // nic sie nie dzieje
-                    // wszyscy bioracy udzial w walkach zostali wycieci w pień, więc nie ma kto wrócić na pole
-                }
-                else if (winner == startKingdom.KingdomId)
-                {
-                    UnitUpdate(startKingdom.KingdomId, field, attackForces[startKingdom.KingdomId]);
-                }
-                else
-                {
-
-                    UnitUpdate(winner, field, attackForces[winner]);
-                }
-
+                
             }
-
+            new EpochDAO().Add(MapId);
             return "Hello world";
 
             // 1: wyciągnąc z bazy wszystkie pola danej mapy
