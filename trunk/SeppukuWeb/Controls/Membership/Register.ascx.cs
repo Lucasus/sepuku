@@ -57,10 +57,10 @@ public partial class Controls_Membership_Register : System.Web.UI.UserControl
         };
 
         int kingdomId = new KingdomService().Add(kingdom);
-        new MapService().InitializeKingdom(MapId, kingdomId);
+       // new MapService().InitializeKingdom(MapId, kingdomId);
         // Send the email
         SmtpClient client = new SmtpClient();
-        //client.Send(email);
+        client.Send(email);
 
 
     }
