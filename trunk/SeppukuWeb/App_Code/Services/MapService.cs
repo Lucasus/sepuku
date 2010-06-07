@@ -60,7 +60,7 @@ namespace Seppuku.Services
             {
                 if (xMod)
                 {
-                    x += xDir*2;
+                    x += xDir*3;
                     xDone++;
                     if (xDone == xSize)
                     {
@@ -72,7 +72,7 @@ namespace Seppuku.Services
                 }
                 else
                 {
-                    y += yDir*2;
+                    y += yDir*3;
                     yDone++;
                     if (yDone == ySize)
                     {
@@ -86,23 +86,25 @@ namespace Seppuku.Services
 
 
            
-            System.Text.StringBuilder name = new System.Text.StringBuilder();
+            
             String[] area = {"Pola", "Dolina", "Wzgórza", "Łąki", "Las", "Mokradła", "Góry"};
             String[] describe = {"Mrocznych","Wichrowych", "Wesołych", "Wielkich", "Małych", "Smutnych", "Krwawych", "Czarnych", "Kolorowych", "Białych", "Żelaznych", "Stalowych", "Miedzianych", "Srebrnych", "Złotych", "Diamentowych"};
             String[] thing = {"Ostrzy", "Kucyków","Teściochych","Wilków","Wron","Szkieletów","Noży", "Chłopów", "Włóczni","Mieczy","Bibliotekarzy", "Krów"};
 
             Random rand = new Random();
-
-            name.Append(area[rand.Next(area.Length)]);
-            name.Append(" ");
-            name.Append(describe[rand.Next(describe.Length)]);
-            name.Append(" ");
-            name.Append(thing[rand.Next(thing.Length)]);
+            
 
             for (int i = x - 1; i < x + 2; i++)
             {
                 for (int j = y - 1; j < y + 2; j++)
                 {
+                    System.Text.StringBuilder name = new System.Text.StringBuilder();
+                    name.Append(area[rand.Next(area.Length)]);
+                    name.Append(" ");
+                    name.Append(describe[rand.Next(describe.Length)]);
+                    name.Append(" ");
+                    name.Append(thing[rand.Next(thing.Length)]);
+
                     Field field = new Field();
                     field.FieldX = i;
                     field.FieldY = j;
