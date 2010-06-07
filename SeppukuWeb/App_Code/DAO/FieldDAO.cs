@@ -39,7 +39,15 @@ namespace Seppuku.DAO
             db.AddInParameter(cmd, "FieldName", DbType.String, this.DataObject.FieldName);
             db.AddInParameter(cmd, "FieldX", DbType.Int32, this.DataObject.FieldX);
             db.AddInParameter(cmd, "FieldY", DbType.Int32, this.DataObject.FieldY);
-            db.AddInParameter(cmd, "KingdomId", DbType.Int32, this.DataObject.KingdomId);
+            if (this.DataObject.KingdomId > 0)
+            {
+                db.AddInParameter(cmd, "KingdomId", DbType.Int32, this.DataObject.KingdomId);
+            }
+            else
+            {
+                db.AddInParameter(cmd, "KingdomId", DbType.Int32, null);
+            }
+            
             db.AddInParameter(cmd, "MapId", DbType.Int32, this.DataObject.MapId);
         }
 

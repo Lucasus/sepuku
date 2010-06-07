@@ -52,7 +52,7 @@ public partial class Controls_Membership_Register : System.Web.UI.UserControl
         {
             KingdomName = KingdomName,
             MapId = MapId,
-            KingdomResources = 0,
+            KingdomResources = 500,
             UserId = u.UserId
         };
 
