@@ -58,7 +58,7 @@ namespace Seppuku.DAO
         public void Update(Kingdom k)
         {
             DataObject = k;
-            DAO<KingdomDAO, Kingdom>.Add("SepKingdomUpdate", this);
+            DAO<KingdomDAO, Kingdom>.Update("SepKingdomUpdate", this);
         }
 
         public Kingdom GetInfoById(int kingdomId)

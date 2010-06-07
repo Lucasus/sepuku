@@ -26,6 +26,7 @@
             <ItemTemplate>
                 <asp:LinkButton ID="BtnEdytuj" runat="server" Text="Edytuj" CommandName="Edit" />
                 <asp:LinkButton ID="BtnUsun" runat="server" Text="Usuń" CommandName="Delete" />
+                <asp:LinkButton ID="BtnNextEpoch" runat="server" Text="Następna tura" OnClick="BtnNextEpochOnClick" />
             </ItemTemplate>
         </asp:TemplateField>
     </Fields>

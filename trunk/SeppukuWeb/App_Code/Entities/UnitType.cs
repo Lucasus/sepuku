@@ -12,5 +12,6 @@ namespace Seppuku.Domain
         public string UnitTypeDescription { get; set; }
         public int UnitTypePower { get; set; }
         public int UnitTypeHealthPoint { get; set; }
+        public int UnitTypeCost { get; set; }
     }
 }
