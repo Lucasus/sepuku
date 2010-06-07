@@ -56,7 +56,8 @@ public partial class Controls_Membership_Register : System.Web.UI.UserControl
             UserId = u.UserId
         };
 
-        new KingdomService().Add(kingdom);
+        int kingdomId = new KingdomService().Add(kingdom);
+        new MapService().InitializeKingdom(MapId, kingdomId);
         // Send the email
         SmtpClient client = new SmtpClient();
         //client.Send(email);
