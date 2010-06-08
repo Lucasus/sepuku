@@ -9,12 +9,23 @@
 				<TextBlock TextWrapping="Wrap" Height="20" Width="67" Canvas.Left="66" FontSize="14" Text="{Binding Type, Mode=OneWay}" Canvas.Top="6" FontWeight="Bold"/>
 				<Image x:Name="OrderImage" Height="32" Width="32" OpacityMask="Black" Canvas.Left="30" Source="{Binding Image, Mode=OneWay}"/>
 				<Button Height="15" Width="15" Canvas.Left="8" Content="X" Click="onDeleteOrderClicked" Canvas.Top="10" FontSize="7"/>
-				<TextBlock TextWrapping="Wrap" Height="13" Width="104" Canvas.Left="208" FontSize="9" Text="{Binding SourceName, Mode=OneWay}" Canvas.Top="-1"/>
-				<TextBlock Height="13" Width="104" Canvas.Left="208" Canvas.Top="10" FontSize="9" Text="{Binding DestinationName, Mode=OneWay}" TextWrapping="Wrap"/>
-				<TextBlock TextWrapping="Wrap" Height="13" Width="104" Canvas.Left="208" Canvas.Top="21" FontSize="9" Text="{Binding UnitCount}"/>
-				<TextBlock Canvas.Left="161" Text="Source:" TextWrapping="Wrap" FontSize="9" FontWeight="Bold" Canvas.Top="-1"/>
-				<TextBlock Canvas.Left="137" Canvas.Top="10" FontSize="9" FontWeight="Bold" Text="Destination:" TextWrapping="Wrap"/>
-				<TextBlock Canvas.Left="169" Canvas.Top="21" Text="Units:" TextWrapping="Wrap" FontSize="9" FontWeight="Bold"/>
+				<TextBlock TextWrapping="Wrap" Height="13" Width="155" Canvas.Left="157" FontSize="9" Text="{Binding SourceName, Mode=OneWay}" Canvas.Top="-1"/>
+				<TextBlock Height="13" Width="155" Canvas.Left="157" Canvas.Top="10" FontSize="9" Text="{Binding DestinationName, Mode=OneWay}" TextWrapping="Wrap"/>
+				<TextBlock TextWrapping="Wrap" Height="13" Width="155" Canvas.Left="157" Canvas.Top="21" FontSize="9" Text="{Binding UnitCount}"/>
+				<Image Height="12" Width="9" Canvas.Left="136" Source="Resources/GrassBlock.png" Stretch="Fill" Canvas.Top="1"/>
+				<Image Height="12" Width="9" Canvas.Left="136" Source="Resources/GrassBlock.png" Stretch="Fill" Canvas.Top="12"/>
+				<Path Fill="White" Stretch="Fill" Stroke="Black" Height="7.076" Width="13" UseLayoutRounding="False" Canvas.Left="140.166" Data="M104,59.333332 L120.33334,61.000332 L118.66697,56.333668 L129.33351,62.666721 L119.33344,69.666374 L120.66679,64.999825 L104.33334,67.332932 z" Canvas.Top="1.909"/>
+				<Path Fill="White" Stretch="Fill" Stroke="Black" Height="7.076" Width="13" UseLayoutRounding="False" Canvas.Left="140.166" Canvas.Top="12.985" Data="M104,59.333332 L120.33334,61.000332 L118.66697,56.333668 L129.33351,62.666721 L119.33344,69.666374 L120.66679,64.999825 L104.33334,67.332932 z" RenderTransformOrigin="0.5,0.5">
+					<Path.RenderTransform>
+						<TransformGroup>
+							<ScaleTransform ScaleX="-1"/>
+							<SkewTransform AngleX="0" AngleY="0"/>
+							<RotateTransform Angle="0"/>
+							<TranslateTransform/>
+						</TransformGroup>
+					</Path.RenderTransform>
+				</Path>
+				<Image Height="11" Width="11" Canvas.Left="136" Canvas.Top="22" Source="Resources/man.png" Stretch="Fill"/>
 			</Canvas>
 		</DataTemplate>
 	</UserControl.Resources>
